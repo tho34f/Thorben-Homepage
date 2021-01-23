@@ -212,6 +212,18 @@ public class WelcomeController {
 				
 		return "personal";
 	}
+	
+	@RequestMapping(value = "/datenschutz", method = RequestMethod.GET)
+	public String data(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+				
+		return "datenschutz";
+	}
+	
+	@RequestMapping(value = "/impressum", method = RequestMethod.GET)
+	public String impressum(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+				
+		return "impressum";
+	}
 
 	public static Set<Tournament_Season> getSeasons() {
 		return seasons;
