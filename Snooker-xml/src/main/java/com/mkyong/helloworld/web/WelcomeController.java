@@ -44,8 +44,8 @@ public class WelcomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String start(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		if(request.getSession().getServletContext().getAttribute("seasions") == null) {
-			request.getSession().getServletContext().setAttribute("seasions", getSeasons());
+		if(request.getSession().getAttribute("seasions") == null) {
+			request.getSession().setAttribute("seasions", getSeasons());
 		}
 		
 		List<String> provisionalRanking = GetHomepageData.getData();
@@ -56,7 +56,7 @@ public class WelcomeController {
 		long date = DateConverter.getDisplayDate();
 		String formatDate = null;
 		formatDate =  DateConverter.long2Date (date, 3);
-		request.getSession().getServletContext().setAttribute("formatDate", formatDate);
+		request.getSession().setAttribute("formatDate", formatDate);
 		
 		return "index";
 	}
@@ -112,7 +112,7 @@ public class WelcomeController {
 			if(!seasons.contains(season)) {
 				HelloWorldService.errorMessage(request);
 			} else {
-				request.getSession().getServletContext().setAttribute(SEASION, season);
+				request.getSession().setAttribute(SEASION, season);
 			}
 		}
 		
@@ -124,7 +124,7 @@ public class WelcomeController {
 			
 		String number = request.getParameter(SEASON);
 		Tournament_Season season = null;
-		Tournament_Season testSaison = (Tournament_Season) request.getSession().getServletContext().getAttribute(SEASION);
+		Tournament_Season testSaison = (Tournament_Season) request.getSession().getAttribute(SEASION);
 		
 		if(number.isEmpty() && testSaison == null) {
 			
@@ -163,10 +163,10 @@ public class WelcomeController {
 		
 		if(name == null || request.getSession().getServletContext().getAttribute(SEASION) == null) {
 			HelloWorldService.errorMessage(request);
-		}else if(request.getSession().getServletContext().getAttribute(SEASION) !=null) {
+		}else if(request.getSession().getAttribute(SEASION) !=null) {
 			tournament = new Tournament(name, weight, playernumber, roundnumber);
 		
-			request.getSession().getServletContext().setAttribute("tournament", tournament);
+			request.getSession().setAttribute("tournament", tournament);
 			
 		}
 		
@@ -180,14 +180,14 @@ public class WelcomeController {
 		
 		String participationPlayer = request.getParameter("participationPlayer");
 		
-		if(participationPlayer == null || request.getSession().getServletContext().getAttribute(SEASION) == null) {
+		if(participationPlayer == null || request.getSession().getAttribute(SEASION) == null) {
 			HelloWorldService.errorMessage(request);
 		}else if(request.getSession().getServletContext().getAttribute(SEASION) !=null) {
-			Tournament tournament = (Tournament) request.getSession().getServletContext().getAttribute("tournament");
+			Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
 			
 			Spieler gewinner = HelloWorldService.simulation(tournament, participationPlayer);
 			
-			request.getSession().getServletContext().setAttribute("gewinner", gewinner);
+			request.getSession().setAttribute("gewinner", gewinner);
 			
 		}
 		

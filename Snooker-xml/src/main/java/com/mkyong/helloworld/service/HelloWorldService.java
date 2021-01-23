@@ -50,7 +50,7 @@ public class HelloWorldService {
 			WelcomeController.getSeasons().add(season);
 		}
 		
-		request.getSession().getServletContext().setAttribute("seasions", WelcomeController.getSeasons());	
+		request.getSession().setAttribute("seasions", WelcomeController.getSeasons());	
 
 	}
 	
@@ -58,7 +58,7 @@ public class HelloWorldService {
 		
 		String errorMessageSaison = "Es konnte keine Saison erzeugt werden";
 		
-		request.getSession().getServletContext().setAttribute("errormassage", errorMessageSaison);
+		request.getSession().setAttribute("errormassage", errorMessageSaison);
 		
 	}
 	
