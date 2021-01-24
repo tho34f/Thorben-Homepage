@@ -31,7 +31,7 @@
 				</p>
 			</div>
 			<div class="col-md-6">
-				<img src="resources/core/images/thorben.png" alt="Bild Thorben" style="hight:700px; width:350px;" />
+				<img src="resources/core/images/thorben.png" alt="Bild Thorben" style="hight:700px; width:300px;" />
 			</div>
 		</div>
 		<div id="inhalt" class="row" style="text-align:center">

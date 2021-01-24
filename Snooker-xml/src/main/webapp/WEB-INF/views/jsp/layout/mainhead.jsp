@@ -31,9 +31,12 @@
 					<input type="text" id="suche" placeholder="Suche..." name="suchen">
 					<button type="submit">Los!</button>
 				</form>
-				<span id="clock"></span>
+				<p id="clock"></p>
 			</div>
 		</nav>
+		<div>
+			<span id="clock"></span>
+		</div>
 		<div style="text-align:center">
 			<img src="resources/core/images/logo_large.png" alt="Bild Thorben" style="hight:50px;width:500px;" />
 			<h2>#WIRWARBURGER</h2>
