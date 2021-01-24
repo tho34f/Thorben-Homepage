@@ -10,7 +10,7 @@ import com.mkyong.helloworld.service.HelloWorldService;
 @Controller
 public class SnookerController {
 	
-	private final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
+	private final Logger logger = LoggerFactory.getLogger(SnookerController.class);
 	private final HelloWorldService helloWorldService;
 	
 	@Autowired
