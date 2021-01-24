@@ -34,6 +34,7 @@ public class WelcomeController {
 	private static final String SEASION = "seasion";
 	private static final String SEASON = "season";
 	
+	Date indexDate = new Date();
 	private static Set<Tournament_Season> seasons = new HashSet<>();
 
 	@Autowired
@@ -51,12 +52,7 @@ public class WelcomeController {
 		List<String> provisionalRanking = GetHomepageData.getData();
 		UpdateDB.updateDatenbank(provisionalRanking);
 		
-		Date indexDate = new Date();
-		DateConverter.setDisplayDate(indexDate.getTime());
-		long date = DateConverter.getDisplayDate();
-		String formatDate = null;
-		formatDate =  DateConverter.long2Date (date, 3);
-		request.getSession().setAttribute("formatDate", formatDate);
+		DateConverter.setDateFooter(indexDate, request);
 		
 		return "index";
 	}
@@ -74,6 +70,8 @@ public class WelcomeController {
 	
 	@RequestMapping(value = "/saisonOverwiev", method = RequestMethod.GET)
 	public String overviewget(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
 		
 		return "saisonOverwiev";
 	}
@@ -93,6 +91,8 @@ public class WelcomeController {
 	public String saison(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		int yearint = TypeConverter.string2int(request.getParameter("id"), 0);
+		
+		DateConverter.setDateFooter(indexDate, request);
 		
 		Tournament_Season season = null;
 		Tournament_Season testSaison = (Tournament_Season) request.getAttribute(SEASION);
@@ -144,6 +144,8 @@ public class WelcomeController {
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String searchfunction(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
 			
 		String searchParameter = request.getParameter("suchen");
 		
@@ -154,6 +156,8 @@ public class WelcomeController {
 	
 	@RequestMapping(value = "/simulation", method = RequestMethod.GET)
 	public String simulation(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
 
 		String name = request.getParameter("name");
 		float weight = TypeConverter.string2float(request.getParameter("weight"), 0);
@@ -197,30 +201,40 @@ public class WelcomeController {
 	
 	@RequestMapping(value = "/snooker", method = RequestMethod.GET)
 	public String snooker(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
 				
 		return "snooker";
 	}
 	
 	@RequestMapping(value = "/politik", method = RequestMethod.GET)
 	public String politik(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
 				
 		return "politik";
 	}
 	
 	@RequestMapping(value = "/personal", method = RequestMethod.GET)
 	public String personal(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
 				
 		return "personal";
 	}
 	
 	@RequestMapping(value = "/datenschutz", method = RequestMethod.GET)
 	public String data(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
 				
 		return "datenschutz";
 	}
 	
 	@RequestMapping(value = "/impressum", method = RequestMethod.GET)
 	public String impressum(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
 				
 		return "impressum";
 	}

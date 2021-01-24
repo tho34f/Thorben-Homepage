@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class DateConverter {
 	
 	private static long displayDate;
@@ -61,6 +63,17 @@ public class DateConverter {
 		} 
 	    
 	    return parsedDate; 
+	}
+	
+	public static void setDateFooter(Date indexDate, final HttpServletRequest request) {
+		DateConverter.setDisplayDate(indexDate.getTime());
+		long date = DateConverter.getDisplayDate();
+		String formatDate = null;
+		
+		if(request.getSession().getAttribute("formatDate") == null) {
+			formatDate =  DateConverter.long2Date (date, 3);
+			request.getSession().setAttribute("formatDate", formatDate);
+		}
 	}
 
 	public SimpleDateFormat getDayFormat() {

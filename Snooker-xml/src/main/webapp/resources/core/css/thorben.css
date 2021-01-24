@@ -6,7 +6,7 @@
 	border-radius: 5px;
 	font-size: 18px;
 	padding: 0.64286em 1.42857em;
-	background: linear-gradient(#aa0504, #94140d);
+	background: linear-gradient(rgb(202, 0, 0), #721403);
 }
 
 .linkButton:hover{
@@ -18,10 +18,39 @@
 	margin-bottom: 35px;
 }
 
+@media (max-width: 1950px) {
+  #clock {
+     left: 85%;
+  }
+}
+
+@media (max-width: 1775px) {
+  #clock {
+     left: 80%;
+  }
+}
+
+@media (max-width: 1400px) {
+  #clock {
+     left: 75%;
+  }
+}
+
+@media (max-width: 1200px) {
+  #clock {
+     left: 70%;
+  }
+}
+
+@media (max-width: 1050px) {
+  #clock {
+        display:none;
+  }
+}
+
 #clock {
 	position: absolute;
-    top: 0%;
-    left: 85%;
+    top: -10%;
     font-size: 3em;
     color: #8dcbbb;
     letter-spacing: 7px;
@@ -29,14 +58,18 @@
 
 .contact {
 	width:100%;
-	height:75px;
 	top:0;
 	left:0;
-	background-color:#94140d;
+	background-color:#701718;
 	color: white;
 }
 
 .contact a{
+	color: white;
+	font-size: 18px;
+}
+
+.contact a:hover{
 	color: white;
 }
 
@@ -74,4 +107,17 @@ form.example::after {
   content: "";
   clear: both;
   display: table;
+}
+
+.datenschutz{
+	margin: 0 14px 0 14px;
+}
+
+.impressum{
+	margin-left: 14px;
+    margin-right: 14px;
+}
+
+.navbar-extra{
+	display: flex;
 }
