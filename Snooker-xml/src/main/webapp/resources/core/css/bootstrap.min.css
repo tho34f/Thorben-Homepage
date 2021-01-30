@@ -275,7 +275,6 @@
  a.bg-warning:hover{background-color:#f7ecb5}
  .bg-danger{background-color:#f2dede}
  a.bg-danger:hover{background-color:#e4b9b9}
- .page-header{padding-bottom:9px; border-bottom:1px solid #eee; background-color: #8dcbbb; color:#701718}
  ol,ul{margin-top:0;margin-bottom:10px}
  ol ol,ol ul,ul ol,ul ul{margin-bottom:0}
  .list-unstyled{padding-left:0;list-style:none}

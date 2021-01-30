@@ -13,17 +13,22 @@
 </head>
 <body onLoad="startTime()" >
 
-<jsp:include page="./layout/mainhead.jsp" flush="true"/>
+<jsp:include page="../layout/backendhead.jsp"/>
+
 
 <div id="content" class="jumbotron">
 	<div class="container">
 		<h1>Ergebniss der Suche</h1>
-		<p> ${searchresult} </p>
+		<c:if test="${ isLoginOk eq true}"> 
+			<p> Login-Prozess Erfolgreich </p>
+		</c:if>
+		<c:if test="${ isLoginOk eq false}">  
+			<p> ${errormasage} </p>
+		</c:if>
 	</div>
 </div>
 
-<jsp:include page="./layout/mainfooter.jsp" flush="true"/>
-
+<jsp:include page="../layout/backendfooter.jsp"/>
 <script src="resources/core/js/clock.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 

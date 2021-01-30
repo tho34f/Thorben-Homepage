@@ -2,6 +2,7 @@ package com.mkyong.helloworld.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import com.mkyong.helloworld.queries.MySqlConnection;
 
 
 public class UpdateDB {

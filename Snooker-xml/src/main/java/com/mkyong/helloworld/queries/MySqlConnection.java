@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.service;
+package com.mkyong.helloworld.queries;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

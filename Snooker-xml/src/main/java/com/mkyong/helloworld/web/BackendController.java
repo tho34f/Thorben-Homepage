@@ -13,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mkyong.helloworld.queries.UserQueries;
 import com.mkyong.helloworld.service.DateConverter;
 import com.mkyong.helloworld.service.GetHomepageData;
 import com.mkyong.helloworld.service.HelloWorldService;
 import com.mkyong.helloworld.service.UpdateDB;
+import com.mkyong.helloworld.snooker.User;
 
 @Controller
 public class BackendController {
@@ -30,10 +32,42 @@ public class BackendController {
 	}
 	
 	@RequestMapping(value = "/backend/login", method = RequestMethod.GET)
-	public String start(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String startLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		
 		return "backend/login";
+	}
+	
+	@RequestMapping(value = "/backend/backendindex", method = RequestMethod.POST)
+	public String checkLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		User loginUser = new User(null, null, null, null, 0);
+		Boolean isLoginOk = false;
+		
+		String test = request.getParameter("username");
+		
+		if(request.getParameter("username") != null) {
+			loginUser.setUserLogin(test);
+			loginUser.setPassword(request.getParameter("password"));
+		}
+		
+		isLoginOk = UserQueries.checkLogin(loginUser);
+		request.getSession().setAttribute("isLoginOk", isLoginOk);
+		
+		if(isLoginOk) {
+			request.getSession().setAttribute("user", loginUser);
+			
+		} else {
+			request.setAttribute("errormasage", "Es ist ein Fehler aufgetreten.");
+		}
+		
+		
+		
+		return "backend/backendindex";
+	}
+
+	public HelloWorldService getHelloWorldService() {
+		return helloWorldService;
 	}
 
 }

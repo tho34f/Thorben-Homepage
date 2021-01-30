@@ -27,7 +27,7 @@
 				</li>
 			</ul>
 			<div>
-				<form class="example" id="search" method="post" action="search" value="Suchen">
+				<form class="example" id="search" method="post" action="search">
 					<input type="text" id="suche" placeholder="Suche..." name="suchen">
 					<button type="submit">Los!</button>
 				</form>

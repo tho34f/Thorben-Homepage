@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -7,16 +8,9 @@
 <meta name="author" content="Thorben Dierkes" />
 <title>Thorben Dierkes</title>
 
-<spring:url value="/resources/core/css/hello.css" var="coreCss" />
-<spring:url value="/resources/core/css/bootstrap.min.css" var="bootstrapCss" />
-<spring:url value="/resources/core/css/bootstrap.css" var="bootstrap" />
-<link href="${bootstrap}" rel="stylesheet" />
-<link href="${bootstrapCss}" rel="stylesheet" />
-<link href="${coreCss}" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<header:defaultHaeder costumerCSS="thorben.css" favicon="thorben.ico"/>
+
+</head>
 </head>
 <body onLoad="startTime()" >
 
@@ -58,7 +52,7 @@
 						<th id="${tournament.tournamentname}"> ${tournament.tournamentname} </th> 
 						<th id="${tournament.gewicht}"> ${tournament.gewicht} </th> 
 						<th id="${tournament.roundnumber}"> ${tournament.roundnumber} </th> 
-						<th id="${tournament.playernumber"> ${tournament.playernumber} </th> 
+						<th id="${tournament.playernumber}"> ${tournament.playernumber} </th> 
 						<th id="${tournament.tournamentname}-button"> <a class="btn btn-primary btn-lg" href="simulation?year=${seasion.year}&name=${tournament.tournamentname}&weight=${tournament.gewicht}&number1=${tournament.roundnumber}&number2=${tournament.playernumber}" role="button">Dieses Turnier simulieren</a> </th>
 					</tr>
 				</c:forEach>
