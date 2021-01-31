@@ -1,9 +1,5 @@
 package com.mkyong.helloworld.service;
 
-import java.sql.SQLException;
-import java.util.List;
-
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;

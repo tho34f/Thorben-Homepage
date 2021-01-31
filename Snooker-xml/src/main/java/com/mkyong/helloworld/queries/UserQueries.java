@@ -39,6 +39,9 @@ public class UserQueries {
 		        
 		        if(rs.next()) {
 		        	isLoginOk = true;
+		        	loginUser.setUserId(rs.getInt("user_id"));
+		        	loginUser.setFirstName(rs.getString("user_firstname"));
+		        	loginUser.setLastName(rs.getString("user_lastname"));
 		        } 
 		        
 		        rs.close();

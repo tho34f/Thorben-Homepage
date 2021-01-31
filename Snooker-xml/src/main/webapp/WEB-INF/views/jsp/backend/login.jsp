@@ -21,11 +21,11 @@
  			<h1>Anmelden</h1>
 	 		<div class="widget">
 	 			<label for="username" >Benutzername</label>
-	 			<input class="tl_text" type="text" name="username" id="username" value placeholder="Benutzername" required oldautocomplete="remove" autocomplete="off" autocapitalize="off">
+	 			<input class="tl_text" type="text" name="username" id="username" value="" placeholder="Benutzername" required oldautocomplete="remove" autocomplete="off" autocapitalize="off">
 	 		</div>
 	 		 <div class="widget">
 	 			<label for="password">Password</label>
-	 			<input class="tl_text" type="password" name="password" id="password" value placeholder="Password" required oldautocomplete="remove" autocomplete="off">
+	 			<input class="tl_text" type="password" name="password" id="password" value="" placeholder="Password" required oldautocomplete="remove" autocomplete="off">
 	 		</div>
 	 		<div class="submit_container">
 	 			<button class="tl_submit" type="submit" name="login" id="login">Weiter</button>
@@ -36,15 +36,8 @@
  	</main>	
 </div> 
 
-<script src="../resources/core/js/clock.js"></script>
+<script src="../resources/core/js/backend.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script>
-$(".footer_preview").click(function(){
-	$(".footer_preview").attr('href', "../");
-});
-
-</script>
-
 
 </body>
 </html>

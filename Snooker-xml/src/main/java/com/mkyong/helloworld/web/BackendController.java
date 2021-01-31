@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mkyong.helloworld.queries.UserQueries;
-import com.mkyong.helloworld.service.DateConverter;
-import com.mkyong.helloworld.service.GetHomepageData;
 import com.mkyong.helloworld.service.HelloWorldService;
-import com.mkyong.helloworld.service.UpdateDB;
 import com.mkyong.helloworld.snooker.User;
 
 @Controller
@@ -34,7 +31,7 @@ public class BackendController {
 	@RequestMapping(value = "/backend/login", method = RequestMethod.GET)
 	public String startLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		
+		request.getSession().setAttribute("user", null);
 		return "backend/login";
 	}
 	
@@ -42,7 +39,7 @@ public class BackendController {
 	public String checkLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		User loginUser = new User(null, null, null, null, 0);
-		Boolean isLoginOk = false;
+		boolean isLoginOk = false;
 		
 		String test = request.getParameter("username");
 		

@@ -1,4 +1,19 @@
-<header id="page-header" class="page-header">
+<header>
+	<div id="mainLogo">
+		<img src="../resources/core/images/logo_large.png" alt="Bild Thorben" style="width:500px;margin-top:4px;" />
+	</div>
+	<ul id="serviceBox">
+		<li>
+			<b>
+				${user.firstName} ${user.lastName }
+			</b>
+		</li>
+		<li>
+			<button type="button" title="Abmelden" class="dooBtn" id="abmeldeButton">
+				<em class="fa fa-sign-out" style="font-size:24px" id="dooIcon"></em>
+			</button>
+		</li>
+	</ul>
 		<nav class="navbar navbar-inverse navbar-expand-sm">
 			<ul class="navbar-nav">
 				<li class="nav-item">
@@ -31,14 +46,7 @@
 					<input type="text" id="suche" placeholder="Suche..." name="suchen">
 					<button type="submit">Los!</button>
 				</form>
-				<p id="clock"></p>
 			</div>
+
 		</nav>
-		<div>
-			<span id="clock"></span>
-		</div>
-		<div style="text-align:center">
-			<img src="../resources/core/images/logo_large.png" alt="Bild Thorben" style="hight:50px;width:500px;" />
-			<h2>#WIRWARBURGER</h2>
-		</div>
 </header>

@@ -96,3 +96,37 @@ input[type="password"]{
 	color: white;
 	background: #0078a5;
 }
+
+#serviceBox{
+	position: absolute;
+    right: 45px;
+    top: 10px;
+    z-index: 1001;
+}
+
+#serviceBox li {
+    margin-left: 15px;
+    list-style: none outside none;
+    display: inline-block;
+    vertical-align: top;
+    text-align: right;
+}
+
+#mainLogo{
+	margin: 0px 0px 8px 25px;
+    max-width: 500px;
+    min-height: 45px;
+    cursor: pointer;
+	
+}
+
+.dooBtn {
+    height: 30px;
+    width: 36px;
+    border-left:1px solid #0076a3;
+}
+
+#dooIcon {
+   	padding:0px;
+   	margin:-7px;
+}
