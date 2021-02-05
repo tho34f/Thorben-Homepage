@@ -1,7 +1,13 @@
 package com.mkyong.helloworld.snooker;
 
-public class Tournament {
+import java.io.Serializable;
+
+public class Tournament implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1462585822428695731L;
 	private String tournamentname;
 	private float gewicht;
 	private double playernumber;
@@ -12,7 +18,7 @@ public class Tournament {
 		this.tournamentname = tournamentname;
 		this.gewicht = gewicht;
 		this.setRoundnumber(roundnumber);
-		this.setPlayernumber(playernumber);;
+		this.setPlayernumber(playernumber);
 	}
 	
 	public double getGewicht() {

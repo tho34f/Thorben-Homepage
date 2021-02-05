@@ -21,15 +21,18 @@
  			<h1>Anmelden</h1>
 	 		<div class="widget">
 	 			<label for="username" >Benutzername</label>
-	 			<input class="tl_text" type="text" name="username" id="username" value="" placeholder="Benutzername" required oldautocomplete="remove" autocomplete="off" autocapitalize="off">
+	 			<input class="tl_text" type="text" name="username" id="username" value="" placeholder="Benutzername" required autocomplete="off" autocapitalize="off">
 	 		</div>
 	 		 <div class="widget">
 	 			<label for="password">Password</label>
-	 			<input class="tl_text" type="password" name="password" id="password" value="" placeholder="Password" required oldautocomplete="remove" autocomplete="off">
+	 			<input class="tl_text" type="password" name="password" id="password" value="" placeholder="Password" required autocomplete="off">
 	 		</div>
 	 		<div class="submit_container">
 	 			<button class="tl_submit" type="submit" name="login" id="login">Weiter</button>
 	 			<a class="footer_preview">Zum Frontend</a>
+	 		</div>
+	 		<div class="errormassage"  <c:if test="${isLoginOk eq true}">style="display:none;" </c:if>>
+					<p style="position: relative; top:40px; width:260px;background-color:#dc3545;"> ${errormasage} </p>
 	 		</div>
  		</div>
  	</form>

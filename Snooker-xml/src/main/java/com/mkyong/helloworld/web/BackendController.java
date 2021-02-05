@@ -1,6 +1,5 @@
 package com.mkyong.helloworld.web;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +37,8 @@ public class BackendController {
 	@RequestMapping(value = "/backend/backendindex", method = RequestMethod.POST)
 	public String checkLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		User loginUser = new User(null, null, null, null, 0);
+		User loginUser = new User();
+		String forwordPath = null;
 		boolean isLoginOk = false;
 		
 		String test = request.getParameter("username");
@@ -53,14 +53,16 @@ public class BackendController {
 		
 		if(isLoginOk) {
 			request.getSession().setAttribute("user", loginUser);
+			forwordPath = "backend/backendindex";
+			logger.info("Login war erfolgreich.");
 			
 		} else {
 			request.setAttribute("errormasage", "Es ist ein Fehler aufgetreten.");
+			forwordPath = "/backend/login";
+			logger.info("Es ist ein Fehler aufgetreten.");
 		}
 		
-		
-		
-		return "backend/backendindex";
+		return forwordPath;
 	}
 
 	public HelloWorldService getHelloWorldService() {

@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.mkyong.helloworld.queries.MySqlConnection;
+import com.mkyong.helloworld.queries.SnookerQueries;
 import com.mkyong.helloworld.snooker.Tournament;
-import com.mkyong.helloworld.snooker.Tournament_Season;
+import com.mkyong.helloworld.snooker.TournamentSeason;
 import com.mkyong.helloworld.snooker.Spieler;
 import com.mkyong.helloworld.web.WelcomeController;
 
@@ -28,18 +28,18 @@ public class HelloWorldService {
 	
 	}
 	
-	public static Tournament_Season creatSeason(int year) {
+	public static TournamentSeason creatSeason(int year) {
 		
-		Tournament_Season season = new Tournament_Season(year);
+		TournamentSeason season = new TournamentSeason(year);
 		
         // Ergebnisse anzeigen.
-		MySqlConnection.creatTournamentList("tournament", season);
-		MySqlConnection.creatPlayerList("snookerplayers", season);
+		SnookerQueries.creatTournamentList("tournament", season);
+		SnookerQueries.creatPlayerList("snookerplayers", season);
 
 		return season;
 	}
 	
-	public static void setSeason(String number, Tournament_Season season, final HttpServletRequest request) {
+	public static void setSeason(String number, TournamentSeason season, final HttpServletRequest request) {
 		
 		if(!number.isEmpty()) {
 			int number2 = Integer.parseInt(number);
@@ -47,6 +47,7 @@ public class HelloWorldService {
 			WelcomeController.getSeasons().add(season);
 		}
 		
+		logger.info("Saision erfolgreich erzeugt.");
 		request.getSession().setAttribute("seasions", WelcomeController.getSeasons());	
 
 	}

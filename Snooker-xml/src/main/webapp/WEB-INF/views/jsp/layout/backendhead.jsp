@@ -4,11 +4,17 @@
 	</div>
 	<ul id="serviceBox">
 		<li>
-			<b>
+			<strong>
 				${user.firstName} ${user.lastName }
-			</b>
+			</strong>
 		</li>
 		<li>
+			<button type="button" title="Informationen" class="dooBtn" id="informationButton">
+				<em class="fa fa-info" style="font-size:24px" id="dooIcon"></em>
+			</button>
+			<button type="button" title="Zum Frontend" class="dooBtn" id="wechselButton">
+				<em class="fa fa-retweet" style="font-size:24px" id="dooIcon"></em>
+			</button>
 			<button type="button" title="Abmelden" class="dooBtn" id="abmeldeButton">
 				<em class="fa fa-sign-out" style="font-size:24px" id="dooIcon"></em>
 			</button>
@@ -42,7 +48,7 @@
 				</li>
 			</ul>
 			<div>
-				<form class="example" id="search" method="post" action="search" value="Suchen">
+				<form class="example" id="search" method="post" action="search">
 					<input type="text" id="suche" placeholder="Suche..." name="suchen">
 					<button type="submit">Los!</button>
 				</form>

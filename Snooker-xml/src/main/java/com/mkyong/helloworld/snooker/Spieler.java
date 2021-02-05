@@ -1,7 +1,13 @@
 package com.mkyong.helloworld.snooker;
 
-public class Spieler {
+import java.io.Serializable;
+
+public class Spieler  implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 916064280372814616L;
 	private String firstname;
 	private String lastname;
 	private int worldRanking;
@@ -30,8 +36,8 @@ public class Spieler {
 		worldRanking = neuerWorldranking;
 	}
 	
-	public void PlayerNameDruck() {
-		System.out.format("%5s %5s, Weltrangliste: %5.2f, Provisional_Ranking: %5.2f \n", firstname, lastname, worldRanking, getProvisionalRanking());
+	public void playerNameDruck() {
+		System.out.format("%5s %5s, Weltrangliste: %5.2f, Provisional_Ranking: %5.2f %n", firstname, lastname, worldRanking, getProvisionalRanking());
 	}
 
 

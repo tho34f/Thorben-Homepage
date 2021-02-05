@@ -1,12 +1,22 @@
 package com.mkyong.helloworld.snooker;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8512259499299806566L;
 	private int userId;
 	private String userLogin;
 	private String firstName;
 	private String lastName;
 	private String password;
+	
+	public User() {
+		
+	}
 	
 	public User(String firstName, String lastName, String password, String userLogin, int userId) {
 		this.firstName = firstName;

@@ -10,6 +10,10 @@ public class News {
 	private Image img;
 	private String text;
 	
+	public News() {
+		
+	}
+	
 	public News(int id, String teaser, String title, Image img, String text) {
 		this.setId(id);
 		this.setTeaser(teaser);

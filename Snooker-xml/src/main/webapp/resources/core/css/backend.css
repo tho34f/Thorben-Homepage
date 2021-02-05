@@ -124,9 +124,14 @@ input[type="password"]{
     height: 30px;
     width: 36px;
     border-left:1px solid #0076a3;
+    position:relative;
 }
 
 #dooIcon {
-   	padding:0px;
-   	margin:-7px;
+   	padding:3px;
+   	margin:-10px;
+}
+
+.errormassage{
+	margin-top: 12px;
 }

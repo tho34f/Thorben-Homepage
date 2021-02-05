@@ -1,27 +1,32 @@
 package com.mkyong.helloworld.snooker;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Tournament_Season {
+public class TournamentSeason implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -770545307407172563L;
 	private int year;
 	
-	public Tournament_Season (int year){
+	public TournamentSeason (int year){
 		this.setYear(year);
 	}
 	
 	private List<Spieler> player = new ArrayList<Spieler>();
-	private List<Tournament> tournament_season = new ArrayList<Tournament>();
+	private List<Tournament> tournamentSeason = new ArrayList<Tournament>();
 	
 	public void registerPlayer(Spieler player2) {
 		getPlayer().add(player2);
 	}
 	
 	public void registerTournament(Tournament tournament) {
-		getTournament_season().add(tournament);
+		getTournamentSeason().add(tournament);
 		
 	}
 
@@ -33,12 +38,12 @@ public class Tournament_Season {
 		this.player = player;
 	}
 
-	public List<Tournament> getTournament_season() {
-		return tournament_season;
+	public List<Tournament> getTournamentSeason() {
+		return tournamentSeason;
 	}
 
-	public void setTournament_season(List<Tournament> tournament_season) {
-		this.tournament_season = tournament_season;
+	public void setTournamentSeason(List<Tournament> tournamentSeason) {
+		this.tournamentSeason = tournamentSeason;
 	}
 
 	public int getYear() {
@@ -65,7 +70,7 @@ public class Tournament_Season {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Tournament_Season other = (Tournament_Season) obj;
+		TournamentSeason other = (TournamentSeason) obj;
 		if (year != other.year)
 			return false;
 		return true;

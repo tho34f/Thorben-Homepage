@@ -22,7 +22,7 @@ import com.mkyong.helloworld.service.HelloWorldService;
 import com.mkyong.helloworld.service.TypeConverter;
 import com.mkyong.helloworld.service.UpdateDB;
 import com.mkyong.helloworld.snooker.Tournament;
-import com.mkyong.helloworld.snooker.Tournament_Season;
+import com.mkyong.helloworld.snooker.TournamentSeason;
 import com.mkyong.helloworld.snooker.Spieler;
 
 
@@ -35,7 +35,7 @@ public class WelcomeController {
 	private static final String SEASON = "season";
 	
 	Date indexDate = new Date();
-	private static Set<Tournament_Season> seasons = new HashSet<>();
+	private static Set<TournamentSeason> seasons = new HashSet<>();
 
 	@Autowired
 	public WelcomeController(HelloWorldService helloWorldService) {
@@ -61,7 +61,7 @@ public class WelcomeController {
 	public String establish(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 			
 		String number = request.getParameter(SEASON);
-		Tournament_Season season = null;
+		TournamentSeason season = null;
 		
 		HelloWorldService.setSeason(number, season, request);
 		
@@ -80,7 +80,7 @@ public class WelcomeController {
 	public String overviewpost(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 			
 		String number = request.getParameter(SEASON);
-		Tournament_Season season = null;
+		TournamentSeason season = null;
 		
 		HelloWorldService.setSeason(number, season, request);
 		
@@ -94,16 +94,16 @@ public class WelcomeController {
 		
 		DateConverter.setDateFooter(indexDate, request);
 		
-		Tournament_Season season = null;
-		Tournament_Season testSaison = (Tournament_Season) request.getAttribute(SEASION);
+		TournamentSeason season = null;
+		TournamentSeason testSaison = (TournamentSeason) request.getAttribute(SEASION);
 		
 		if(yearint == 0 && testSaison == null) {
 			HelloWorldService.errorMessage(request);
 			
 		} else {
 			
-			Set<Tournament_Season> seasionsPage = getSeasons();
-			for(Tournament_Season seasion : seasionsPage) {
+			Set<TournamentSeason> seasionsPage = getSeasons();
+			for(TournamentSeason seasion : seasionsPage) {
 				if(yearint == seasion.getYear()) {
 					season = seasion;
 				}
@@ -123,8 +123,8 @@ public class WelcomeController {
 	public String establishSeasion(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 			
 		String number = request.getParameter(SEASON);
-		Tournament_Season season = null;
-		Tournament_Season testSaison = (Tournament_Season) request.getSession().getAttribute(SEASION);
+		TournamentSeason season = null;
+		TournamentSeason testSaison = (TournamentSeason) request.getSession().getAttribute(SEASION);
 		
 		if(number.isEmpty() && testSaison == null) {
 			
@@ -195,6 +195,7 @@ public class WelcomeController {
 			
 		}
 		
+		logger.info("Simulation erfolgrecih durchgeführt.");
 		return "simulation";
 		
 	}
@@ -239,11 +240,11 @@ public class WelcomeController {
 		return "impressum";
 	}
 
-	public static Set<Tournament_Season> getSeasons() {
+	public static Set<TournamentSeason> getSeasons() {
 		return seasons;
 	}
 
-	public static void setSeasons(Set<Tournament_Season> seasons) {
+	public static void setSeasons(Set<TournamentSeason> seasons) {
 		WelcomeController.seasons = seasons;
 	}
 

@@ -19,12 +19,7 @@
 <div id="content" class="jumbotron">
 	<div class="container">
 		<h1>Ergebniss der Suche</h1>
-		<c:if test="${isLoginOk eq true}"> 
-			<p> Login-Prozess Erfolgreich </p>
-		</c:if>
-		<c:if test="${isLoginOk eq false}">  
-			<p> ${errormasage} </p>
-		</c:if>
+		<p> Login-Prozess Erfolgreich </p>
 	</div>
 </div>
 
