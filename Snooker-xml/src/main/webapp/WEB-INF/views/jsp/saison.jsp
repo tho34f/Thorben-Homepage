@@ -47,7 +47,7 @@
 					<th id="playernumber"> Spielerzahl </th> 
 					<th id="simulation"> Simulation </th> 
 				</tr>
-				<c:forEach items="${seasion.tournament_season}" var="tournament">
+				<c:forEach items="${seasion.tournamentSeason}" var="tournament">
 					<tr id="${tournament.tournamentname}" > 
 						<th id="${tournament.tournamentname}"> ${tournament.tournamentname} </th> 
 						<th id="${tournament.gewicht}"> ${tournament.gewicht} </th> 

@@ -9,4 +9,8 @@ $("#abmeldeButton").click(function(){
 $("#wechselButton").click(function(){
 	window.location.href = '/thorben-dierkes/';
 });
+
+$("#newObject").click(function(){
+	 window.open("/thorben-dierkes/","popName",'scrollbars=1,height=650,width=1050').focus();
+});
  

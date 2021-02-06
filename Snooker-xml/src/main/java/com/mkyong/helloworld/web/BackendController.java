@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mkyong.helloworld.queries.UserQueries;
 import com.mkyong.helloworld.service.HelloWorldService;
+import com.mkyong.helloworld.service.ObjectBrowser;
+import com.mkyong.helloworld.service.TypeConverter;
 import com.mkyong.helloworld.snooker.User;
 
 @Controller
@@ -27,11 +29,16 @@ public class BackendController {
 		this.helloWorldService = helloWorldService;
 	}
 	
+	String login = "backend/login";
+	String userNotLogin = "Der User ist nicht eingeloggt.";
+	String erromessage = "errormasage";
+	String isLoginOkString = "isLoginOk";
+	
 	@RequestMapping(value = "/backend/login", method = RequestMethod.GET)
 	public String startLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		request.getSession().setAttribute("user", null);
-		return "backend/login";
+		return login;
 	}
 	
 	@RequestMapping(value = "/backend/backendindex", method = RequestMethod.POST)
@@ -49,7 +56,7 @@ public class BackendController {
 		}
 		
 		isLoginOk = UserQueries.checkLogin(loginUser);
-		request.getSession().setAttribute("isLoginOk", isLoginOk);
+		request.getSession().setAttribute(isLoginOkString, isLoginOk);
 		
 		if(isLoginOk) {
 			request.getSession().setAttribute("user", loginUser);
@@ -57,10 +64,61 @@ public class BackendController {
 			logger.info("Login war erfolgreich.");
 			
 		} else {
-			request.setAttribute("errormasage", "Es ist ein Fehler aufgetreten.");
-			forwordPath = "/backend/login";
-			logger.info("Es ist ein Fehler aufgetreten.");
+			request.setAttribute(erromessage, "Der User ist nicht gültig.");
+			forwordPath = login;
+			logger.info("Der User ist nicht gültig.");
 		}
+		
+		return forwordPath;
+	}
+	
+	@RequestMapping(value = "/backend/backendindex", method = RequestMethod.GET)
+	public String createIndex(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		String forwordPath = null;
+		
+		if(request.getSession().getAttribute("user") != null) {
+			forwordPath = "backend/backendindex";
+		} else {
+			request.getSession().setAttribute(isLoginOkString, false);
+			request.setAttribute(erromessage, userNotLogin);
+			forwordPath = login;
+		} 
+		
+		return forwordPath;
+	}
+	
+	@RequestMapping(value = "/backend/backendObjectBrowser", method = RequestMethod.POST)
+	public String createObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		String forwordPath = null;
+		
+		if(request.getSession().getAttribute("user") != null) {
+			forwordPath = "backend/backendObjectBrowser";
+		} else {
+			request.getSession().setAttribute(isLoginOkString, false);
+			request.setAttribute(erromessage, userNotLogin);
+			forwordPath = login;
+		} 
+		
+		return forwordPath;
+	}
+	
+	@RequestMapping(value = "/backend/backendObjectBrowser", method = RequestMethod.GET)
+	public String getObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		String forwordPath = null;
+		int objectId = TypeConverter.string2int(request.getParameter("id"), 0);
+		
+		if(request.getSession().getAttribute("user") != null) {
+			ObjectBrowser.setHeaderInformation(request, objectId);
+			request.getSession().setAttribute("objectId", objectId);
+			forwordPath = "backend/backendObjectBrowser";
+		} else {
+			request.getSession().setAttribute(isLoginOkString, false);
+			request.setAttribute(erromessage, userNotLogin);
+			forwordPath = login;
+		} 
 		
 		return forwordPath;
 	}

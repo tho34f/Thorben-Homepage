@@ -135,3 +135,35 @@ input[type="password"]{
 .errormassage{
 	margin-top: 12px;
 }
+
+.headerPanel {
+    min-height: 75px;
+    width: 100%;
+    min-width: 980px;
+    background: #8dcbbb;
+    float: left;
+    margin-top:-20px;
+}
+
+#objectHeader{
+	float: left; 
+	width: 61%; 
+	margin-left: 10px; 
+	margin-top: 37px;
+}
+
+#newObject{
+	margin-left: 20px; 
+	margin-top: 24px;
+	border-left:1px solid #0076a3;
+	width: 110px;
+}
+
+#objectIcon{
+	width: 40px; 
+	height: 40px; 
+	float: left; 
+	margin-left: 40px; 
+	margin-top: 25px;
+	font-size:40px
+}
