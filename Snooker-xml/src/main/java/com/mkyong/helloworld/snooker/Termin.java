@@ -1,0 +1,65 @@
+package com.mkyong.helloworld.snooker;
+
+public class Termin {
+	
+	private long date;
+	private String title;
+	private String description;
+	
+	public Termin() {
+		
+	}
+	
+	public Termin (String title, String description, long date) {
+		this.title = title;
+		this.description = description;
+		this.date = date;
+	}
+
+	public long getDate() {
+		return date;
+	}
+
+	public void setDate(long date) {
+		this.date = date;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = (int) (prime * result + date);
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Termin other = (Termin) obj;
+		if (date != other.date)
+			return false;
+		return true;
+	}
+
+}

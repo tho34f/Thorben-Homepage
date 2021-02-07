@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mkyong.helloworld.queries.UserQueries;
 import com.mkyong.helloworld.service.HelloWorldService;
 import com.mkyong.helloworld.service.ObjectBrowser;
+import com.mkyong.helloworld.service.ObjectBrowserController;
 import com.mkyong.helloworld.service.TypeConverter;
 import com.mkyong.helloworld.snooker.User;
 
@@ -111,9 +112,41 @@ public class BackendController {
 		int objectId = TypeConverter.string2int(request.getParameter("id"), 0);
 		
 		if(request.getSession().getAttribute("user") != null) {
-			ObjectBrowser.setHeaderInformation(request, objectId);
-			request.getSession().setAttribute("objectId", objectId);
+			ObjectBrowser ob = ObjectBrowser.setHeaderInformation(request, objectId);
+			ObjectBrowserController.getInformationForOb(ob);
 			forwordPath = "backend/backendObjectBrowser";
+		} else {
+			request.getSession().setAttribute(isLoginOkString, false);
+			request.setAttribute(erromessage, userNotLogin);
+			forwordPath = login;
+		} 
+		
+		return forwordPath;
+	}
+	
+	@RequestMapping(value = "/backend/newswizard", method = RequestMethod.GET)
+	public String creatNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		String forwordPath = null;
+		
+		if(request.getSession().getAttribute("user") != null) {
+			forwordPath = "backend/newswizard";
+		} else {
+			request.getSession().setAttribute(isLoginOkString, false);
+			request.setAttribute(erromessage, userNotLogin);
+			forwordPath = login;
+		} 
+		
+		return forwordPath;
+	}
+	
+	@RequestMapping(value = "/backend/terminewizard", method = RequestMethod.GET)
+	public String creatTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		String forwordPath = null;
+		
+		if(request.getSession().getAttribute("user") != null) {
+			forwordPath = "backend/terminewizard";
 		} else {
 			request.getSession().setAttribute(isLoginOkString, false);
 			request.setAttribute(erromessage, userNotLogin);

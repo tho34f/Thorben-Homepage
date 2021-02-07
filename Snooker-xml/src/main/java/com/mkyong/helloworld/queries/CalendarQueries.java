@@ -12,39 +12,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mkyong.helloworld.snooker.News;
+import com.mkyong.helloworld.snooker.Termin;
 
-public class NewsQueries {
+public class CalendarQueries {
 	
-private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
+private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.class);
 	
-    private NewsQueries() {
+    private CalendarQueries() {
     	
     	throw new IllegalStateException("Utility Class");
     	
     }
     
-	public static Set<News> loadNewsList() {
+	public static Set<Termin> loadCalendarList() {
 		
-		Set<News> newsList = new HashSet<>();
+		Set<Termin> calendarList = new HashSet<>();
 		
 		try{
 			
 			MySqlConnection.createConnection();
 			
-			News massage = new News();
+			Termin tm = new Termin();
 			
-			String queryNews = "select nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text from news nw left join  news_text nwt on nw.news_id = nwt.news_id";
+			String queryNews = "select * from termine";
 		
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 		        ResultSet rs = stmt.executeQuery();
 		        
 		        if(rs.next()) {
-		        	massage.setId(rs.getInt("nw.news_id"));
-		        	massage.setTeaser(rs.getString("nw.news_teaser"));
-		        	massage.setText(rs.getString("nwt.news_text"));
-		        	massage.setTitle(rs.getString("nw.news_title"));
-		        	massage.setImg(null);
-		        	newsList.add(massage);
+		        	tm.setDate(rs.getInt("date"));
+		        	tm.setTitle(rs.getString("title"));
+		        	tm.setDescription(rs.getString("description"));
+		        	calendarList.add(tm);
 		        	
 		        } 
 		        
@@ -62,7 +61,7 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
             e.printStackTrace();
 		} 
 		
-		return newsList;
+		return calendarList;
 		
 	}
 

@@ -11,6 +11,14 @@ $("#wechselButton").click(function(){
 });
 
 $("#newObject").click(function(){
-	 window.open("/thorben-dierkes/","popName",'scrollbars=1,height=650,width=1050').focus();
+	var id = $("#newObject").attr("name");
+	
+	if(id == 39){
+		 window.open("/thorben-dierkes/backend/newswizard","popName",'scrollbars=1,height=650,width=1050').focus();
+	 }
+	 
+	 if(id == 40){
+		 window.open("/thorben-dierkes/backend/terminewizard","popName",'scrollbars=1,height=650,width=1050').focus();
+	 }
 });
  
