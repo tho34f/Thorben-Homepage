@@ -1,33 +1,65 @@
 package com.mkyong.helloworld.service;
 
+import java.io.Serializable;
+
 import javax.servlet.http.HttpServletRequest;
 
-public class ObjectBrowser {
+public class ObjectBrowser implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5766256589960477549L;
+	private String objectTitle;
+	private String buttonTitle;
+	private String objectIcon;
 	
 	private ObjectBrowser() {
-	   	
-		throw new IllegalStateException("Utility Class");
 	    	
     }
 	
-	
-	private static String objectTitle = "objectTitle";
-	private static String buttonTitle = "buttonTitle";
-	private static String objectIcon = "objectIcon";
+	private ObjectBrowser(String objectTitle, String buttonTitle, String objectIcon) {
+    	this.objectIcon = objectIcon;
+    	this.buttonTitle = buttonTitle;
+    	this.objectTitle = objectTitle;
+    }
 	
 	public static void setHeaderInformation(final HttpServletRequest request, int id) {
+		ObjectBrowser ob = null;
 		switch(id) {
 			case 39:
-				request.getSession().setAttribute(objectTitle, "Nachrichten");
-				request.getSession().setAttribute(buttonTitle, "Neue Nachricht");
-				request.getSession().setAttribute(objectIcon, "fas fa-newspaper");
+				ob = new ObjectBrowser("Nachrichten", "Neue Nachricht", "fas fa-newspaper");
+				request.getSession().setAttribute("Objectbrowser", ob);
 				break;
 			case 40: 
-				request.getSession().setAttribute(objectTitle, "Termine");
-				request.getSession().setAttribute(buttonTitle, "Neuer Termin");
-				request.getSession().setAttribute(objectIcon, "far fa-calendar-alt");
+				ob = new ObjectBrowser("Termine", "Neuer Termin", "far fa-calendar-alt");
+				request.getSession().setAttribute("Objectbrowser", ob);
 				break;
 		}
+	}
+
+	public String getObjectTitle() {
+		return objectTitle;
+	}
+
+	public void setObjectTitle(String objectTitle) {
+		this.objectTitle = objectTitle;
+	}
+
+	public String getButtonTitle() {
+		return buttonTitle;
+	}
+
+	public void setButtonTitle(String buttonTitle) {
+		this.buttonTitle = buttonTitle;
+	}
+
+	public String getObjectIcon() {
+		return objectIcon;
+	}
+
+	public void setObjectIcon(String objectIcon) {
+		this.objectIcon = objectIcon;
 	}
 
 }

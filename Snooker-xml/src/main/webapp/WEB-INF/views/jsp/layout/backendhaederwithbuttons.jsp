@@ -41,12 +41,12 @@
 		</nav>
 		<div class="headerPanel">
 			<div style="margin-top: -5px;height: 75px;border-right: 1px solid #bbb;float: left;width: 270px;">
-				<div class="${objectIcon}" id="objectIcon"></div>
+				<div class="${ObjectBrowser.objectIcon}" id="objectIcon"></div>
 				<h4 id="objectHeader">${objectTitle}</h4>
 			</div>
 			<div>
-				<button id="newObject" type="button" title="${buttonTitle} erzeugen" id="newObject">
-					<em>${buttonTitle}</em>
+				<button id="newObject" type="button" title="${ObjectBrowser.buttonTitle} erzeugen" id="newObject">
+					<em>${ObjectBrowser.buttonTitle}</em>
 				</button>
 			</div>
 		</div>
