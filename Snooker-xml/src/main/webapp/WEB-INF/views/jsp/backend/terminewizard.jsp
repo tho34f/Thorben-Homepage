@@ -20,23 +20,65 @@
 			<h4 id="objectHeaderWizard">Termine</h4>
 		</div>
 		<div>
-			<button id="saveObject" type="button" title="Speichern">
-				<em>Speichern</em>
-			</button>
+			<form method="POST" action="terminewizard">
+				<input type="hidden" id="titleWizard" name="titleWizard" min="1" max="255" maxlength="255" value="">
+				<input type="hidden" id="teaserWizard" name="teaserWizard" min="1" max="255" maxlength="255" value="">
+				<input type="hidden" id="beschreibungWizard" name="beschreibungWizard" min="1" max="255" maxlength="255" value="">
+				<button id="saveObject" type="submit" title="Speichern" onclick="setValue()">
+					<em>Speichern</em>
+				</button>
+			</form>
 		</div>
 	</div>
 </header>
 
 <div id="content" class="jumbotron">
 	<div class="container">
-		<h1>Ergebniss der Suche</h1>
-		<p> Login-Prozess Erfolgreich </p>
+		<h1>Erstellen eines neuen Termins</h1>
+		
+		<div class="wizardRow">
+			<div class="wizardRowTitle">Title</div>
+			<div class="wizardRowInner">
+				<div class="span3"></div>
+				<div class="span9">
+					<input type="text" id="title" name="title" min="1" max="255" maxlength="255" placeholder="Title" value="">
+				</div>
+			</div>
+		</div>
+		
+		<div class="wizardRow">
+			<div class="wizardRowTitle">Teaser</div>
+			<div class="wizardRowInner">
+				<div class="span3"></div>
+				<div class="span9">
+					<input type="text" id="teaser" name="teaser" min="1" max="255" maxlength="255" placeholder="Teaser" value="">
+				</div>
+			</div>
+		</div>
+		
+		<div class="wizardRow">
+			<div class="wizardRowTitle">Beschreibung</div>
+			<div class="wizardRowInner">
+				<div class="span3"></div>
+				<div class="span9">
+					<input type="text" id="beschreibung" name="beschreibung" min="1" max="255" maxlength="255" placeholder="Beschreibung" value="">
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
-<jsp:include page="../layout/backendfooter.jsp"/>
 <script src="../resources/core/js/backend.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+
+	function setValue(){
+		$("#titleWizard").val($("#title").val());
+		$("#teaserWizard").val($("#teaser").val());
+		$("#beschreibungWizard").val($("#beschreibung").val());
+	}
+
+</script>
 
 </body>
 </html>

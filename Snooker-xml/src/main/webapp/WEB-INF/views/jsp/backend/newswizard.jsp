@@ -20,23 +20,73 @@
 			<h4 id="objectHeaderWizard">Nachrichten</h4>
 		</div>
 		<div>
-			<button id="saveObject" type="button" title="Speichern">
-				<em>Speichern</em>
-			</button>
+			<form method="POST" action="newswizard">
+				<input type="hidden" id="titleWizard" name="titleWizard" min="1" max="255" maxlength="255" value="">
+				<input type="hidden" id="teaserWizard" name="teaserWizard" min="1" max="255" maxlength="255" value="">
+				<input type="hidden" id="textWizard" name="textWizard" min="1" max="255" maxlength="255" value="">
+				<button id="saveObject" type="submit" title="Speichern" onclick="setValue()">
+					<em>Speichern</em>
+				</button>
+			</form>
 		</div>
 	</div>
 </header>
 
 <div id="content" class="jumbotron">
 	<div class="container">
-		<h1>Ergebniss der Suche</h1>
-		<p> Login-Prozess Erfolgreich </p>
+		<h1>Erstellen einer neuen Nachricht</h1>
+		
+		<div class="wizardRow">
+			<div class="wizardRowTitle">Title</div>
+			<div class="wizardRowInner">
+				<div class="span3">Der Title dient als Überschrift in allen Anzeigen einer Nachricht.</div>
+				<div class="span9">
+					<input type="text" id="title" name="title" min="1" max="255" maxlength="255" placeholder="Title" value="">
+				</div>
+			</div>
+		</div>
+		
+		<div class="wizardRow">
+			<div class="wizardRowTitle">Teaser</div>
+			<div class="wizardRowInner">
+				<div class="span3">Der Teaser erscheint als ergänzende Information im Nachrichten-Slider.</div>
+				<div class="span9">
+					<input type="text" id="teaser" name="teaser" min="1" max="255" maxlength="255" placeholder="Teaser" value="">
+				</div>
+			</div>
+		</div>
+		
+		<div class="wizardRow">
+			<div class="wizardRowTitle">Text</div>
+			<div class="wizardRowInner">
+				<div class="span3"></div>
+				<div class="span9">
+					<input type="text" id="text" name="text" min="1" max="255" maxlength="255" placeholder="Text" value="">
+				</div>
+			</div>
+		</div>
+		
+		<div class="wizardRow">
+			<div class="wizardRowTitle">Bild</div>
+			<div class="wizardRowInner">
+				<div class="span3">Legen Sie fest, welches Bild für diese Nachricht verwendet werden soll.</div>
+				<div class="span9"></div>
+			</div>
+		</div>
 	</div>
 </div>
 
-<jsp:include page="../layout/backendfooter.jsp"/>
 <script src="../resources/core/js/backend.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+	
+	function setValue(){
+		$("#titleWizard").val($("#title").val());
+		$("#teaserWizard").val($("#teaser").val());
+		$("#textWizard").val($("#text").val());
+	}
+
+</script>
 
 </body>
 </html>

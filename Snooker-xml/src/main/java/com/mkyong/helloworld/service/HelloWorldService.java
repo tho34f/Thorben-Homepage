@@ -1,5 +1,7 @@
 package com.mkyong.helloworld.service;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -16,6 +18,13 @@ import com.mkyong.helloworld.web.WelcomeController;
 public class HelloWorldService {
 
 	private static final Logger logger = LoggerFactory.getLogger(HelloWorldService.class);
+	
+	private static Random generator = new Random();
+	
+	public static int generateId() {
+		
+		return (1 + generator.nextInt(500));
+	}
 	
 	
 	public static Spieler simulation(Tournament tournament, String participationPlayer) {

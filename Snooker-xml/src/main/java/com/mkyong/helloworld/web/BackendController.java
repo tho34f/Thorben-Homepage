@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mkyong.helloworld.queries.CalendarQueries;
+import com.mkyong.helloworld.queries.NewsQueries;
 import com.mkyong.helloworld.queries.UserQueries;
 import com.mkyong.helloworld.service.HelloWorldService;
 import com.mkyong.helloworld.service.ObjectBrowser;
@@ -113,7 +115,7 @@ public class BackendController {
 		
 		if(request.getSession().getAttribute("user") != null) {
 			ObjectBrowser ob = ObjectBrowser.setHeaderInformation(request, objectId);
-			ObjectBrowserController.getInformationForOb(ob);
+			ObjectBrowserController.getInformationForOb(ob, request);
 			forwordPath = "backend/backendObjectBrowser";
 		} else {
 			request.getSession().setAttribute(isLoginOkString, false);
@@ -140,12 +142,54 @@ public class BackendController {
 		return forwordPath;
 	}
 	
+	@RequestMapping(value = "/backend/newswizard", method = RequestMethod.POST)
+	public String setNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		String forwordPath = null;
+		
+		String title = request.getParameter("titleWizard");
+		String teaser = request.getParameter("teaserWizard");
+		String text = request.getParameter("textWizard");
+		
+		if(request.getSession().getAttribute("user") != null) {
+			NewsQueries.newNewsEntry(title, text, teaser, null);
+			forwordPath = "backend/newswizard";
+		} else {
+			request.getSession().setAttribute(isLoginOkString, false);
+			request.setAttribute(erromessage, userNotLogin);
+			forwordPath = login;
+		} 
+		
+		return forwordPath;
+	}
+	
 	@RequestMapping(value = "/backend/terminewizard", method = RequestMethod.GET)
 	public String creatTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
 		
 		if(request.getSession().getAttribute("user") != null) {
+			forwordPath = "backend/terminewizard";
+		} else {
+			request.getSession().setAttribute(isLoginOkString, false);
+			request.setAttribute(erromessage, userNotLogin);
+			forwordPath = login;
+		} 
+		
+		return forwordPath;
+	}
+	
+	@RequestMapping(value = "/backend/terminewizard", method = RequestMethod.POST)
+	public String setTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		String forwordPath = null;
+		
+		String title = request.getParameter("titleWizard");
+		String teaser = request.getParameter("teaserWizard");
+		String description = request.getParameter("beschreibungWizard");
+		
+		if(request.getSession().getAttribute("user") != null) {
+			CalendarQueries.newCalendarEntry(title, description, teaser);
 			forwordPath = "backend/terminewizard";
 		} else {
 			request.getSession().setAttribute(isLoginOkString, false);

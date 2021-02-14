@@ -1,19 +1,29 @@
 package com.mkyong.helloworld.snooker;
 
-public class Termin {
+import java.io.Serializable;
+
+public class Termin implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -120027534171248816L;
+	private long id;
 	private long date;
 	private String title;
 	private String description;
+	private String teaser;
 	
 	public Termin() {
 		
 	}
 	
-	public Termin (String title, String description, long date) {
+	public Termin (String title, String description, long date, long id, String teaser) {
 		this.title = title;
 		this.description = description;
 		this.date = date;
+		this.id = id;
+		this.teaser = teaser;
 	}
 
 	public long getDate() {
@@ -60,6 +70,22 @@ public class Termin {
 		if (date != other.date)
 			return false;
 		return true;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getTeaser() {
+		return teaser;
+	}
+
+	public void setTeaser(String teaser) {
+		this.teaser = teaser;
 	}
 
 }

@@ -2,6 +2,12 @@ package com.mkyong.helloworld.service;
 
 public class TypeConverter {
 	
+    private TypeConverter() {
+    	
+    	throw new IllegalStateException("Utility Class");
+    	
+    }
+	
 	public static int string2int(String string, int defaultNumber) {
 		
 		int value;

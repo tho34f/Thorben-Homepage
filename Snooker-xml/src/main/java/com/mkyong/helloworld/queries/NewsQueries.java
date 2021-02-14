@@ -1,16 +1,17 @@
 package com.mkyong.helloworld.queries;
 
+import java.awt.Image;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mkyong.helloworld.service.HelloWorldService;
 import com.mkyong.helloworld.snooker.News;
 
 public class NewsQueries {
@@ -55,14 +56,56 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 			MySqlConnection.getConnectionSnooker().close();
 		
 		} catch (ClassNotFoundException e) {
-			((ServletContext) logger).log("Der Datenbank treiber wurde nicht gefunden. - " + e.getLocalizedMessage());
+			logger.info("Der Datenbank treiber wurde nicht gefunden. - " + e.getLocalizedMessage());
             e.printStackTrace();
 		} catch (SQLException e) {
-			((ServletContext) logger).log("SQL Fehler - " + e.getLocalizedMessage());
+			logger.info("SQL Fehler - " + e.getLocalizedMessage());
             e.printStackTrace();
 		} 
 		
 		return newsList;
+		
+	}
+	
+	public static void newNewsEntry(String title, String text, String teaser, Image img) {
+		
+		try{
+			
+			MySqlConnection.createConnection();
+		
+			String queryNews = "Insert into news (news_id, news_title, news_teaser, news_image) values (?, ?, ?, ?)";
+			String queryNewsText = "Insert into news_text (news_id, news_text) values (?, ?)";
+			
+			int id = HelloWorldService.generateId();
+			
+			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+				int counter = 1;
+				stmt.setInt(counter++, id);
+				stmt.setString(counter++, title);
+				stmt.setString(counter++, teaser);
+				stmt.setBlob(counter++, (Blob) img);
+				
+		        stmt.execute();
+		        
+			}
+			
+			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNewsText)){
+				int counter = 1;
+				stmt.setInt(counter++, id);
+				stmt.setString(counter++, text);
+				
+		        stmt.execute();
+		        
+			}
+			
+			MySqlConnection.getConnectionSnooker().close();
+		} catch (ClassNotFoundException e) {
+			logger.info("Der Datenbank treiber wurde nicht gefunden. - " + e.getLocalizedMessage());
+            e.printStackTrace();
+		} catch (SQLException e) {
+			logger.info("SQL Fehler - " + e.getLocalizedMessage());
+            e.printStackTrace();
+		} 
 		
 	}
 

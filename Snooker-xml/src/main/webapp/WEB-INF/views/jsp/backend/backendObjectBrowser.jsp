@@ -18,8 +18,33 @@
 
 <div id="content" class="jumbotron">
 	<div class="container">
-		<h1>Ergebniss der Suche</h1>
-		<p> Login-Prozess Erfolgreich </p>
+		<table>
+			<tbody>
+				<tr>
+					<td style="border-top: 1px solid transparent;">
+						<table>
+							<tbody>
+								<tr>
+									<th id="obObjectTitle">Title</th>
+									<th id="obObjectTeaser">Teaser</th>
+								</tr>
+								<c:if test="${empty informationList}">
+									<tr><td>${errorMessage}</td></tr>
+								</c:if>
+								<c:if test="${not empty informationList}">
+									<c:forEach items="${informationList}" var="element">
+										<tr id="object_${element.id}">
+											<td>${element.title}</td>
+											<td>${element.teaser}</td>
+										</tr>
+									</c:forEach>
+								</c:if>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
 

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mkyong.helloworld.queries.NewsQueries;
 import com.mkyong.helloworld.service.DateConverter;
 import com.mkyong.helloworld.service.GetHomepageData;
 import com.mkyong.helloworld.service.HelloWorldService;
@@ -23,6 +24,7 @@ import com.mkyong.helloworld.service.TypeConverter;
 import com.mkyong.helloworld.service.UpdateDB;
 import com.mkyong.helloworld.snooker.Tournament;
 import com.mkyong.helloworld.snooker.TournamentSeason;
+import com.mkyong.helloworld.snooker.News;
 import com.mkyong.helloworld.snooker.Spieler;
 
 
@@ -198,6 +200,16 @@ public class WelcomeController {
 		logger.info("Simulation erfolgrecih durchgeführt.");
 		return "simulation";
 		
+	}
+	
+	@RequestMapping(value = "/newsslider", method = RequestMethod.GET)
+	public String createNewsSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
+		
+		Set<News> newsList = NewsQueries.loadNewsList();
+				
+		return "newsslider";
 	}
 	
 	@RequestMapping(value = "/snooker", method = RequestMethod.GET)

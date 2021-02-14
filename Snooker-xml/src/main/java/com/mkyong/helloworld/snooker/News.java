@@ -1,9 +1,14 @@
 package com.mkyong.helloworld.snooker;
 
 import java.awt.Image;
+import java.io.Serializable;
 
-public class News {
+public class News implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4381698871841092465L;
 	private int id;
 	private String teaser;
 	private String title;

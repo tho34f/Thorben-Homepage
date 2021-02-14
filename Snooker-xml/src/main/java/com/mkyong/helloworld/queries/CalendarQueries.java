@@ -6,12 +6,10 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mkyong.helloworld.snooker.News;
+import com.mkyong.helloworld.service.HelloWorldService;
 import com.mkyong.helloworld.snooker.Termin;
 
 public class CalendarQueries {
@@ -40,9 +38,11 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 		        ResultSet rs = stmt.executeQuery();
 		        
 		        if(rs.next()) {
-		        	tm.setDate(rs.getInt("date"));
+		        	tm.setDate(rs.getLong("date"));
 		        	tm.setTitle(rs.getString("title"));
 		        	tm.setDescription(rs.getString("description"));
+		        	tm.setId(rs.getInt("id"));
+		        	tm.setTeaser(rs.getString("teaser"));
 		        	calendarList.add(tm);
 		        	
 		        } 
@@ -54,14 +54,45 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			MySqlConnection.getConnectionSnooker().close();
 		
 		} catch (ClassNotFoundException e) {
-			((ServletContext) logger).log("Der Datenbank treiber wurde nicht gefunden. - " + e.getLocalizedMessage());
+			logger.info("Der Datenbank treiber wurde nicht gefunden. - " + e.getLocalizedMessage());
             e.printStackTrace();
 		} catch (SQLException e) {
-			((ServletContext) logger).log("SQL Fehler - " + e.getLocalizedMessage());
+			logger.info("SQL Fehler - " + e.getLocalizedMessage());
             e.printStackTrace();
 		} 
 		
 		return calendarList;
+		
+	}
+	
+	public static void newCalendarEntry(String title, String description, String teaser) {
+		
+		try{
+			
+			MySqlConnection.createConnection();
+		
+			String queryNews = "Insert into termine (id, title, description, date, teaser) values (?, ?, ?, ?, ?)";
+			
+			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+				int counter = 1;
+				stmt.setInt(counter++, HelloWorldService.generateId());
+				stmt.setString(counter++, title);
+				stmt.setString(counter++, description);
+				stmt.setLong(counter++, System.currentTimeMillis());
+				stmt.setString(counter++, teaser);
+				
+		        stmt.execute();
+		        
+			}
+			
+			MySqlConnection.getConnectionSnooker().close();
+		} catch (ClassNotFoundException e) {
+			logger.info("Der Datenbank treiber wurde nicht gefunden. - " + e.getLocalizedMessage());
+            e.printStackTrace();
+		} catch (SQLException e) {
+			logger.info("SQL Fehler - " + e.getLocalizedMessage());
+            e.printStackTrace();
+		} 
 		
 	}
 
