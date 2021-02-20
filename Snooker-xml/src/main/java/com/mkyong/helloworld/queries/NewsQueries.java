@@ -11,6 +11,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mkyong.helloworld.service.DateConverter;
 import com.mkyong.helloworld.service.HelloWorldService;
 import com.mkyong.helloworld.snooker.News;
 
@@ -34,7 +35,8 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 			
 			News massage = new News();
 			
-			String queryNews = "select nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text from news nw left join  news_text nwt on nw.news_id = nwt.news_id";
+			String queryNews = "select nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
+					+ " from news nw left join news_text nwt on nw.news_id = nwt.news_id";
 		
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 		        ResultSet rs = stmt.executeQuery();
@@ -44,6 +46,15 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 		        	massage.setTeaser(rs.getString("nw.news_teaser"));
 		        	massage.setText(rs.getString("nwt.news_text"));
 		        	massage.setTitle(rs.getString("nw.news_title"));
+		        	massage.setChangeDate(rs.getLong("nw.change_date"));
+		        	massage.setCreationDate(rs.getLong("nw.creation_date"));
+		        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
+		        	if(massage.getChangeDate() != 0) {
+		        		massage.setChangeDateAsString(DateConverter.long2Date(massage.getChangeDate(),1));
+		        	} else {
+		        		massage.setChangeDateAsString("-");
+		        	}
+		        	
 		        	massage.setImg(null);
 		        	newsList.add(massage);
 		        	
@@ -73,7 +84,7 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 			
 			MySqlConnection.createConnection();
 		
-			String queryNews = "Insert into news (news_id, news_title, news_teaser, news_image) values (?, ?, ?, ?)";
+			String queryNews = "Insert into news (news_id, news_title, news_teaser, news_image, change_date, creation_date) values (?, ?, ?, ?, ?, ?)";
 			String queryNewsText = "Insert into news_text (news_id, news_text) values (?, ?)";
 			
 			int id = HelloWorldService.generateId();
@@ -84,6 +95,8 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 				stmt.setString(counter++, title);
 				stmt.setString(counter++, teaser);
 				stmt.setBlob(counter++, (Blob) img);
+				stmt.setLong(counter++, System.currentTimeMillis());
+				stmt.setLong(counter++, 0);
 				
 		        stmt.execute();
 		        

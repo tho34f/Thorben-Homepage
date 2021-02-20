@@ -10,6 +10,10 @@ public class Termin implements Serializable{
 	private static final long serialVersionUID = -120027534171248816L;
 	private long id;
 	private long date;
+	private long changeDate;
+	private long creationDate;
+	private String changeDateAsString;
+	private String creationDateAsString;
 	private String title;
 	private String description;
 	private String teaser;
@@ -18,12 +22,14 @@ public class Termin implements Serializable{
 		
 	}
 	
-	public Termin (String title, String description, long date, long id, String teaser) {
+	public Termin (String title, String description, long date, long id, String teaser, long creationDate, long changeDate) {
 		this.title = title;
 		this.description = description;
 		this.date = date;
 		this.id = id;
 		this.teaser = teaser;
+		this.changeDate = changeDate;
+		this.creationDate = creationDate;
 	}
 
 	public long getDate() {
@@ -86,6 +92,38 @@ public class Termin implements Serializable{
 
 	public void setTeaser(String teaser) {
 		this.teaser = teaser;
+	}
+
+	public long getChangeDate() {
+		return changeDate;
+	}
+
+	public void setChangeDate(long changeDate) {
+		this.changeDate = changeDate;
+	}
+
+	public long getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(long creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getChangeDateAsString() {
+		return changeDateAsString;
+	}
+
+	public void setChangeDateAsString(String changeDateAsString) {
+		this.changeDateAsString = changeDateAsString;
+	}
+
+	public String getCreationDateAsString() {
+		return creationDateAsString;
+	}
+
+	public void setCreationDateAsString(String creationDateAsString) {
+		this.creationDateAsString = creationDateAsString;
 	}
 
 }

@@ -21,4 +21,14 @@ $("#newObject").click(function(){
 		 window.open("/thorben-dierkes/backend/terminewizard","popName",'scrollbars=1,height=650,width=1050').focus();
 	 }
 });
+
+function openWizard(id, objectType){
+	if(objectType == 39){
+		 window.open("/thorben-dierkes/backend/newswizard?id=" + id,"popName",'scrollbars=1,height=650,width=1050').focus();
+	 }
+	 
+	 if(objectType == 40){
+		 window.open("/thorben-dierkes/backend/terminewizard?" + id,"popName",'scrollbars=1,height=650,width=1050').focus();
+	 }
+}
  

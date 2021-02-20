@@ -198,3 +198,36 @@ input[type="password"]{
     padding: 15px;
     font-size: 14px;
 }
+
+.redThorben{
+	background-color: #701718;
+	color:#FFFFFF;
+}
+
+.ob_title_datacolumn_on {
+    min-width: 20px;
+    font-size: 18px;
+    width:300px;
+    text-align:center;
+}
+
+.obTableHeader th, ob3TableHeader th{
+	border-left: transparent;
+}
+
+.obTableHeader th {
+    padding: 6px;
+    line-height: 12px;
+    font-style: normal;
+    font-weight: normal;
+}
+
+#objectBrowserDataTableDiv {
+    min-width: 500px;
+    padding: 20px 10px 0px 10px !important;
+}
+
+.ob_row{
+	text-align:center;
+	font-size: 16px;
+}

@@ -9,6 +9,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mkyong.helloworld.service.DateConverter;
 import com.mkyong.helloworld.service.HelloWorldService;
 import com.mkyong.helloworld.snooker.Termin;
 
@@ -39,6 +40,15 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 		        
 		        if(rs.next()) {
 		        	tm.setDate(rs.getLong("date"));
+		        	tm.setChangeDate(rs.getLong("change_date"));
+		        	tm.setCreationDate(rs.getLong("creation_date"));
+		        	tm.setCreationDateAsString(DateConverter.long2Date(tm.getCreationDate(),1));
+		        	if(tm.getChangeDate() != 0) {
+		        		tm.setChangeDateAsString(DateConverter.long2Date(tm.getChangeDate(),1));
+		        	} else {
+		        		tm.setChangeDateAsString("-");
+		        	}
+		        	
 		        	tm.setTitle(rs.getString("title"));
 		        	tm.setDescription(rs.getString("description"));
 		        	tm.setId(rs.getInt("id"));
@@ -71,7 +81,7 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			
 			MySqlConnection.createConnection();
 		
-			String queryNews = "Insert into termine (id, title, description, date, teaser) values (?, ?, ?, ?, ?)";
+			String queryNews = "Insert into termine (id, title, description, date, creation_date, change_date, teaser) values (?, ?, ?, ?, ?, ?, ?)";
 			
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 				int counter = 1;
@@ -79,6 +89,8 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 				stmt.setString(counter++, title);
 				stmt.setString(counter++, description);
 				stmt.setLong(counter++, System.currentTimeMillis());
+				stmt.setLong(counter++, System.currentTimeMillis());
+				stmt.setLong(counter++, 0);
 				stmt.setString(counter++, teaser);
 				
 		        stmt.execute();

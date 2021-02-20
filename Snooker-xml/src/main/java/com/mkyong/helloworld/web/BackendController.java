@@ -130,6 +130,7 @@ public class BackendController {
 	public String creatNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
+		String newsId = request.getParameter("id");
 		
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/newswizard";
@@ -167,6 +168,7 @@ public class BackendController {
 	public String creatTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
+		String terminId = request.getParameter("id");
 		
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/terminewizard";
