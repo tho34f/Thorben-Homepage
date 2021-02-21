@@ -34,7 +34,9 @@
 
 <div id="content" class="jumbotron">
 	<div class="container">
-		<h1>Erstellen eines neuen Termins</h1>
+		<c:if test="${empty termin}"><h1>Erstellen eines neuen Termins</h1></c:if>
+		<c:if test="${not empty termin}"><h1>Bearbeitung eines vorhandenden Termins</h1></c:if>
+		
 		
 		<div class="wizardRow">
 			<div class="wizardRowTitle">Title</div>

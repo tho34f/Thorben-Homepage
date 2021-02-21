@@ -75,6 +75,52 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 		
 	}
 	
+	public static Termin loadCalendar(int terminId) {
+		
+		Termin tm = new Termin();
+		
+		try{
+			
+			MySqlConnection.createConnection();
+			
+			String queryNews = "select * from termine where id = ?";
+		
+			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+				stmt.setInt(1, terminId);
+		        ResultSet rs = stmt.executeQuery();
+		        
+		        if(rs.next()) {
+		        	tm.setDate(rs.getLong("date"));
+		        	tm.setChangeDate(rs.getLong("change_date"));
+		        	tm.setCreationDate(rs.getLong("creation_date"));
+		        	tm.setCreationDateAsString(DateConverter.long2Date(tm.getCreationDate(),1));
+		        	tm.setChangeDateAsString(DateConverter.long2Date(tm.getChangeDate(),1));
+		        	
+		        	tm.setTitle(rs.getString("title"));
+		        	tm.setDescription(rs.getString("description"));
+		        	tm.setId(rs.getInt("id"));
+		        	tm.setTeaser(rs.getString("teaser"));
+		        	
+		        } 
+		        
+		        rs.close();
+		        
+			}
+		 
+			MySqlConnection.getConnectionSnooker().close();
+		
+		} catch (ClassNotFoundException e) {
+			logger.info("Der Datenbank treiber wurde nicht gefunden. - " + e.getLocalizedMessage());
+            e.printStackTrace();
+		} catch (SQLException e) {
+			logger.info("SQL Fehler - " + e.getLocalizedMessage());
+            e.printStackTrace();
+		} 
+		
+		return tm;
+		
+	}
+	
 	public static void newCalendarEntry(String title, String description, String teaser) {
 		
 		try{

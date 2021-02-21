@@ -34,7 +34,8 @@
 
 <div id="content" class="jumbotron">
 	<div class="container">
-		<h1>Erstellen einer neuen Nachricht</h1>
+		<c:if test="${empty message}"><h1>Erstellen einer neuen Nachricht</h1></c:if>
+		<c:if test="${not empty message}"><h1>Bearbeitung einer vorhandenden Nachricht</h1></c:if>
 		
 		<div class="wizardRow">
 			<div class="wizardRowTitle">Title</div>

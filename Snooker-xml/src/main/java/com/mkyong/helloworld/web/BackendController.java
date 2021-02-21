@@ -19,6 +19,8 @@ import com.mkyong.helloworld.service.HelloWorldService;
 import com.mkyong.helloworld.service.ObjectBrowser;
 import com.mkyong.helloworld.service.ObjectBrowserController;
 import com.mkyong.helloworld.service.TypeConverter;
+import com.mkyong.helloworld.snooker.News;
+import com.mkyong.helloworld.snooker.Termin;
 import com.mkyong.helloworld.snooker.User;
 
 @Controller
@@ -130,15 +132,21 @@ public class BackendController {
 	public String creatNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
+		News message = null;
 		String newsId = request.getParameter("id");
 		
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/newswizard";
+			if(newsId != null) {
+				message = NewsQueries.loadNews(Integer.parseInt(newsId));
+			}
+			request.getSession().setAttribute("message", message);
 		} else {
 			request.getSession().setAttribute(isLoginOkString, false);
 			request.setAttribute(erromessage, userNotLogin);
 			forwordPath = login;
 		} 
+		
 		
 		return forwordPath;
 	}
@@ -168,10 +176,15 @@ public class BackendController {
 	public String creatTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
+		Termin tm = null;
 		String terminId = request.getParameter("id");
 		
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/terminewizard";
+			if(terminId != null) {
+				tm = CalendarQueries.loadCalendar(Integer.parseInt(terminId));
+			}
+			request.getSession().setAttribute("termin", tm);
 		} else {
 			request.getSession().setAttribute(isLoginOkString, false);
 			request.setAttribute(erromessage, userNotLogin);

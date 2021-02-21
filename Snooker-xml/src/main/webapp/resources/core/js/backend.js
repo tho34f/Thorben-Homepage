@@ -28,7 +28,7 @@ function openWizard(id, objectType){
 	 }
 	 
 	 if(objectType == 40){
-		 window.open("/thorben-dierkes/backend/terminewizard?" + id,"popName",'scrollbars=1,height=650,width=1050').focus();
+		 window.open("/thorben-dierkes/backend/terminewizard?id=" + id,"popName",'scrollbars=1,height=650,width=1050').focus();
 	 }
 }
  
