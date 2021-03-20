@@ -18,34 +18,21 @@
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1>Herzlich Willkommen auf meiner Webseite!</h1>
+		<h1>News</h1>
 		<div id="inhalt" class="row">
-			<div class="col-md-6">
-				<p>Ich begrüßen Sie herzlich und freuen mich über Ihr Interesse. <br>
-				
-				Auf meiner Seite finden Sie interessante Fakten zur Sportart Snooker.
-				</p>
-			</div>
-			<div class="col-md-6">
-				<img src="resources/core/images/thorben.png" alt="Bild Thorben" style="hight:700px; width:300px;" />
-			</div>
-		</div>
-		<div id="inhalt" class="row" style="text-align:center">
-			<div class="col-md-4">
-				<h3>Persönliches</h3>
-				<p>Auf diesen Seiten finden Sie persönliches über mich.</p>
-				<a class="linkButton" href="/thorben-dierkes/personal">#PERSÖNLICHES</a>
-			</div>
-			<div class="col-md-4">
-				<h3>Politik</h3>
-				<p>Auf diesen Seiten finden Sie mher über meine politische Agenda.</p>
-				<a 	class="linkButton" href="/thorben-dierkes/politik">#GEMEINSAMFÜRWARBURG</a>
-			</div>
-			<div class="col-md-4">
-				<h3>Snooker</h3>
-				<p>Auf diesen Seiten finden Sie mehr zum Thema Snooker.</p>
-				<a class="linkButton" href="/thorben-dierkes/snooker">#SNOOKER</a>
-			</div>
+			<c:if test="${not empty newsList}">
+				<c:forEach items="${newsList}" var="element">
+				<article class="news-image-teaser">
+					<div class="news-image-teaser-meta"><time> ${element.creationDateAsString}</time></div>
+					<div class="ob_row"><a id="${element.id}" href="" onclick="openWizard('${element.id}', ${Objectbrowser.objectType})">${element.title}</a></div>
+					<div class="ob_row">${element.teaser}</div>
+					<div class="ob_row">
+						<c:if test="${empty element.changeDateAsString}">-</c:if>
+						<c:if test="${not empty element.changeDateAsString}">${element.changeDateAsString}</c:if>
+					</div>
+				</article>
+				</c:forEach>
+			</c:if>
 		</div>
 	</div>
 </div>

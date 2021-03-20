@@ -13,7 +13,7 @@
 </head>
 <body onLoad="startTime()" >
 
-<jsp:include page="./layout/mainhead.jsp" flush="true"/>
+<jsp:include page="../layout/mainhead.jsp" flush="true"/>
 
 
 <div id="content" class="jumbotron">
@@ -125,7 +125,7 @@
 	</div>
 </div>
 
-<jsp:include page="./layout/mainfooter.jsp" flush="true"/>
+<jsp:include page="../layout/mainfooter.jsp" flush="true"/>
 
 <script src="resources/core/js/clock.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

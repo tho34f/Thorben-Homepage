@@ -3,7 +3,6 @@
  	border-bottom:1px solid #eee; 
  	background-color: #8dcbbb; 
  	color:#701718;  
- 	position: fixed;
 }
 
 .linkButton{
@@ -128,4 +127,21 @@ form.example::after {
 
 .navbar-extra{
 	display: flex;
+}
+
+.news-image-teaser {
+    position: relative;
+    margin: 2.25em 0;
+    padding-left: 12.5%;
+}
+
+.news-image-teaser-meta {
+    float: left;
+    position: relative;
+    left: -12.5%;
+    width: 9.375%;
+    margin-bottom: -6.25em;
+    line-height: 1;
+    text-align: center;
+    border-right: 1px solid #e5dede;
 }

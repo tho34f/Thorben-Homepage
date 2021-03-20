@@ -75,7 +75,7 @@ public class WelcomeController {
 		
 		DateConverter.setDateFooter(indexDate, request);
 		
-		return "saisonOverwiev";
+		return "snooker/saisonOverwiev";
 	}
 	
 	@RequestMapping(value = "/saisonOverwiev", method = RequestMethod.POST)
@@ -86,7 +86,7 @@ public class WelcomeController {
 		
 		HelloWorldService.setSeason(number, season, request);
 		
-		return "saisonOverwiev";
+		return "snooker/saisonOverwiev";
 	}
 	
 	@RequestMapping(value = "/saison", method = RequestMethod.GET)
@@ -118,7 +118,7 @@ public class WelcomeController {
 			}
 		}
 		
-		return "saison";
+		return "snooker/saison";
 	}
 	
 	@RequestMapping(value = "/saison", method = RequestMethod.POST)
@@ -141,7 +141,7 @@ public class WelcomeController {
 			
 		}
 				
-		return "saison";
+		return "snooker/saison";
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
@@ -153,7 +153,7 @@ public class WelcomeController {
 		
 		request.setAttribute("searchresult", searchParameter);
 				
-		return "search";
+		return "orga/search";
 	}
 	
 	@RequestMapping(value = "/simulation", method = RequestMethod.GET)
@@ -176,7 +176,7 @@ public class WelcomeController {
 			
 		}
 		
-		return "simulation";
+		return "snooker/simulation";
 		
 	}
 	
@@ -198,7 +198,7 @@ public class WelcomeController {
 		}
 		
 		logger.info("Simulation erfolgrecih durchgeführt.");
-		return "simulation";
+		return "snooker/simulation";
 		
 	}
 	
@@ -208,6 +208,7 @@ public class WelcomeController {
 		DateConverter.setDateFooter(indexDate, request);
 		
 		Set<News> newsList = NewsQueries.loadNewsList();
+		request.getSession().setAttribute("newsList", newsList);
 				
 		return "newsslider";
 	}
@@ -217,7 +218,7 @@ public class WelcomeController {
 		
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "snooker";
+		return "snooker/snooker";
 	}
 	
 	@RequestMapping(value = "/politik", method = RequestMethod.GET)
@@ -241,7 +242,7 @@ public class WelcomeController {
 		
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "datenschutz";
+		return "orga/datenschutz";
 	}
 	
 	@RequestMapping(value = "/impressum", method = RequestMethod.GET)
@@ -249,7 +250,15 @@ public class WelcomeController {
 		
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "impressum";
+		return "orga/impressum";
+	}
+	
+	@RequestMapping(value = "/snookernews", method = RequestMethod.GET)
+	public String snookerNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
+				
+		return "snooker/snookernews";
 	}
 
 	public static Set<TournamentSeason> getSeasons() {

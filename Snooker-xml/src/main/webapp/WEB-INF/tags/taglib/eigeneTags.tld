@@ -9,7 +9,7 @@
 
   <tag>
     <name>defaultHaeder</name>
-    <tagclass>defaultHeader</tagclass>
+    <tagclass>com.mkyong.helloworld.tags.TestTag</tagclass>
     <bodycontent>empty</bodycontent>
     <attribute>
       <name>numIterat</name>
