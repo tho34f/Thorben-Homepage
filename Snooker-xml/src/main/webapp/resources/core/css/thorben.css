@@ -138,10 +138,29 @@ form.example::after {
 .news-image-teaser-meta {
     float: left;
     position: relative;
-    left: -12.5%;
-    width: 9.375%;
+    left: -15.5%;
+    width: 13.375%;
     margin-bottom: -6.25em;
     line-height: 1;
     text-align: center;
     border-right: 1px solid #e5dede;
+    font-size:1.5em;
+}
+
+.news-image-teaser h2 {
+    display: block;
+    margin: 0.75em 0 0.25em;
+    padding: 0 0 0.41667em;
+    border-bottom: 1px solid #e5dede;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: inherit;
+}
+
+.news-image-teaser time {
+    margin-right:800px;
+}
+
+.news-image-teaser a {
+    color:#aa0504;
 }

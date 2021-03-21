@@ -18,6 +18,7 @@ public class News implements Serializable{
 	private long creationDate;
 	private String changeDateAsString;
 	private String creationDateAsString;
+	private String creationDateForSlider;
 	
 	public News() {
 		
@@ -125,6 +126,14 @@ public class News implements Serializable{
 
 	public void setCreationDateAsString(String creationDateAsString) {
 		this.creationDateAsString = creationDateAsString;
+	}
+
+	public String getCreationDateForSlider() {
+		return creationDateForSlider;
+	}
+
+	public void setCreationDateForSlider(String creationDateForSlider) {
+		this.creationDateForSlider = creationDateForSlider;
 	}
 
 }

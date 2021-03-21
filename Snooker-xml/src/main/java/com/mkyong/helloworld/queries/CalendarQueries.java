@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.mkyong.helloworld.service.DateConverter;
 import com.mkyong.helloworld.service.HelloWorldService;
+import com.mkyong.helloworld.service.ThorbenDierkes;
 import com.mkyong.helloworld.snooker.Termin;
 
 public class CalendarQueries {
@@ -64,10 +65,12 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			MySqlConnection.getConnectionSnooker().close();
 		
 		} catch (ClassNotFoundException e) {
-			logger.info("Der Datenbank treiber wurde nicht gefunden. - " + e.getLocalizedMessage());
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			logger.info(erroeMessage);
             e.printStackTrace();
 		} catch (SQLException e) {
-			logger.info("SQL Fehler - " + e.getLocalizedMessage());
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.info(erroeMessage);
             e.printStackTrace();
 		} 
 		
@@ -110,10 +113,12 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			MySqlConnection.getConnectionSnooker().close();
 		
 		} catch (ClassNotFoundException e) {
-			logger.info("Der Datenbank treiber wurde nicht gefunden. - " + e.getLocalizedMessage());
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			logger.info(erroeMessage);
             e.printStackTrace();
 		} catch (SQLException e) {
-			logger.info("SQL Fehler - " + e.getLocalizedMessage());
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.info(erroeMessage);
             e.printStackTrace();
 		} 
 		
@@ -145,10 +150,12 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			
 			MySqlConnection.getConnectionSnooker().close();
 		} catch (ClassNotFoundException e) {
-			logger.info("Der Datenbank treiber wurde nicht gefunden. - " + e.getLocalizedMessage());
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			logger.info(erroeMessage);
             e.printStackTrace();
 		} catch (SQLException e) {
-			logger.info("SQL Fehler - " + e.getLocalizedMessage());
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.info(erroeMessage);
             e.printStackTrace();
 		} 
 		

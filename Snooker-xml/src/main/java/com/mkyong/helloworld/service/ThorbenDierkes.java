@@ -15,5 +15,9 @@ public class ThorbenDierkes {
 	
 	//Snooker
 	public static final int SNOOKER_BREAK = 20;
+	
+	//Error-Messages
+    public static final String ERROR_MESSAGE = "Der Datenbank treiber wurde nicht gefunden. -";
+    public static final String ERROR_MESSAGE_SQL = "SQL Fehler - ";
 
 }
