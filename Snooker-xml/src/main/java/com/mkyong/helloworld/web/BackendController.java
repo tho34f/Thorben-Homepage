@@ -138,7 +138,7 @@ public class BackendController {
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/newswizard";
 			if(newsId != null) {
-				message = NewsQueries.loadNews(Integer.parseInt(newsId));
+				message = NewsQueries.loadNews(TypeConverter.string2int(newsId, 0));
 			}
 			request.getSession().setAttribute("message", message);
 		} else {
@@ -182,7 +182,7 @@ public class BackendController {
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/terminewizard";
 			if(terminId != null) {
-				tm = CalendarQueries.loadCalendar(Integer.parseInt(terminId));
+				tm = CalendarQueries.loadCalendar(TypeConverter.string2int(terminId, 0));
 			}
 			request.getSession().setAttribute("termin", tm);
 		} else {

@@ -1,5 +1,7 @@
 package com.mkyong.helloworld.queries;
 
+import java.awt.Image;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,14 +34,13 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			
 			MySqlConnection.createConnection();
 			
-			Termin tm = new Termin();
-			
 			String queryNews = "select * from termine";
 		
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 		        ResultSet rs = stmt.executeQuery();
 		        
-		        if(rs.next()) {
+		        while(rs.next()) {
+					Termin tm = new Termin();
 		        	tm.setDate(rs.getLong("date"));
 		        	tm.setChangeDate(rs.getLong("change_date"));
 		        	tm.setCreationDate(rs.getLong("creation_date"));
@@ -160,5 +161,40 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 		} 
 		
 	}
+	
+	public static void updateCalendarEntry(int calendarId, String title, String text, String teaser, Image img) {
+		
+		try{
+			
+			MySqlConnection.createConnection();
+		
+			String queryNews = "UPDATE termine SET title=?, description=?, teaser=?, change_date=?, date=?" +
+					" WHERE id=?";
+			
+			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+				int counter = 1;
+				stmt.setString(counter++, title);
+				stmt.setString(counter++, teaser);
+				stmt.setBlob(counter++, (Blob) img);
+				stmt.setLong(counter++, System.currentTimeMillis());
+				stmt.setInt(counter++, calendarId);
+				
+		        stmt.execute();
+		        
+			}
+			
+			MySqlConnection.getConnectionSnooker().close();
+		} catch (ClassNotFoundException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.info(erroeMessage);
+            e.printStackTrace();
+		} catch (SQLException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			logger.info(erroeMessage);
+            e.printStackTrace();
+		} 
+		
+	}
+
 
 }

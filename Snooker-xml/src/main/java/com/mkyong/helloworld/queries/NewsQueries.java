@@ -34,15 +34,14 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 			
 			MySqlConnection.createConnection();
 			
-			News massage = new News();
-			
 			String queryNews = "select nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
 					+ " from news nw left join news_text nwt on nw.news_id = nwt.news_id";
 		
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 		        ResultSet rs = stmt.executeQuery();
 		        
-		        if(rs.next()) {
+		        while(rs.next()) {
+					News massage = new News();
 		        	massage.setId(rs.getInt("nw.news_id"));
 		        	massage.setTeaser(rs.getString("nw.news_teaser"));
 		        	massage.setText(rs.getString("nwt.news_text"));
@@ -149,8 +148,8 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 				stmt.setString(counter++, title);
 				stmt.setString(counter++, teaser);
 				stmt.setBlob(counter++, (Blob) img);
-				stmt.setLong(counter++, System.currentTimeMillis());
 				stmt.setLong(counter++, 0);
+				stmt.setLong(counter++, System.currentTimeMillis());
 				
 		        stmt.execute();
 		        
@@ -178,25 +177,23 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 		
 	}
 	
-	public static void updateNewsEntry(String title, String text, String teaser, Image img) {
+	public static void updateNewsEntry(int newsId, String title, String text, String teaser, Image img) {
 		
 		try{
 			
 			MySqlConnection.createConnection();
 		
-			String queryNews = "Insert into news (news_id, news_title, news_teaser, news_image, change_date, creation_date) values (?, ?, ?, ?, ?, ?)";
-			String queryNewsText = "Insert into news_text (news_id, news_text) values (?, ?)";
-			
-			int id = HelloWorldService.generateId();
+			String queryNews = "UPDATE news SET news_title=?, news_teaser=?, news_image=?, change_date=?" +
+					" WHERE news_id=?";
+			String queryNewsText = "UPDATE news_text SET news_text=? WHERE news_id=?";
 			
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 				int counter = 1;
-				stmt.setInt(counter++, id);
 				stmt.setString(counter++, title);
 				stmt.setString(counter++, teaser);
 				stmt.setBlob(counter++, (Blob) img);
 				stmt.setLong(counter++, System.currentTimeMillis());
-				stmt.setLong(counter++, 0);
+				stmt.setInt(counter++, newsId);
 				
 		        stmt.execute();
 		        
@@ -204,8 +201,8 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 			
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNewsText)){
 				int counter = 1;
-				stmt.setInt(counter++, id);
 				stmt.setString(counter++, text);
+				stmt.setInt(counter++, newsId);
 				
 		        stmt.execute();
 		        

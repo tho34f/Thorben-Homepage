@@ -37,7 +37,7 @@ public class UserQueries {
 				stmt.setString(counter++, loginUser.getPassword());
 		        ResultSet rs = stmt.executeQuery();
 		        
-		        if(rs.next()) {
+		        while(rs.next()) {
 		        	isLoginOk = true;
 		        	loginUser.setUserId(rs.getInt("user_id"));
 		        	loginUser.setFirstName(rs.getString("user_firstname"));

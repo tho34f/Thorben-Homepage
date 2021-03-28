@@ -23,7 +23,7 @@
 			<form method="POST" action="newswizard">
 				<input type="hidden" id="titleWizard" name="titleWizard" min="1" max="255" maxlength="255" value="">
 				<input type="hidden" id="teaserWizard" name="teaserWizard" min="1" max="255" maxlength="255" value="">
-				<input type="hidden" id="textWizard" name="textWizard" min="1" max="255" maxlength="255" value="">
+				<input type="hidden" id="textWizard" name="textWizard" min="1" max="255" maxlength="1000" value="">
 				<button id="saveObject" type="submit" title="Speichern" onclick="setValue()">
 					<em>Speichern</em>
 				</button>

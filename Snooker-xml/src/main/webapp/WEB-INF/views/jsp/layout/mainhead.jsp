@@ -7,8 +7,8 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="/thorben-dierkes/personal" id="navbardrop" data-toggle="dropdown"> Persönliches </a>
       				<div class="dropdown-menu">
-      					<a class="dropdown-item" href="/thorben-dierkes/personal">Über Thorben Dierkes</a>
       					<a class="dropdown-item" href="/thorben-dierkes/newsslider">Aktuelles</a>
+      					<a class="dropdown-item" href="/thorben-dierkes/personal">Über Mich</a>
 					</div>
 				</li>
 				<li class="nav-item dropdown">

@@ -17,5 +17,16 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
   </tag>
+  
+   <tag>
+    <name>dateForSlider</name>
+    <tagclass>com.mkyong.helloworld.tags.DateForSlider</tagclass>
+    <bodycontent>jsp</bodycontent>
+    <attribute>
+      <name>date</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
 
 </taglib>

@@ -213,6 +213,22 @@ public class WelcomeController {
 		return "newsslider";
 	}
 	
+	@RequestMapping(value = "/newsreader", method = RequestMethod.GET)
+	public String createNewsReader(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
+		
+		String newsId = request.getParameter("id");
+		News messageToRead = new News();
+		if(newsId != null) {
+			messageToRead = NewsQueries.loadNews(TypeConverter.string2int(newsId, 0));
+		}
+		
+		request.getSession().setAttribute("messageToRead", messageToRead);
+				
+		return "newsreader";
+	}
+	
 	@RequestMapping(value = "/snooker", method = RequestMethod.GET)
 	public String snooker(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		

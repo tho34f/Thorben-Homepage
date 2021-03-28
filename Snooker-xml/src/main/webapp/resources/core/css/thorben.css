@@ -143,7 +143,7 @@ form.example::after {
     margin-bottom: -6.25em;
     line-height: 1;
     text-align: center;
-    border-right: 1px solid #e5dede;
+    border-right: 1px solid #701718;
     font-size:1.5em;
 }
 
@@ -151,7 +151,7 @@ form.example::after {
     display: block;
     margin: 0.75em 0 0.25em;
     padding: 0 0 0.41667em;
-    border-bottom: 1px solid #e5dede;
+    border-bottom: 1px solid #701718;
     font-size: 1.5em;
     font-weight: bold;
     color: inherit;
@@ -163,4 +163,17 @@ form.example::after {
 
 .news-image-teaser a {
     color:#aa0504;
+}
+
+.news-image-teaser a:hover {
+    color:#aa0504;
+}
+
+.heading{
+	border-bottom: 2px solid #701718;
+}
+
+.headingPersonal{
+	border-bottom: 2px solid #701718;
+	text-align:center;
 }
