@@ -1,14 +1,14 @@
-package com.mkyong.helloworld.service;
+package com.thorben.helloworld.service;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.mkyong.helloworld.queries.CalendarQueries;
-import com.mkyong.helloworld.queries.NewsQueries;
-import com.mkyong.helloworld.snooker.News;
-import com.mkyong.helloworld.snooker.Termin;
+import com.thorben.helloworld.queries.CalendarQueries;
+import com.thorben.helloworld.queries.NewsQueries;
+import com.thorben.helloworld.snooker.News;
+import com.thorben.helloworld.snooker.Termin;
 
 public class ObjectBrowserController {
 	

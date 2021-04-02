@@ -1,11 +1,11 @@
-package com.mkyong.helloworld.service;
+package com.thorben.helloworld.service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import com.mkyong.helloworld.snooker.Tournament;
-import com.mkyong.helloworld.snooker.Spieler;
+import com.thorben.helloworld.snooker.Tournament;
+import com.thorben.helloworld.snooker.Spieler;
 
 public class ReadData {
 	
@@ -22,7 +22,6 @@ public class ReadData {
 		    	int provisionalranking = Integer.parseInt(splitten1[4]);
 		    	
 		    	Spieler player1 = new Spieler(first,last,worldranking,provisionalranking, 1, 1, 1, 1);
-		//    	season.registerPlayer(player1);
 		 
 		 
 		    }
@@ -39,7 +38,6 @@ public class ReadData {
 		    	int roundnumber = Integer.parseInt(splitten2[4]);
 		    	
 		    	Tournament tournament1 = new Tournament(first,weight,players,roundnumber);
-		//    	season.registerTournament(tournament1);
 		    	
 		 
 		    }

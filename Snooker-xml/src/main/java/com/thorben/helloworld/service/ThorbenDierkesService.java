@@ -1,23 +1,27 @@
-package com.mkyong.helloworld.service;
+package com.thorben.helloworld.service;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
-import com.mkyong.helloworld.queries.SnookerQueries;
-import com.mkyong.helloworld.snooker.Tournament;
-import com.mkyong.helloworld.snooker.TournamentSeason;
-import com.mkyong.helloworld.snooker.Spieler;
-import com.mkyong.helloworld.web.WelcomeController;
+import com.thorben.helloworld.queries.SnookerQueries;
+import com.thorben.helloworld.snooker.Tournament;
+import com.thorben.helloworld.snooker.TournamentSeason;
+import com.thorben.helloworld.snooker.News;
+import com.thorben.helloworld.snooker.Spieler;
+import com.thorben.helloworld.web.StandardController;
 
-@Service
-public class HelloWorldService {
+public class ThorbenDierkesService {
 
-	private static final Logger logger = LoggerFactory.getLogger(HelloWorldService.class);
+	private static final Logger logger = LoggerFactory.getLogger(ThorbenDierkesService.class);
 	
 	private static Random generator = new Random();
 	
@@ -48,16 +52,18 @@ public class HelloWorldService {
 		return season;
 	}
 	
-	public static void setSeason(String number, TournamentSeason season, final HttpServletRequest request) {
+	public static void setSeason(String number, final HttpServletRequest request) {
+		
+		TournamentSeason season = null;
 		
 		if(!number.isEmpty()) {
-			int number2 = Integer.parseInt(number);
+			int number2 = TypeConverter.string2int(number, 0);
 			season =  creatSeason(number2);
-			WelcomeController.getSeasons().add(season);
+			StandardController.getSeasons().add(season);
 		}
 		
 		logger.info("Saision erfolgreich erzeugt.");
-		request.getSession().setAttribute("seasions", WelcomeController.getSeasons());	
+		request.getSession().setAttribute("seasions", StandardController.getSeasons());	
 
 	}
 	
@@ -67,6 +73,30 @@ public class HelloWorldService {
 		
 		request.getSession().setAttribute("errormassage", errorMessageSaison);
 		
+	}
+	
+	public static Map<String,Set<News>> splitNews(Set<News> newsList){
+		
+		Map<String,Set<News>> splitedNewsList = new HashMap<>();
+		Set<News> helpNewsList = new HashSet<>();
+		int counter = 0;
+		int newssilderpage = 1;
+		Iterator<News> it = newsList.iterator();
+		while(it.hasNext()) {
+			helpNewsList.add(it.next());
+			counter++;
+			if(counter == 5) {
+				splitedNewsList.put("newssilderpage" + newssilderpage, helpNewsList);
+				newssilderpage++;
+				helpNewsList = new HashSet<>();
+				counter = 0;
+			}
+		}
+		if(counter != 5) {
+			splitedNewsList.put("newssilderpage" + newssilderpage, helpNewsList);
+		}
+		
+		return splitedNewsList;
 	}
 	
 

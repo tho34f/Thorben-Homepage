@@ -1,8 +1,8 @@
-package com.mkyong.helloworld.service;
+package com.thorben.helloworld.service;
 
 import java.sql.SQLException;
 import java.util.List;
-import com.mkyong.helloworld.queries.MySqlConnection;
+import com.thorben.helloworld.queries.MySqlConnection;
 
 
 public class UpdateDB {
@@ -12,7 +12,6 @@ public class UpdateDB {
 		throw new IllegalStateException("Utility Class");
 		
 	}
-	
 
 	public static void updateDatenbank(List<String> provisionalRanking) {
 		try {

@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.queries;
+package com.thorben.helloworld.queries;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,9 +9,9 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mkyong.helloworld.snooker.Spieler;
-import com.mkyong.helloworld.snooker.Tournament;
-import com.mkyong.helloworld.snooker.TournamentSeason;
+import com.thorben.helloworld.snooker.Spieler;
+import com.thorben.helloworld.snooker.Tournament;
+import com.thorben.helloworld.snooker.TournamentSeason;
 
 public class SnookerQueries {
 	

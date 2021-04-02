@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.service;
+package com.thorben.helloworld.service;
 
 import java.io.Serializable;
 
