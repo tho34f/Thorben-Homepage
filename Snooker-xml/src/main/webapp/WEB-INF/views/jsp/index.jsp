@@ -21,9 +21,12 @@
 		<h1>Herzlich Willkommen auf meiner Webseite!</h1>
 		<div id="inhalt" class="row">
 			<div class="col-md-6">
-				<p>Ich begrüßen Sie herzlich und freuen mich über Ihr Interesse. <br>
-				
-				Auf meiner Seite finden Sie interessante Fakten zur Sportart Snooker.
+				<p><strong>Ich begrüßen Sie herzlich und freuen mich über Ihr Interesse.</strong> <br><br>
+				Auf meiner Seite finden Sie Informationen zu meiner Person. Zudem können Sie sich über meine politischen Ziele und Interessen informieren.
+				Weiterhin finden Sie interessante Fakten zur Sportart Snooker. <br><br>
+				Habe ich Ihr Interesse gewäckt? Oder haben Sie konkrete Fragen zu meiner Person, meinen Zielen oder zur Sportart Snooker? Dann sprechen Sie mich an.<br><br>
+				Ihr <br><br>
+				Thorben Dierkes
 				</p>
 			</div>
 			<div class="col-md-6">

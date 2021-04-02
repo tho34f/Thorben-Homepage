@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.service;
+package com.thorben.helloworld.service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

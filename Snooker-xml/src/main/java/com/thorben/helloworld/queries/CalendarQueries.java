@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.queries;
+package com.thorben.helloworld.queries;
 
 import java.awt.Image;
 import java.sql.Blob;
@@ -11,10 +11,10 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mkyong.helloworld.service.DateConverter;
-import com.mkyong.helloworld.service.HelloWorldService;
-import com.mkyong.helloworld.service.ThorbenDierkes;
-import com.mkyong.helloworld.snooker.Termin;
+import com.thorben.helloworld.service.DateConverter;
+import com.thorben.helloworld.service.ThorbenDierkesService;
+import com.thorben.helloworld.service.ThorbenDierkes;
+import com.thorben.helloworld.snooker.Termin;
 
 public class CalendarQueries {
 	
@@ -137,7 +137,7 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 				int counter = 1;
-				stmt.setInt(counter++, HelloWorldService.generateId());
+				stmt.setInt(counter++, ThorbenDierkesService.generateId());
 				stmt.setString(counter++, title);
 				stmt.setString(counter++, description);
 				stmt.setLong(counter++, System.currentTimeMillis());

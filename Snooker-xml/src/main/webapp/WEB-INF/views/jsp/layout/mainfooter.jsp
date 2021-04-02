@@ -10,9 +10,10 @@
 			<div class="col-md-6">
 				<p>&copy; Thorben Dierkes 2015</p>
 			</div>
-			<div class="col-md-6" style="width:700px; padding-left:0px; padding-right:0px;">
+			<div class="col-md-4" style="width:800px; padding-left:240px; padding-right:0px;">
 				<a class="datenschutz" href="/thorben-dierkes/datenschutz">Datenschutz</a> | 
-				<a class="impressum" href="/thorben-dierkes/impressum">Impressum</a>
+				<a class="impressum" href="/thorben-dierkes/impressum">Impressum</a> |
+				<a class="impressum" href="/thorben-dierkes/kontakt">Kontaktdaten</a>
 			</div>
 		</div>
 	</div>

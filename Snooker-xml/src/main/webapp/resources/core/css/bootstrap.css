@@ -3065,7 +3065,7 @@ input[type="button"].btn-block {
   background-color: #297b79;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
+  border-radius: 1.5rem;
 }
 
 .dropdown-menu-right {
@@ -3196,6 +3196,7 @@ input[type="button"].btn-block {
   color: #16181b;
   text-decoration: none;
   background-color: #f8f9fa;
+  border-radius: 15px;
 }
 
 .dropdown-item.active, .dropdown-item:active {

@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.snooker;
+package com.thorben.helloworld.snooker;
 
 import java.io.Serializable;
 

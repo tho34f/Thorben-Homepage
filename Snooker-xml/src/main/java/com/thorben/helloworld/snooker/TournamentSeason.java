@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.snooker;
+package com.thorben.helloworld.snooker;
 
 
 import java.io.Serializable;
@@ -18,8 +18,8 @@ public class TournamentSeason implements Serializable{
 		this.setYear(year);
 	}
 	
-	private List<Spieler> player = new ArrayList<Spieler>();
-	private List<Tournament> tournamentSeason = new ArrayList<Tournament>();
+	private List<Spieler> player = new ArrayList<>();
+	private List<Tournament> tournamentSeasonList = new ArrayList<>();
 	
 	public void registerPlayer(Spieler player2) {
 		getPlayer().add(player2);
@@ -39,11 +39,11 @@ public class TournamentSeason implements Serializable{
 	}
 
 	public List<Tournament> getTournamentSeason() {
-		return tournamentSeason;
+		return tournamentSeasonList;
 	}
 
 	public void setTournamentSeason(List<Tournament> tournamentSeason) {
-		this.tournamentSeason = tournamentSeason;
+		this.tournamentSeasonList = tournamentSeason;
 	}
 
 	public int getYear() {

@@ -1,9 +1,9 @@
-package com.mkyong.helloworld.tags;
+package com.thorben.helloworld.tags;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.mkyong.helloworld.service.DateConverter;
+import com.thorben.helloworld.service.DateConverter;
 
 public class DateForSlider extends TagSupport{
 	

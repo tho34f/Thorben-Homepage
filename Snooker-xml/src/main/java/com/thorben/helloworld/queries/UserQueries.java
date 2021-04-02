@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.queries;
+package com.thorben.helloworld.queries;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mkyong.helloworld.snooker.User;
+import com.thorben.helloworld.snooker.User;
 
 public class UserQueries {
 	

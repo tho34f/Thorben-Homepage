@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.queries;
+package com.thorben.helloworld.queries;
 
 import java.awt.Image;
 import java.sql.Blob;
@@ -11,10 +11,10 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mkyong.helloworld.service.DateConverter;
-import com.mkyong.helloworld.service.HelloWorldService;
-import com.mkyong.helloworld.service.ThorbenDierkes;
-import com.mkyong.helloworld.snooker.News;
+import com.thorben.helloworld.service.DateConverter;
+import com.thorben.helloworld.service.ThorbenDierkesService;
+import com.thorben.helloworld.service.ThorbenDierkes;
+import com.thorben.helloworld.snooker.News;
 
 public class NewsQueries {
 	
@@ -140,7 +140,7 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 			String queryNews = "Insert into news (news_id, news_title, news_teaser, news_image, change_date, creation_date) values (?, ?, ?, ?, ?, ?)";
 			String queryNewsText = "Insert into news_text (news_id, news_text) values (?, ?)";
 			
-			int id = HelloWorldService.generateId();
+			int id = ThorbenDierkesService.generateId();
 			
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 				int counter = 1;

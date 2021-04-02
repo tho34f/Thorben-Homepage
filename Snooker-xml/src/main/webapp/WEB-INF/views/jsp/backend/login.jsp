@@ -32,7 +32,7 @@
 	 			<a class="footer_preview">Zum Frontend</a>
 	 		</div>
 	 		<div class="errormassage"  <c:if test="${isLoginOk eq true}">style="display:none;" </c:if>>
-					<p style="position: relative; top:40px; width:260px;background-color:#dc3545;"> ${errormasage} </p>
+					<p class="errorlogin"> ${errormasage} </p>
 	 		</div>
  		</div>
  	</form>

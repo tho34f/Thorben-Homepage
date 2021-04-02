@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.service;
+package com.thorben.helloworld.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,8 +41,6 @@ public class GetHomepageData {
 			e.printStackTrace();
 			return provisionalRanking;
 		}
-		
-		
 		
 	}
 

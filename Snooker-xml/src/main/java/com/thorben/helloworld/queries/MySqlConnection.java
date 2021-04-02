@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.queries;
+package com.thorben.helloworld.queries;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

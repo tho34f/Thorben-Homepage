@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.web;
+package com.thorben.helloworld.web;
 
 import java.util.Map;
 
@@ -12,25 +12,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mkyong.helloworld.queries.CalendarQueries;
-import com.mkyong.helloworld.queries.NewsQueries;
-import com.mkyong.helloworld.queries.UserQueries;
-import com.mkyong.helloworld.service.HelloWorldService;
-import com.mkyong.helloworld.service.ObjectBrowser;
-import com.mkyong.helloworld.service.ObjectBrowserController;
-import com.mkyong.helloworld.service.TypeConverter;
-import com.mkyong.helloworld.snooker.News;
-import com.mkyong.helloworld.snooker.Termin;
-import com.mkyong.helloworld.snooker.User;
+import com.thorben.helloworld.queries.CalendarQueries;
+import com.thorben.helloworld.queries.NewsQueries;
+import com.thorben.helloworld.queries.UserQueries;
+import com.thorben.helloworld.service.ThorbenDierkesService;
+import com.thorben.helloworld.service.ObjectBrowser;
+import com.thorben.helloworld.service.ObjectBrowserController;
+import com.thorben.helloworld.service.TypeConverter;
+import com.thorben.helloworld.snooker.News;
+import com.thorben.helloworld.snooker.Termin;
+import com.thorben.helloworld.snooker.User;
 
 @Controller
 public class BackendController {
 	
 	private final Logger logger = LoggerFactory.getLogger(BackendController.class);
-	private final HelloWorldService helloWorldService;
+	private final ThorbenDierkesService helloWorldService;
 	
 	@Autowired
-	public BackendController(HelloWorldService helloWorldService) {
+	public BackendController(ThorbenDierkesService helloWorldService) {
 		this.helloWorldService = helloWorldService;
 	}
 	
@@ -215,7 +215,7 @@ public class BackendController {
 		return forwordPath;
 	}
 
-	public HelloWorldService getHelloWorldService() {
+	public ThorbenDierkesService getHelloWorldService() {
 		return helloWorldService;
 	}
 
