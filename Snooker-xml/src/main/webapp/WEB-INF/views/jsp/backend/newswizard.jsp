@@ -52,7 +52,7 @@
 			<div class="wizardRowInner">
 				<div class="span3">Der Teaser erscheint als ergänzende Information im Nachrichten-Slider.</div>
 				<div class="span9">
-					<input type="text" id="teaser" name="teaser" min="1" max="255" maxlength="255" placeholder="Teaser" value="">
+					<textarea id="teaser" name="teaser" maxlength="65535" placeholder="Teaser" cols="100" rows="2"></textarea>
 				</div>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 			<div class="wizardRowInner">
 				<div class="span3"></div>
 				<div class="span9">
-					<input type="text" id="text" name="text" min="1" max="255" maxlength="255" placeholder="Text" value="">
+					<textarea id="text" name="text" maxlength="16777215" placeholder="Text" cols="100" rows="5"></textarea>
 				</div>
 			</div>
 		</div>

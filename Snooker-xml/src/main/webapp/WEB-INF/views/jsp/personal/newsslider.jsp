@@ -14,7 +14,7 @@
 </head>
 <body onLoad="startTime()" >
 
-<jsp:include page="./layout/mainhead.jsp" flush="true"/>
+<jsp:include page="../layout/mainhead.jsp" flush="true"/>
 
 
 <div id="content" class="jumbotron">
@@ -36,12 +36,12 @@
 						<li class="page-item">
 					      <a class="page-link" href="newsslider?action=back" tabindex="-1">Previous</a>
 					    </li>
-					    <li class="page-item active">
+					    <li <c:if test="${activePage eq 1}"> class="page-item active" </c:if> <c:if test="${activePage ne 1}"> class="page-item" </c:if>>
 					    	<a class="page-link" href="newsslider?page=1">1 <span class="sr-only">(current)</span></a>
 					    </li>
 						<c:forEach var = "i" begin ="2" end ="${sliderlenght}">
-	         				<li class="page-item">
-					    		<a class="page-link" href="newsslider?page=${i}">i</a>
+	         				<li <c:if test="${activePage eq i}"> class="page-item active" </c:if> <c:if test="${activePage ne i}"> class="page-item" </c:if>>
+					    		<a class="page-link" href="newsslider?page=${i}">${i}</a>
 					    	</li>
 	      				</c:forEach>
 					    <li class="page-item">
@@ -53,15 +53,10 @@
 	</div>
 </div>
 
-<jsp:include page="./layout/mainfooter.jsp" flush="true"/>
+<jsp:include page="../layout/mainfooter.jsp" flush="true"/>
 
 <script src="resources/core/js/clock.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script type="text/javascript">
-$('li').click(function() {
-	  $(this).addClass('active').siblings().removeClass('active');
-});
-</script>
 
 </body>
 </html>

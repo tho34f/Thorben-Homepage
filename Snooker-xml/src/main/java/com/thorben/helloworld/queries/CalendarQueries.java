@@ -34,7 +34,7 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			
 			MySqlConnection.createConnection();
 			
-			String queryNews = "select * from termine";
+			String queryNews = "SELECT * FROM termine ORDER BY creation_date";
 		
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 		        ResultSet rs = stmt.executeQuery();
@@ -87,7 +87,7 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			
 			MySqlConnection.createConnection();
 			
-			String queryNews = "select * from termine where id = ?";
+			String queryNews = "SELECT * FROM termine WHERE id = ?";
 		
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 				stmt.setInt(1, terminId);
@@ -133,7 +133,7 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			
 			MySqlConnection.createConnection();
 		
-			String queryNews = "Insert into termine (id, title, description, date, creation_date, change_date, teaser) values (?, ?, ?, ?, ?, ?, ?)";
+			String queryNews = "INSERT INTO termine (id, title, description, date, creation_date, change_date, teaser) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 				int counter = 1;

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.thorben.helloworld.queries.SnookerQueries;
 import com.thorben.helloworld.snooker.Tournament;
@@ -19,6 +20,7 @@ import com.thorben.helloworld.snooker.News;
 import com.thorben.helloworld.snooker.Spieler;
 import com.thorben.helloworld.web.StandardController;
 
+@Service
 public class ThorbenDierkesService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ThorbenDierkesService.class);
@@ -75,13 +77,13 @@ public class ThorbenDierkesService {
 		
 	}
 	
-	public static Map<String,Set<News>> splitNews(Set<News> newsList){
+	public static Map<String,Set<News>> splitNewsandTerminList(Set<News> objectList){
 		
 		Map<String,Set<News>> splitedNewsList = new HashMap<>();
 		Set<News> helpNewsList = new HashSet<>();
 		int counter = 0;
 		int newssilderpage = 1;
-		Iterator<News> it = newsList.iterator();
+		Iterator<News> it = objectList.iterator();
 		while(it.hasNext()) {
 			helpNewsList.add(it.next());
 			counter++;

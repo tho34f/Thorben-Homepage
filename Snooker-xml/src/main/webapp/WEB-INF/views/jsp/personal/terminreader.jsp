@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="do" tagdir="/WEB-INF/tags/taglib/eigeneTags.tld"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -18,21 +19,9 @@
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1>Herzlich Willkommen auf meiner Webseite!</h1>
-		<h2 class="headingPersonal">Links zu interessanten Seiten</h2>
+		<h1 class="heading">${messageToRead.title}</h1>
 		<div id="inhalt" class="row">
-			<div class="col-md-3">
-				<a class="linkButton" href="https://wst.tv/">World Snooker Tour</a>
-			</div>
-			<div class="col-md-3">
-				<a 	class="linkButton" href="https://www.highbreak.de/">Snooker Club Hofgeismar</a>
-			</div>
-			<div class="col-md-3">
-				<a class="linkButton" href="https://www.eurosport.de/snooker/">Eurosport</a>
-			</div>
-			<div class="col-md-3">
-				<a class="linkButton" href="https://mcbillard.de/">McBillard Online-Shop</a>
-			</div>
+			${messageToRead.text}
 		</div>
 	</div>
 </div>

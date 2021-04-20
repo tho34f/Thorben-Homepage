@@ -34,8 +34,8 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 			
 			MySqlConnection.createConnection();
 			
-			String queryNews = "select nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
-					+ " from news nw left join news_text nwt on nw.news_id = nwt.news_id";
+			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
+					+ " FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id ORDER BY nw.creation_date DESC";
 		
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 		        ResultSet rs = stmt.executeQuery();
@@ -89,9 +89,9 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 			
 			MySqlConnection.createConnection();
 			
-			String queryNews = "select nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
-					+ " from news nw left join news_text nwt on nw.news_id = nwt.news_id"
-					+ " where nw.news_id = ?";
+			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
+					+ " FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id"
+					+ " WHERE nw.news_id = ?";
 		
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
 				stmt.setInt(1, newsId);
@@ -137,8 +137,8 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 			
 			MySqlConnection.createConnection();
 		
-			String queryNews = "Insert into news (news_id, news_title, news_teaser, news_image, change_date, creation_date) values (?, ?, ?, ?, ?, ?)";
-			String queryNewsText = "Insert into news_text (news_id, news_text) values (?, ?)";
+			String queryNews = "INSERT INTO news (news_id, news_title, news_teaser, news_image, change_date, creation_date) VALUES (?, ?, ?, ?, ?, ?)";
+			String queryNewsText = "INSERT INTO news_text (news_id, news_text) VALUES (?, ?)";
 			
 			int id = ThorbenDierkesService.generateId();
 			

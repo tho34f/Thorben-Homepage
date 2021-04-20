@@ -18,20 +18,20 @@
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1>Herzlich Willkommen auf meiner Webseite!</h1>
-		<h2 class="headingPersonal">Links zu interessanten Seiten</h2>
+		<h1 class="headingPersonal">Meine politsichen Ziele</h1>
+		<h2 class="headingPersonal">Links zu weiteren SPD-Seiten</h2>
 		<div id="inhalt" class="row">
 			<div class="col-md-3">
-				<a class="linkButton" href="https://wst.tv/">World Snooker Tour</a>
+				<a class="linkButton" href="https://spd-warburg.de/">SPD Warburg</a>
 			</div>
 			<div class="col-md-3">
-				<a 	class="linkButton" href="https://www.highbreak.de/">Snooker Club Hofgeismar</a>
+				<a 	class="linkButton" href="https://spd-hoexter.de/">Spd Höxter</a>
 			</div>
 			<div class="col-md-3">
-				<a class="linkButton" href="https://www.eurosport.de/snooker/">Eurosport</a>
+				<a class="linkButton" href="https://www.nrwspd.de/">SPD NRW</a>
 			</div>
 			<div class="col-md-3">
-				<a class="linkButton" href="https://mcbillard.de/">McBillard Online-Shop</a>
+				<a class="linkButton" href="https://www.spd.de/">Bundes SPD</a>
 			</div>
 		</div>
 	</div>

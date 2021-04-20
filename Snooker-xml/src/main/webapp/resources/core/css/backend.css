@@ -126,9 +126,10 @@ input[type="password"]{
 
 .dooBtn {
     height: 30px;
-    width: 36px;
+    width: 40px;
     border-left:1px solid #0076a3;
     position:relative;
+    border-radius: 15px 15px 15px 15px;
 }
 
 #dooIcon {
@@ -165,9 +166,11 @@ input[type="password"]{
 
 #newObject{
 	margin-left: 20px; 
-	margin-top: 24px;
+	margin-top: 21px;
 	border-left:1px solid #0076a3;
-	width: 110px;
+	width: 130px;
+	border-radius: 15px 15px 15px 15px;
+	font-size:14px;
 }
 
 #saveObject{
@@ -253,4 +256,29 @@ input[type="password"]{
 
 form.example button {
 	border-radius: 0 15px 15px 0;
+}
+
+input[type="text"]#teaser {
+	border-radius:15px 15px 15px 15px;
+}
+input[type="text"]#title {
+	border-radius:15px 15px 15px 15px;
+}
+textarea#text{
+	border-radius: 15px 15px 15px 15px;
+	font-style: italic;
+    border: 1px solid #0076a3;
+    padding: 8px;
+}
+textarea#teaser{
+	border-radius: 15px 15px 15px 15px;
+	font-style: italic;
+    border: 1px solid #0076a3;
+    padding: 8px;
+}
+textarea#beschreibung{
+	border-radius: 15px 15px 15px 15px;
+	font-style: italic;
+    border: 1px solid #0076a3;
+    padding: 8px;
 }

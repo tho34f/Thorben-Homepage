@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.thorben.helloworld.service.ThorbenDierkes;
 import com.thorben.helloworld.snooker.Spieler;
 import com.thorben.helloworld.snooker.Tournament;
 import com.thorben.helloworld.snooker.TournamentSeason;
@@ -55,11 +56,11 @@ private static final Logger logger = LoggerFactory.getLogger(SnookerQueries.clas
 	        MySqlConnection.getConnectionSnooker().close();
 	        
 		} catch (ClassNotFoundException e) {
-			((ServletContext) logger).log("Der Datenbank treiber wurde nicht gefunden. - "
+			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE
                     + e.getLocalizedMessage());
             e.printStackTrace();
 		} catch (SQLException e) {
-			((ServletContext) logger).log("SQL Fehler - " + e.getLocalizedMessage());
+			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE_SQL + e.getLocalizedMessage());
             e.printStackTrace();
 		} 
         
@@ -99,11 +100,11 @@ private static final Logger logger = LoggerFactory.getLogger(SnookerQueries.clas
 	        
 	        MySqlConnection.getConnectionSnooker().close();
     	} catch (ClassNotFoundException e) {
-			((ServletContext) logger).log("Der Datenbank treiber wurde nicht gefunden. - "
+			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE
                     + e.getLocalizedMessage());
             e.printStackTrace();
 		} catch (SQLException e) {
-			((ServletContext) logger).log("SQL Fehler - " + e.getLocalizedMessage());
+			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE_SQL + e.getLocalizedMessage());
             e.printStackTrace();
 		} 
         

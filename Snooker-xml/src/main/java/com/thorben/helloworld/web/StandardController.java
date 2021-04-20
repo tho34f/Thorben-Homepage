@@ -76,7 +76,7 @@ public class StandardController {
 		int pageNumber = TypeConverter.string2int(request.getParameter("page"),0);
 		
 		Set<News> newsList = NewsQueries.loadNewsList();
-		Map<String,Set<News>> splitedNewsList = ThorbenDierkesService.splitNews(newsList);
+		Map<String,Set<News>> splitedNewsList = ThorbenDierkesService.splitNewsandTerminList(newsList);
 		int slider = splitedNewsList.size();
 		
 		if(action == null) {
@@ -91,16 +91,18 @@ public class StandardController {
 		
 		if(slider < pageNumber) {
 			pageNumber = slider;
+			setPageReminderNewsList(pageNumber);
 		} else if(pageNumber <= 0) {
 			pageNumber = 1;
 		}
 		
 		newsList = splitedNewsList.get("newssilderpage" + pageNumber);
 		
+		request.getSession().setAttribute("activePage", pageNumber);
 		request.getSession().setAttribute("newsList", newsList);
 		request.getSession().setAttribute("sliderlenght", slider);
 				
-		return "newsslider";
+		return "personal/newsslider";
 	}
 	
 	@RequestMapping(value = "/newsreader", method = RequestMethod.GET)
@@ -116,7 +118,7 @@ public class StandardController {
 		
 		request.getSession().setAttribute("messageToRead", messageToRead);
 				
-		return "newsreader";
+		return "personal/newsreader";
 	}
 	
 	@RequestMapping(value = "/politik", method = RequestMethod.GET)
@@ -124,7 +126,15 @@ public class StandardController {
 		
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "politik";
+		return "political/politik";
+	}
+	
+	@RequestMapping(value = "/politik-werdegang", method = RequestMethod.GET)
+	public String werdegang(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
+				
+		return "political/politikwerdegang";
 	}
 	
 	@RequestMapping(value = "/personal", method = RequestMethod.GET)
@@ -132,7 +142,7 @@ public class StandardController {
 		
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "personal";
+		return "personal/personal";
 	}
 	
 	@RequestMapping(value = "/datenschutz", method = RequestMethod.GET)
