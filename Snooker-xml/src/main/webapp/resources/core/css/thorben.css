@@ -1,12 +1,19 @@
+ .page-header{
+ 	padding-bottom:9px; 
+ 	border-bottom:1px solid #eee; 
+ 	background-color: #8dcbbb; 
+ 	color:#701718;  
+}
+
 .linkButton{
 	color:#ffffff; 
 	border: 1px solid;
 	text-transform: uppercase;
 	border-color: #a00403 #870403 #6e0302;
-	border-radius: 5px;
+	border-radius: 15px;
 	font-size: 18px;
 	padding: 0.64286em 1.42857em;
-	background: linear-gradient(#aa0504, #94140d);
+	background: linear-gradient(rgb(202, 0, 0), #721403);
 }
 
 .linkButton:hover{
@@ -16,12 +23,42 @@
 
 #inhalt{
 	margin-bottom: 35px;
+	margin-top: 35px;
+}
+
+@media (max-width: 1950px) {
+  #clock {
+     left: 85%;
+  }
+}
+
+@media (max-width: 1775px) {
+  #clock {
+     left: 80%;
+  }
+}
+
+@media (max-width: 1400px) {
+  #clock {
+     left: 75%;
+  }
+}
+
+@media (max-width: 1200px) {
+  #clock {
+     left: 70%;
+  }
+}
+
+@media (max-width: 1050px) {
+  #clock {
+        display:none;
+  }
 }
 
 #clock {
 	position: absolute;
-    top: 0%;
-    left: 85%;
+    top: -10%;
     font-size: 3em;
     color: #8dcbbb;
     letter-spacing: 7px;
@@ -29,14 +66,18 @@
 
 .contact {
 	width:100%;
-	height:75px;
 	top:0;
 	left:0;
-	background-color:#94140d;
+	background-color:#701718;
 	color: white;
 }
 
 .contact a{
+	color: white;
+	font-size: 18px;
+}
+
+.contact a:hover{
 	color: white;
 }
 
@@ -59,6 +100,7 @@ form.example button {
 	border-left: none; /* Prevent double borders */
 	cursor: pointer;
 	text-align:center;
+	border-radius: 0 15px 15px 0;
 }
 
 form.example button:hover {
@@ -74,4 +116,67 @@ form.example::after {
   content: "";
   clear: both;
   display: table;
+}
+
+.datenschutz{
+	margin: 0 14px 0 12px;
+}
+
+.impressum{
+	margin-left: 12px;
+    margin-right: 12px;
+}
+
+.navbar-extra{
+	display: flex;
+}
+
+.news-image-teaser {
+    position: relative;
+    margin: 2.25em 0;
+    padding-left: 12.5%;
+}
+
+.news-image-teaser-meta {
+    float: left;
+    position: relative;
+    left: -19.5%;
+    width: 17.375%;
+    margin-bottom: -6.25em;
+    line-height: 1;
+    text-align: center;
+    border-right: 2px solid #701718;
+    font-size:1.5em;
+    white-space: nowrap;
+}
+
+.news-image-teaser h2 {
+    display: block;
+    margin: 0.75em 0 0.25em;
+    padding: 0 0 0.41667em;
+    border-bottom: 1px solid #701718;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: inherit;
+}
+
+.news-image-teaser time {
+    margin-right:800px;
+}
+
+.news-image-teaser a {
+    color:#aa0504;
+}
+
+.news-image-teaser a:hover {
+    color:#aa0504;
+}
+
+.heading{
+	border-bottom: 2px solid #701718;
+}
+
+.headingPersonal{
+	border-bottom: 2px solid #701718;
+	text-align:center;
 }
