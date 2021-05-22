@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.thorben.helloworld.queries.CalendarQueries;
 import com.thorben.helloworld.queries.NewsQueries;
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.GetHomepageData;
@@ -24,6 +25,7 @@ import com.thorben.helloworld.service.TypeConverter;
 import com.thorben.helloworld.service.UpdateDB;
 import com.thorben.helloworld.snooker.TournamentSeason;
 import com.thorben.helloworld.snooker.News;
+import com.thorben.helloworld.snooker.Termin;
 
 
 @Controller
@@ -34,7 +36,8 @@ public class StandardController {
 	
 	Date indexDate = new Date();
 	private static Set<TournamentSeason> seasons = new HashSet<>();
-	private static int pageReminderNewsList;
+	private static int pageReminderNewsList = 1;
+	private static int pageReminderTerminList = 1;
 
 	@Autowired
 	public StandardController(ThorbenDierkesService helloWorldService) {
@@ -68,6 +71,59 @@ public class StandardController {
 		return "orga/search";
 	}
 	
+	@RequestMapping(value = "/terminslider", method = RequestMethod.GET)
+	public String createTerminSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
+		String action = request.getParameter("action");
+		int pageNumber = TypeConverter.string2int(request.getParameter("page"),0);
+		
+		Set<Termin> terminList = CalendarQueries.loadCalendarList();
+		Map<String,Set<Termin>> splitedTerminList = ThorbenDierkesService.splitTerminList(terminList);
+		int slider = splitedTerminList.size();
+		
+		if(action == null) {
+			setPageReminderTerminList(pageNumber);
+		} else if(action.equals("next")) {
+			pageNumber = getPageReminderNewsList() + 1;
+			setPageReminderTerminList(pageNumber);
+		} else {
+			pageNumber = getPageReminderNewsList() - 1;
+			setPageReminderTerminList(pageNumber);
+		}
+		
+		if(slider < pageNumber) {
+			pageNumber = slider;
+			setPageReminderTerminList(pageNumber);
+		} else if(pageNumber <= 0) {
+			pageNumber = 1;
+		}
+		
+		terminList = splitedTerminList.get("terminsilderpage" + pageNumber);
+		
+		request.getSession().setAttribute("activePage", pageNumber);
+		request.getSession().setAttribute("terminList", terminList);
+		request.getSession().setAttribute("sliderlenght", slider);
+				
+		return "personal/terminslider";
+	}
+	
+	@RequestMapping(value = "/terminreader", method = RequestMethod.GET)
+	public String createTerminReader(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
+		
+		String terminId = request.getParameter("id");
+		Termin terminToRead = new Termin();
+		if(terminId != null) {
+			terminToRead = CalendarQueries.loadCalendar(TypeConverter.string2int(terminId, 0));
+		}
+		
+		request.getSession().setAttribute("calendarToRead", terminToRead);
+				
+		return "personal/terminreader";
+	}
+	
 	@RequestMapping(value = "/newsslider", method = RequestMethod.GET)
 	public String createNewsSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
@@ -76,7 +132,7 @@ public class StandardController {
 		int pageNumber = TypeConverter.string2int(request.getParameter("page"),0);
 		
 		Set<News> newsList = NewsQueries.loadNewsList();
-		Map<String,Set<News>> splitedNewsList = ThorbenDierkesService.splitNewsandTerminList(newsList);
+		Map<String,Set<News>> splitedNewsList = ThorbenDierkesService.splitNewsList(newsList);
 		int slider = splitedNewsList.size();
 		
 		if(action == null) {
@@ -187,6 +243,14 @@ public class StandardController {
 
 	public static void setPageReminderNewsList(int pageReminder) {
 		StandardController.pageReminderNewsList = pageReminder;
+	}
+
+	public static int getPageReminderTerminList() {
+		return pageReminderTerminList;
+	}
+
+	public static void setPageReminderTerminList(int pageReminderTerminList) {
+		StandardController.pageReminderTerminList = pageReminderTerminList;
 	}
 
 }

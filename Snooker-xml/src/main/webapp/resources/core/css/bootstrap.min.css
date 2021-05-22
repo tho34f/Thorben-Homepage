@@ -92,6 +92,7 @@
 	border: 1px solid #0076a3;
 	border-left: none; /* Prevent double borders */
 	text-align:center;
+	border-radius: 0 15px 15px 0;
 }
 
  button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}

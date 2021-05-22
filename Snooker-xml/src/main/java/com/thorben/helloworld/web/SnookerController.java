@@ -173,6 +173,22 @@ public class SnookerController {
 		return "snooker/snookernews";
 	}
 	
+	@RequestMapping(value = "/snookerrules", method = RequestMethod.GET)
+	public String snookerrules(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
+				
+		return "snooker/snookerrules";
+	}
+	
+	@RequestMapping(value = "/snookerhistory", method = RequestMethod.GET)
+	public String snookerhistory(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
+				
+		return "snooker/snookerhistory";
+	}
+	
 	public static Set<TournamentSeason> getSeasons() {
 		return seasons;
 	}

@@ -9,18 +9,21 @@
       				<div class="dropdown-menu">
       					<a class="dropdown-item" href="/thorben-dierkes/newsslider">Aktuelles</a>
       					<a class="dropdown-item" href="/thorben-dierkes/personal">Über Mich</a>
+      					<a class="dropdown-item" href="/thorben-dierkes/terminslider">Termine</a>
 					</div>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="/thorben-dierkes/snooker" id="navbardrop" data-toggle="dropdown"> Snooker </a>
       				<div class="dropdown-menu">
       					<a class="dropdown-item" href="/thorben-dierkes/snookernews">Die neusten Snooker News</a>
+      					<a class="dropdown-item" href="/thorben-dierkes/snookerrules">Regeln</a>
+      					<a class="dropdown-item" href="/thorben-dierkes/snookerhistory">Geschichte</a>
       					<a class="dropdown-item" href="/thorben-dierkes/saisonOverwiev">Überblickt erzeugte Saisons</a>
 						<a class="dropdown-item" href="/thorben-dierkes/saison">Season</a>
 					</div>
 				</li>
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="/thorben-dierkes/politik" id="navbardrop" data-toggle="dropdown"> Politik </a>
+					<a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown"> Politik </a>
       				<div class="dropdown-menu">
       					<a class="dropdown-item" href="/thorben-dierkes/politik">Politische Ziele</a>
       					<a class="dropdown-item" href="/thorben-dierkes/politik-werdegang">Politischer Werdegang</a>

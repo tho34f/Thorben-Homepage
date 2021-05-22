@@ -9,7 +9,7 @@
 
   <tag>
     <name>defaultHaeder</name>
-    <tagclass>com.mkyong.helloworld.tags.TestTag</tagclass>
+    <tagclass>com.thorben.helloworld.tags.TestTag</tagclass>
     <bodycontent>empty</bodycontent>
     <attribute>
       <name>numIterat</name>
@@ -20,7 +20,7 @@
   
    <tag>
     <name>dateForSlider</name>
-    <tagclass>com.mkyong.helloworld.tags.DateForSlider</tagclass>
+    <tagclass>com.thorben.helloworld.tags.DateForSlider</tagclass>
     <bodycontent>jsp</bodycontent>
     <attribute>
       <name>date</name>

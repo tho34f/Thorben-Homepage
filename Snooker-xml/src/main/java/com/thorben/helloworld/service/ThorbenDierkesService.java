@@ -18,6 +18,8 @@ import com.thorben.helloworld.snooker.Tournament;
 import com.thorben.helloworld.snooker.TournamentSeason;
 import com.thorben.helloworld.snooker.News;
 import com.thorben.helloworld.snooker.Spieler;
+import com.thorben.helloworld.snooker.Termin;
+import com.thorben.helloworld.web.SnookerController;
 import com.thorben.helloworld.web.StandardController;
 
 @Service
@@ -61,11 +63,11 @@ public class ThorbenDierkesService {
 		if(!number.isEmpty()) {
 			int number2 = TypeConverter.string2int(number, 0);
 			season =  creatSeason(number2);
-			StandardController.getSeasons().add(season);
+			SnookerController.getSeasons().add(season);
 		}
 		
 		logger.info("Saision erfolgreich erzeugt.");
-		request.getSession().setAttribute("seasions", StandardController.getSeasons());	
+		request.getSession().setAttribute("seasions", SnookerController.getSeasons());	
 
 	}
 	
@@ -77,7 +79,7 @@ public class ThorbenDierkesService {
 		
 	}
 	
-	public static Map<String,Set<News>> splitNewsandTerminList(Set<News> objectList){
+	public static Map<String,Set<News>> splitNewsList(Set<News> objectList){
 		
 		Map<String,Set<News>> splitedNewsList = new HashMap<>();
 		Set<News> helpNewsList = new HashSet<>();
@@ -99,6 +101,30 @@ public class ThorbenDierkesService {
 		}
 		
 		return splitedNewsList;
+	}
+	
+	public static Map<String,Set<Termin>> splitTerminList(Set<Termin> objectList){
+		
+		Map<String,Set<Termin>> splitedTerminList = new HashMap<>();
+		Set<Termin> helpTerminList = new HashSet<>();
+		int counter = 0;
+		int terminsilderpage = 1;
+		Iterator<Termin> it = objectList.iterator();
+		while(it.hasNext()) {
+			helpTerminList.add(it.next());
+			counter++;
+			if(counter == 5) {
+				splitedTerminList.put("terminsilderpage" + terminsilderpage, helpTerminList);
+				terminsilderpage++;
+				helpTerminList = new HashSet<>();
+				counter = 0;
+			}
+		}
+		if(counter != 5) {
+			splitedTerminList.put("terminsilderpage" + terminsilderpage, helpTerminList);
+		}
+		
+		return splitedTerminList;
 	}
 	
 

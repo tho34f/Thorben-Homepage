@@ -21,17 +21,19 @@
 		<h1>Herzlich Willkommen auf meiner Webseite!</h1>
 		<h2 class="headingPersonal">Links zu interessanten Seiten</h2>
 		<div id="inhalt" class="row">
-			<div class="col-md-3">
+			<div class="col-md-6">
 				<a class="linkButton" href="https://wst.tv/">World Snooker Tour</a>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-6">
 				<a 	class="linkButton" href="https://www.highbreak.de/">Snooker Club Hofgeismar</a>
 			</div>
-			<div class="col-md-3">
-				<a class="linkButton" href="https://www.eurosport.de/snooker/">Eurosport</a>
-			</div>
-			<div class="col-md-3">
+		</div>
+		<div id="inhalt" class="row">
+			<div class="col-md-6">
 				<a class="linkButton" href="https://mcbillard.de/">McBillard Online-Shop</a>
+			</div>
+			<div class="col-md-6">
+				<a class="linkButton" href="https://www.eurosport.de/snooker/">Snooker auf Eurosport</a>
 			</div>
 		</div>
 	</div>

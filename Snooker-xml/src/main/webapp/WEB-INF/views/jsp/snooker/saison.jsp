@@ -33,13 +33,12 @@
 		<c:if test= "${not empty seasion}">
 		<div>
 			<h2> Turniere in dieser Saison</h2>
-			<form>
+			<form class="example">
 				<label for="tournamentsearch" >Turnier:</label>
 				<input id="tornamentsearch" name="tornamentsearch" type="text"></input>
 				<button class="btn btn-primary" id="btn-search1" name="btn-search" type="button" onclick=findTournament()>Turnier suchen</button>
 			</form>
 			<table id="tour"class="table table-striped">
-				<caption>He-Man and Skeletor facts</caption>
 				<tr> 
 					<th id="tournamentname"> Name </th> 
 					<th id="tournamentweight"> Gewicht </th> 
@@ -61,13 +60,12 @@
 		<br> 	<br>
 		<div >
 			<h2> Spieler in dieser Saison</h2>
-			<form>
+			<form class="example">
 				<label for="playersearch" >Spieler:</label>
 				<input id="playersearch" name="playersearch" type="text"></input>
 				<button class="btn btn-primary" id="btn-search2" name="btn-search" type="button" onclick=findPlayer()>Spieler suchen</button>
 			</form>
 			<table id="player" class="table table-striped">
-				<caption>He-Man and Skeletor facts</caption>
 				<tr> 
 					<th id="playerbame"> Name </th> 
 					<th id="playerranking"> Worldranking </th> 
@@ -110,7 +108,6 @@
 function findTournament(){
 	
 	var tournament = $("#tornamentsearch").val();
-	alert(tournament);
 	document.getElementById(tournament).style.backgroundColor = "#296292";
 	
 }

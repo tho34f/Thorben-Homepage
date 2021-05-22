@@ -30,7 +30,6 @@
 		</form> 
 		<br>
 		<table id="seasionOverview" style="border:1 px solid black; border-collapse:collapse">
-			<caption>He-Man and Skeletor facts</caption>
 			<tr> 
 				<th id="erzeugen"> Erzeugte Saison </th> 
 				<th id="anzeigen"> Turniere und Spieler anzeigen </th> 

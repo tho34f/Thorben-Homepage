@@ -45,6 +45,7 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 		        	tm.setChangeDate(rs.getLong("change_date"));
 		        	tm.setCreationDate(rs.getLong("creation_date"));
 		        	tm.setCreationDateAsString(DateConverter.long2Date(tm.getCreationDate(),1));
+		        	tm.setCreationDateForSlider(DateConverter.long2Date(tm.getDate(),3));
 		        	if(tm.getChangeDate() != 0) {
 		        		tm.setChangeDateAsString(DateConverter.long2Date(tm.getChangeDate(),1));
 		        	} else {

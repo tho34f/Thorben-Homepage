@@ -19,9 +19,9 @@
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1 class="heading">${messageToRead.title}</h1>
+		<h1 class="heading">${calendarToRead.title}</h1>
 		<div id="inhalt" class="row">
-			${messageToRead.text}
+			${calendarToRead.description}
 		</div>
 	</div>
 </div>
