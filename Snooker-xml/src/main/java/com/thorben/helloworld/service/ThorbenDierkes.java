@@ -12,6 +12,7 @@ public class ThorbenDierkes {
 	public static final int USER = 38;
 	public static final int NEWS = 39;
 	public static final int CALENDAR = 40;
+	public static final int ERROR_LOG_MASSAGE = 41;
 	
 	//Snooker
 	public static final int SNOOKER_BREAK = 20;
@@ -19,6 +20,8 @@ public class ThorbenDierkes {
 	//Error-Messages
     public static final String ERROR_MESSAGE = "Der Datenbank treiber wurde nicht gefunden. -";
     public static final String ERROR_MESSAGE_SQL = "SQL Fehler - ";
+    public static final String ERROR_MESSAGE_NO_ELEMENTS = "Es sind keine Elemente vorhanden.";
+    public static final String ERROR_MESSAGE_OB = "Keine gultige Objekt-Browser Id.";
     
     //Länge Datenbanken
     public static final int VARCHAR = 255;

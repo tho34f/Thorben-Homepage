@@ -4,19 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.servlet.ServletContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.thorben.helloworld.service.ThorbenDierkes;
+import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.Spieler;
 import com.thorben.helloworld.snooker.Tournament;
 import com.thorben.helloworld.snooker.TournamentSeason;
 
 public class SnookerQueries {
-	
-private static final Logger logger = LoggerFactory.getLogger(SnookerQueries.class);
 	
     private SnookerQueries() {
     	
@@ -56,12 +50,11 @@ private static final Logger logger = LoggerFactory.getLogger(SnookerQueries.clas
 	        MySqlConnection.getConnectionSnooker().close();
 	        
 		} catch (ClassNotFoundException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE
-                    + e.getLocalizedMessage());
-            e.printStackTrace();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			ThorbenDierkesLogger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE_SQL + e.getLocalizedMessage());
-            e.printStackTrace();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			ThorbenDierkesLogger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
         
     }
@@ -100,15 +93,13 @@ private static final Logger logger = LoggerFactory.getLogger(SnookerQueries.clas
 	        
 	        MySqlConnection.getConnectionSnooker().close();
     	} catch (ClassNotFoundException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE
-                    + e.getLocalizedMessage());
-            e.printStackTrace();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			ThorbenDierkesLogger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE_SQL + e.getLocalizedMessage());
-            e.printStackTrace();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			ThorbenDierkesLogger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
-        
-        
+
     }
 
 }

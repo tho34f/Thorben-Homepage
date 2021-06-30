@@ -16,7 +16,11 @@ public class ObjectBrowser implements Serializable{
 	private String buttonTitle;
 	private String objectIcon;
 	
-	private ObjectBrowser() {
+	private ObjectBrowser(String objectTitle, String objectIcon, int objectType) {
+    	this.objectIcon = objectIcon;
+    	this.buttonTitle = "";
+    	this.objectTitle = objectTitle;
+    	this.objectType = objectType;
 	    	
     }
 	
@@ -24,19 +28,27 @@ public class ObjectBrowser implements Serializable{
     	this.objectIcon = objectIcon;
     	this.buttonTitle = buttonTitle;
     	this.objectTitle = objectTitle;
-    	this.setObjectType(objectType);
+    	this.objectType = objectType;
     }
 	
 	public static ObjectBrowser setHeaderInformation(final HttpServletRequest request, int id) {
 		ObjectBrowser ob = null;
 		switch(id) {
-			case 39:
+			case ThorbenDierkes.NEWS:
 				ob = new ObjectBrowser("Nachrichten", "Neue Nachricht", "fas fa-newspaper", id);
 				request.getSession().setAttribute("Objectbrowser", ob);
 				break;
-			case 40: 
+			case ThorbenDierkes.CALENDAR: 
 				ob = new ObjectBrowser("Termine", "Neuer Termin", "far fa-calendar-alt", id);
 				request.getSession().setAttribute("Objectbrowser", ob);
+				break;
+			case ThorbenDierkes.ERROR_LOG_MASSAGE:
+				ob = new ObjectBrowser("Fehler-Log", "fas fa-exclamation-triangle", id);
+				request.getSession().setAttribute("Objectbrowser", ob);
+				break;
+			default:
+				String errorMassage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_OB).toString();
+				ThorbenDierkesLogger.errorLog("Fehlende OB Elemente",errorMassage);
 				break;
 		}
 		

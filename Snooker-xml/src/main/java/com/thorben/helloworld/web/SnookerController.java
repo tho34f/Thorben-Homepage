@@ -181,6 +181,22 @@ public class SnookerController {
 		return "snooker/snookerrules";
 	}
 	
+	@RequestMapping(value = "/snookermaterials", method = RequestMethod.GET)
+	public String snookermaterials(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
+				
+		return "snooker/snookermaterials";
+	}
+	
+	@RequestMapping(value = "/overview", method = RequestMethod.GET)
+	public String snookeroverview(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		DateConverter.setDateFooter(indexDate, request);
+				
+		return "snooker/overview";
+	}
+	
 	@RequestMapping(value = "/snookerhistory", method = RequestMethod.GET)
 	public String snookerhistory(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		

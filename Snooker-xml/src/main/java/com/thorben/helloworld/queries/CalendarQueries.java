@@ -8,17 +8,13 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.ThorbenDierkes;
+import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.Termin;
 
 public class CalendarQueries {
-	
-private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.class);
 	
     private CalendarQueries() {
     	
@@ -68,12 +64,10 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 		
 		} catch (ClassNotFoundException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			ThorbenDierkesLogger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			ThorbenDierkesLogger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
 		
 		return calendarList;
@@ -116,12 +110,10 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 		
 		} catch (ClassNotFoundException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			ThorbenDierkesLogger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			ThorbenDierkesLogger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
 		
 		return tm;
@@ -153,12 +145,10 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			MySqlConnection.getConnectionSnooker().close();
 		} catch (ClassNotFoundException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			ThorbenDierkesLogger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			ThorbenDierkesLogger.errorLogWithTrace("SQL Fehler", erroeMessage, e);
 		} 
 		
 	}
@@ -186,13 +176,11 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 			
 			MySqlConnection.getConnectionSnooker().close();
 		} catch (ClassNotFoundException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
-		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			ThorbenDierkesLogger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
+		} catch (SQLException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			ThorbenDierkesLogger.errorLogWithTrace("SQL Fehler", erroeMessage, e);
 		} 
 		
 	}

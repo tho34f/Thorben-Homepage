@@ -1,5 +1,5 @@
  .page-header{
- 	padding-bottom:9px; 
+ 	padding-bottom:15px; 
  	border-bottom:1px solid #eee; 
  	background-color: #8dcbbb; 
  	color:#701718;  
@@ -82,20 +82,19 @@
 }
 
 .example{
-	
-	margin-top: 4px; 
+	margin-top: -8px; 
 	margin-left: 30px
 }
 
 /* Style the submit button */
 form.example button {
 	position:absolute;
-	width: 5%;
-	padding: 8px;
+	width: 8%;
+	padding: 7px;
 	background: linear-gradient(#00adee,#0078a5);
 	color: #fff;
 	font-family:arial;
-	font-size: 12px;
+	font-size: 14px;
 	border: 1px solid #0076a3;
 	border-left: none; /* Prevent double borders */
 	cursor: pointer;
@@ -179,4 +178,9 @@ form.example::after {
 .headingPersonal{
 	border-bottom: 2px solid #701718;
 	text-align:center;
+}
+
+div .buttonToText{
+	text-align:center; 
+	margin-top:25px;
 }

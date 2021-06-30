@@ -11,7 +11,7 @@
 <header:defaultHaeder costumerCSS="thorben.css" favicon="thorben.ico"/>
 
 </head>
-<body onLoad="startTime()" >
+<body >
 
 <jsp:include page="../layout/mainhead.jsp" flush="true"/>
 

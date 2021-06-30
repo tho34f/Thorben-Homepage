@@ -3,18 +3,13 @@ package com.thorben.helloworld.queries;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.servlet.ServletContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.sql.Statement;
 
 import com.thorben.helloworld.service.ThorbenDierkes;
+import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.User;
 
 public class UserQueries {
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserQueries.class);
 	
     private UserQueries() {
     	
@@ -30,7 +25,7 @@ public class UserQueries {
 			
 			MySqlConnection.createConnection();
 		
-			String queryUser = "ISERT INTO user (user_firstname, user_lastname, user_password, user_login) "
+			String queryUser = "INSERT INTO user (user_firstname, user_lastname, user_password, user_login) "
 					+ "VALUES (?,?,SHA2(" + password + ",224) ,?)";
 		
 			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryUser)){
@@ -45,12 +40,11 @@ public class UserQueries {
 			MySqlConnection.getConnectionSnooker().close();
 		
 		} catch (ClassNotFoundException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE
-                    + e.getLocalizedMessage());
-            e.printStackTrace();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			ThorbenDierkesLogger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE_SQL + e.getLocalizedMessage());
-            e.printStackTrace();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			ThorbenDierkesLogger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
 		
 		return isCreate;
@@ -64,11 +58,10 @@ public class UserQueries {
 			
 			MySqlConnection.createConnection();
 		
-			String queryUser = "SELECT * FROM user where user_login = ? and user_password = SHA2(" + loginUser.getPassword() + ",224)";
+			String queryUser = "SELECT * FROM user where user_login = '" + loginUser.getUserLogin() + "' and user_password = SHA2('" + loginUser.getPassword() + "',224)";
 		
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryUser)){
-				stmt.setString(1, loginUser.getUserLogin());
-		        ResultSet rs = stmt.executeQuery();
+			try(Statement stmt = MySqlConnection.getConnectionSnooker().createStatement()){
+		        ResultSet rs = stmt.executeQuery(queryUser);
 		        
 		        while(rs.next()) {
 		        	isLoginOk = true;
@@ -84,13 +77,12 @@ public class UserQueries {
 			MySqlConnection.getConnectionSnooker().close();
 		
 		} catch (ClassNotFoundException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE
-                    + e.getLocalizedMessage());
-            e.printStackTrace();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			ThorbenDierkesLogger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE_SQL + e.getLocalizedMessage());
-            e.printStackTrace();
-		} 
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			ThorbenDierkesLogger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+		}  
 		
 		return isLoginOk;
 	}

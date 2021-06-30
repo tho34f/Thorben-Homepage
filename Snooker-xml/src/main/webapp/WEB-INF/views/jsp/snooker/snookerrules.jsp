@@ -11,47 +11,64 @@
 <header:defaultHaeder costumerCSS="thorben.css" favicon="thorben.ico"/>
 
 </head>
-<body onLoad="startTime()" >
+<body>
 
 <jsp:include page="../layout/mainhead.jsp" flush="true"/>
 
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1 class="headingPersonal">Geschichte</h1>
-		<h3>Bälle</h3>
-		<p> 
-			Snooker wurde im Jahr 1875 aus der zu dieser Zeit beliebten Billiardvariante <em>Black Pool</em> vom zu dieser Zeit in Jabalpur stationierten britischen
-			Oberleutnant Neville Francis Fitzgerald Chamberlain entwickelt. Chamberlain fügte zu den im <em>Black Pool</em> verwendeten fünfzehn Roten und einer Schwarzen
-			weiterer farbige Bälle  hinzu, da das <em>Black Pool</em> langweilig geworden war und zusätzliche Bälle das Spiel wieder interessanter machten.
-		</p>
-		<p>
-			Eine weitere populäre Billiardvariante war das <em>English-Billiards</em>, welches im 18. Jahrhundert in England entstand. 1885 machte der englischer <em>English-Billiards</em>-Spieler
-			John Roberts Jr. Bekanntschaft mit Chamberlain und dem Snookerspiel. Roberts gefiehl das Spiel. Daher führte er es nach seiner Rückkehr in Großbritannien ein. Wegen seiner
-			Geselligkeit erfreute sich das Spiel unter der britischen Bevölkerung schnell einer gewissen Beliebtheit.
-		</p>
-		<h3>Der Weg zur Professionalisierung</h3>
-		<p>
-			Wegen der zunehmenden Industralisierung hatten die Menschen in England mehr Zeit für Freizeitaktivitäten. Dies war der Grund dafür, warum die Popularität von Snooker
-			weiterhin schnell anstieg. In den 1910er-Jahren wurden die erste höhere Breaks gespielt und ab 1916 wurde die erste Meisterschaft im Snooker ausgetragen, aus der später die English Amateur
-			Championship wurde. <br/>
-			Die bis dahin uneinheitlichen Snookerregeln wurden im Jahr 1916 durch den Billiards Association and Control Council erstmals zusammengefasst. Dem enstandenden Regelwerk wurden weitere
-			Regeln, wie z.B. die <em>Re-spotted black </em> hinzugefügt.
-		</p>
-		<h3>Globalisierung des Sports</h3>
-		<p>
-			Mit dem Start des neuen Jahrzehnts löste der Schotte Stephen Hendry im Jahr 1990 Davis als dominierenden Spieler ab. Zwischen 1990 und 1999 gewann Hendry insgesamt sieben Weltmeisterschaften.
-			Darüber hinaus konnte er zahlreiche und teilweise bis heute bestehende Rekorde aufstellten. <br/>
-			Weiterhin ist es Hendry zu verdanken, dass sich die bis dahin eher auf Sicherheit bedachte Spielweise zu einer weit offensiveren Spielart weiter entwickelte. Der heute 
-			standardisierte <em>lange rote Einsteiger</em> sowie die Nutzung der Mitteltaschen als Lochmöglichkeit aus viel spitzeren Winkeln gehen auf seine neuere Spielweise 
-			zurück.
-		</p>
+		<h1 class="headingPersonal">Spielablauf</h1>
+		<div id="accordion">
+    		<div class="card">
+      			<div class="card-header">
+       				<a class="card-link" data-toggle="collapse" href="#collapseOne">
+          				Ziel des Spiels
+        			</a>
+      			</div>
+     			<div id="collapseOne" class="collapse show" data-parent="#accordion">
+        			<div class="card-body">
+						<p>
+							Bei Snooker ist es das Ziel, so viele Punkte zu erreichen, dass der Gegner nicht mehr Punkte erzielen kann. Punkte können erzielt werden, in dem mindestens
+							einer der Kugeln in eine der sechs Taschen des Tisches gelocht werden kann. Hierfür wird mit dem Queue der weiße Spielball so gestoßen, dass dieser mindestens 
+							eine weitere Kugel berührt.
+						</p>
+        			</div>
+      			</div>
+      			<div class="card-header">
+       				<a class="card-link" data-toggle="collapse" href="#collapseTwo">
+          				Spielablauf
+        			</a>
+      			</div>
+     			<div id="collapseTwo" class="collapse" data-parent="#accordion">
+        			<div class="card-body">
+						<p>
+							Der Spieler, der am Ende eines Frames die meisten Punkte sammeln konnte, gewinnt diesen. Ein Spiel besteht oft aus mehreren Frames. Derjenige von den beiden 
+							Spielern, der die meisten Frames gewinnt, hat das Spiel gewonnen.
+						</p>
+        			</div>
+      			</div>
+      			<div class="card-header">
+       				<a class="card-link" data-toggle="collapse" href="#collapseThree">
+          				Tatik
+        			</a>
+      			</div>
+     			<div id="collapseThree" class="collapse" data-parent="#accordion">
+        			<div class="card-body">
+						<p>
+							Taktische Aspekte spielen beim Snooker ebenfalls eine entscheidene Rolle. Wer seinem Gegner taktisch überlegen ist, kann oft einen Frame für sich entscheiden.
+						</p>
+        			</div>
+      			</div>
+    		</div>
+    	</div>
+		<div class="buttonToText">
+			<a class="linkButton" href="/thorben-dierkes/overview">Zurück zur Übersicht</a>
+		</div>
 	</div>
 </div>
 
 <jsp:include page="../layout/mainfooter.jsp" flush="true"/>
-
-<script src="resources/core/js/clock.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 </body>
