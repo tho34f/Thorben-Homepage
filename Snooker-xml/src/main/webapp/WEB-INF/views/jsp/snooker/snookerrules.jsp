@@ -50,7 +50,7 @@
       			</div>
       			<div class="card-header">
        				<a class="card-link" data-toggle="collapse" href="#collapseThree">
-          				Tatik
+          				Tatik Test
         			</a>
       			</div>
      			<div id="collapseThree" class="collapse" data-parent="#accordion">
