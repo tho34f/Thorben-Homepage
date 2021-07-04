@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <header>
 	<div id="mainLogo">
 		<img src="../resources/core/images/logo_large.png" alt="Bild Thorben" style="width:500px;margin-top:4px;" />
@@ -48,9 +50,11 @@
 				<h4 id="objectHeader">${Objectbrowser.objectTitle}</h4>
 			</div>
 			<div>
-				<button id="newObject" name="${Objectbrowser.objectType}" type="button" title="${Objectbrowser.buttonTitle} erzeugen">
-					<em>${Objectbrowser.buttonTitle}</em>
-				</button>
+				<c:if test="${not empty Objectbrowser.buttonTitle}">
+					<button id="newObject" name="${Objectbrowser.objectType}" type="button" title="${Objectbrowser.buttonTitle} erzeugen">
+						<em>${Objectbrowser.buttonTitle}</em>
+					</button>
+				</c:if>
 			</div>
 		</div>
 </header>

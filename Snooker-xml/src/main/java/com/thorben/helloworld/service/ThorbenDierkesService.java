@@ -20,7 +20,6 @@ import com.thorben.helloworld.snooker.News;
 import com.thorben.helloworld.snooker.Spieler;
 import com.thorben.helloworld.snooker.Termin;
 import com.thorben.helloworld.web.SnookerController;
-import com.thorben.helloworld.web.StandardController;
 
 @Service
 public class ThorbenDierkesService {

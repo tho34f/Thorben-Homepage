@@ -24,6 +24,9 @@ public class ObjectBrowserController {
 	private static Set<Termin> calendarList = new HashSet<>();
 	private static Set<ErrorMassage> errorMassageList = new HashSet<>();
 	
+	private static final String INFORMATION_LIST = "informationList";
+	private static final String ERROR_MESSAGE = "errorMessage";
+	
 	public static void  getInformationForOb(ObjectBrowser ob, final HttpServletRequest request) {
 		
 		int id = ob.getObjectType();
@@ -32,25 +35,25 @@ public class ObjectBrowserController {
 			case ThorbenDierkes.NEWS:
 				setNewsList(NewsQueries.loadNewsList());
 				if(!getNewsList().isEmpty()) {
-					request.getSession().setAttribute("informationList", newsList);
+					request.getSession().setAttribute(INFORMATION_LIST, newsList);
 				} else {
-					request.getSession().setAttribute("errorMessage", ThorbenDierkes.ERROR_MESSAGE_NO_ELEMENTS);
+					clearInformationAndSetError(request);
 				}
 				break;
 			case ThorbenDierkes.CALENDAR: 
 				setCalendarList(CalendarQueries.loadCalendarList());
 				if(!getCalendarList().isEmpty()) {
-					request.getSession().setAttribute("informationList", calendarList);
+					request.getSession().setAttribute(INFORMATION_LIST, calendarList);
 				} else {
-					request.getSession().setAttribute("errorMessage", ThorbenDierkes.ERROR_MESSAGE_NO_ELEMENTS);
+					clearInformationAndSetError(request);
 				}
 				break;
 			case ThorbenDierkes.ERROR_LOG_MASSAGE:
 				setErrorMassageList(ErrorLoggQueries.loadErrorLogList());
 				if(!getErrorMassageList().isEmpty()) {
-					request.getSession().setAttribute("informationList", errorMassageList);
+					request.getSession().setAttribute(INFORMATION_LIST, errorMassageList);
 				} else {
-					request.getSession().setAttribute("errorMessage", ThorbenDierkes.ERROR_MESSAGE_NO_ELEMENTS);
+					clearInformationAndSetError(request);
 				}
 				break;
 			default:
@@ -59,6 +62,11 @@ public class ObjectBrowserController {
 				break;
 		}
 		
+	}
+	
+	public static void clearInformationAndSetError(final HttpServletRequest request) {
+		request.getSession().setAttribute(ERROR_MESSAGE, ThorbenDierkes.ERROR_MESSAGE_NO_ELEMENTS);
+		request.getSession().removeAttribute(INFORMATION_LIST);
 	}
 
 	public static Set<News> getNewsList() {
