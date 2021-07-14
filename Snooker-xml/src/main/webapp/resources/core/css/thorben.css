@@ -1,8 +1,23 @@
- .page-header{
- 	padding-bottom:15px; 
+ .pageHeader{
  	border-bottom:1px solid #eee; 
  	background-color: #8dcbbb; 
  	color:#701718;  
+ 	height:147px;
+}
+
+.headerImage{
+	width:500px;
+}
+
+.headerImageSticky{
+	width:400px;
+}
+
+.headerHashTag{
+	color:#8dcbbb;
+	top:1%;
+	bottom: 5%;
+	margin-top: auto;
 }
 
 .linkButton{

@@ -82,7 +82,8 @@ header {
 }
 
 header.sticky{
-	position: sticky;	
+	position: sticky;
+	height:135px;	
 }
 
 .carousel-inner img {

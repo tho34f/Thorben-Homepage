@@ -744,7 +744,7 @@
   }
   
   .tab-content>.tab-pane{display:none}.tab-content>.active{display:block}.nav-tabs .dropdown-menu{margin-top:-1px;border-top-left-radius:0;border-top-right-radius:0}
-  .navbar{position:relative;min-height:50px;margin-bottom:20px;border:1px solid transparent}
+  .navbar{position:relative;min-height:50px;margin-bottom:12px;border:1px solid transparent}
   @media (min-width:768px){.navbar{display:flex}}
   @media (min-width:768px){
   	.navbar-header{float:left}}

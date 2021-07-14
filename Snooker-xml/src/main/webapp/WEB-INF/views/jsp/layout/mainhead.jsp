@@ -1,4 +1,4 @@
-<header id="page-header" class="page-header">
+<header id="pageHeader" class="pageHeader">
 		<nav class="navbar navbar-inverse navbar-expand-sm" id="navigation">
 			<ul class="navbar-nav">
 				<li class="nav-item">
@@ -36,11 +36,11 @@
 				</form>
 			</div>
 			<div style="margin-left: auto;">
-				<h2 style="color:#8dcbbb;top:1%;bottom: 5%;margin-top: auto;">#WIRWARBURGER</h2>
+				<h2 class="headerHashTag" id="headerHashTag">#WIRWARBURGER</h2>
 			</div>
 		</nav>
 
 		<div style="text-align:center">
-			<a href="/thorben-dierkes"><img src="resources/core/images/logo_large.png" alt="Bild Thorben" style="hight:50px;width:500px;" /></a>
+			<a href="/thorben-dierkes"><img src="resources/core/images/logo_large.png" alt="Bild Thorben" class="headerImage" id="headerImage" /></a>
 		</div>
 </header>
