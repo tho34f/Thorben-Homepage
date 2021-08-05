@@ -1,11 +1,13 @@
 package com.thorben.helloworld.web;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.thorben.helloworld.queries.CalendarQueries;
+import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.queries.NewsQueries;
+import com.thorben.helloworld.queries.UpdateDB;
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.GetHomepageData;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.TypeConverter;
-import com.thorben.helloworld.service.UpdateDB;
 import com.thorben.helloworld.snooker.TournamentSeason;
 import com.thorben.helloworld.snooker.News;
 import com.thorben.helloworld.snooker.Termin;
@@ -45,14 +48,14 @@ public class StandardController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String start(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String start(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		if(request.getSession().getAttribute("seasions") == null) {
 			request.getSession().setAttribute("seasions", getSeasons());
 		}
 		
 		List<String> provisionalRanking = GetHomepageData.getData();
-		UpdateDB.updateDatenbank(provisionalRanking);
+		MySql.getInstance().getUpdateDB().updateDatenbank(provisionalRanking);
 		
 		DateConverter.setDateFooter(indexDate, request);
 		
@@ -72,13 +75,13 @@ public class StandardController {
 	}
 	
 	@RequestMapping(value = "/terminslider", method = RequestMethod.GET)
-	public String createTerminSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String createTerminSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		DateConverter.setDateFooter(indexDate, request);
 		String action = request.getParameter("action");
 		int pageNumber = TypeConverter.string2int(request.getParameter("page"),0);
 		
-		Set<Termin> terminList = CalendarQueries.loadCalendarList();
+		Set<Termin> terminList = MySql.getInstance().getCalendarQueries().loadCalendarList();
 		Map<String,Set<Termin>> splitedTerminList = ThorbenDierkesService.splitTerminList(terminList);
 		int slider = splitedTerminList.size();
 		
@@ -109,14 +112,14 @@ public class StandardController {
 	}
 	
 	@RequestMapping(value = "/terminreader", method = RequestMethod.GET)
-	public String createTerminReader(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String createTerminReader(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		DateConverter.setDateFooter(indexDate, request);
 		
 		String terminId = request.getParameter("id");
 		Termin terminToRead = new Termin();
 		if(terminId != null) {
-			terminToRead = CalendarQueries.loadCalendar(TypeConverter.string2int(terminId, 0));
+			terminToRead = MySql.getInstance().getCalendarQueries().loadCalendar(TypeConverter.string2int(terminId, 0));
 		}
 		
 		request.getSession().setAttribute("calendarToRead", terminToRead);
@@ -125,13 +128,13 @@ public class StandardController {
 	}
 	
 	@RequestMapping(value = "/newsslider", method = RequestMethod.GET)
-	public String createNewsSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String createNewsSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		DateConverter.setDateFooter(indexDate, request);
 		String action = request.getParameter("action");
 		int pageNumber = TypeConverter.string2int(request.getParameter("page"),0);
 		
-		Set<News> newsList = NewsQueries.loadNewsList();
+		Set<News> newsList = MySql.getInstance().getNewsQueries().loadNewsList();
 		Map<String,Set<News>> splitedNewsList = ThorbenDierkesService.splitNewsList(newsList);
 		int slider = splitedNewsList.size();
 		
@@ -162,14 +165,14 @@ public class StandardController {
 	}
 	
 	@RequestMapping(value = "/newsreader", method = RequestMethod.GET)
-	public String createNewsReader(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String createNewsReader(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		DateConverter.setDateFooter(indexDate, request);
 		
 		String newsId = request.getParameter("id");
 		News messageToRead = new News();
 		if(newsId != null) {
-			messageToRead = NewsQueries.loadNews(TypeConverter.string2int(newsId, 0));
+			messageToRead = MySql.getInstance().getNewsQueries().loadNews(TypeConverter.string2int(newsId, 0));
 		}
 		
 		request.getSession().setAttribute("messageToRead", messageToRead);

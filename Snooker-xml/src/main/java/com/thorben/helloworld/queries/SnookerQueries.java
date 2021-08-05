@@ -1,8 +1,12 @@
 package com.thorben.helloworld.queries;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import com.thorben.helloworld.service.ThorbenDierkes;
 import com.thorben.helloworld.service.ThorbenDierkesLogger;
@@ -10,22 +14,24 @@ import com.thorben.helloworld.snooker.Spieler;
 import com.thorben.helloworld.snooker.Tournament;
 import com.thorben.helloworld.snooker.TournamentSeason;
 
-public class SnookerQueries {
+public class SnookerQueries extends AbstractQuerries {
 	
-    private SnookerQueries() {
+	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
+	
+    public SnookerQueries(MySql sql, DataSource ds) {
     	
-    	throw new IllegalStateException("Utility Class");
+    	super(sql, ds);
     	
     }
     
-    public static void creatTournamentList(String nameOfTable, TournamentSeason tournamentSeason) {
+    public void creatTournamentList(String nameOfTable, TournamentSeason tournamentSeason) throws SQLException, NamingException{
     	try {
         	//Verbindung Datenbank erzeugen
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 			
 	        // Statement mit Benennung der Tablle
 	        String query = "SELECT * FROM " + nameOfTable;
-	        try(Statement stmt = MySqlConnection.getConnectionSnooker().createStatement()){
+	        try(Statement stmt = con.createStatement()){
 		        ResultSet rs = stmt.executeQuery(query);
 		        
 		        // Tournement Erzeugen und in einer Liste speichern
@@ -47,27 +53,27 @@ public class SnookerQueries {
 
 	        }
 	        
-	        MySqlConnection.getConnectionSnooker().close();
+	        con.close();
 	        
-		} catch (ClassNotFoundException e) {
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			ThorbenDierkesLogger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
+			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			ThorbenDierkesLogger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
         
     }
     
-    public static void creatPlayerList(String nameOfTable, TournamentSeason tournamentSeason) {
+    public void creatPlayerList(String nameOfTable, TournamentSeason tournamentSeason) throws SQLException, NamingException  {
     	
     	try {
 	    	//Verbindung Datenbank erzeugen
-    		MySqlConnection.createConnection();
+    		Connection con = getDataSource().getConnection();
 	        // Statement mit Benennung der Tablle
 	        String query = "SELECT * FROM " + nameOfTable;
 	        
-	        try(Statement stmt = MySqlConnection.getConnectionSnooker().createStatement()){
+	        try(Statement stmt = con.createStatement()){
 	        ResultSet rs = stmt.executeQuery(query);
 	        // Spieler Erzeugen und in einer Liste speichern
 	        while (rs.next()) {
@@ -91,13 +97,13 @@ public class SnookerQueries {
 	        rs.close();
 	        }
 	        
-	        MySqlConnection.getConnectionSnooker().close();
-    	} catch (ClassNotFoundException e) {
+	        con.close();
+    	} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			ThorbenDierkesLogger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
+			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			ThorbenDierkesLogger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
 
     }

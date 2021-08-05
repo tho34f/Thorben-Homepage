@@ -28,6 +28,12 @@
       					<a class="dropdown-item" href="/thorben-dierkes/politik-werdegang">Politischer Werdegang</a>
 					</div>
 				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown"> Mathematik </a>
+      				<div class="dropdown-menu">
+      					<a class="dropdown-item" href="/thorben-dierkes/math">Grundlagen</a>
+					</div>
+				</li>
 			</ul>
 			<div>
 				<form class="example" id="search" method="post" action="search">
@@ -36,7 +42,7 @@
 				</form>
 			</div>
 			<div style="margin-left: auto;">
-				<h2 class="headerHashTag" id="headerHashTag">#WIRWARBURGER</h2>
+				<h2 class="headerHashTag" id="headerHashTag">#POLITICALMATHE</h2>
 			</div>
 		</nav>
 

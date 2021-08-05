@@ -1,10 +1,12 @@
 package com.thorben.helloworld.web;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -102,7 +104,7 @@ public class SnookerController {
 	}
 	
 	@RequestMapping(value = "/saisonOverwiev", method = RequestMethod.POST)
-	public String overviewpost(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String overviewpost(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 			
 		String number = request.getParameter(SEASON);
 		ThorbenDierkesService.setSeason(number, request);
@@ -143,7 +145,7 @@ public class SnookerController {
 	}
 	
 	@RequestMapping(value = "/saison", method = RequestMethod.POST)
-	public String establishSeasion(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String establishSeasion(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 			
 		String number = request.getParameter(SEASON);
 		TournamentSeason season = null;

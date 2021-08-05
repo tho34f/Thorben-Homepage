@@ -1,10 +1,14 @@
 package com.thorben.helloworld.queries;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,29 +16,31 @@ import org.slf4j.LoggerFactory;
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.ThorbenDierkes;
+import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.ErrorMassage;
+import com.thorben.helloworld.web.BackendController;
 
-public class ErrorLoggQueries {
+public class ErrorLoggQueries extends AbstractQuerries {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ErrorLoggQueries.class);
+	private final Logger logger = LoggerFactory.getLogger(BackendController.class);
 	
-    private ErrorLoggQueries() {
-    	
-    	throw new IllegalStateException("Utility Class");
-    	
-    }
+	 public ErrorLoggQueries(MySql sql, DataSource ds) {
+	    	
+	    	super(sql, ds);
+	    	
+	    }
     
-	public static Set<ErrorMassage> loadErrorLogList() {
+	public Set<ErrorMassage> loadErrorLogList() throws SQLException, NamingException {
 		
 		Set<ErrorMassage> errorList = new HashSet<>();
 		
 		try{
 			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 			
 			String queryErrorLog = "SELECT * FROM error_log";
 		
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryErrorLog)){
+			try(PreparedStatement stmt = con.prepareStatement(queryErrorLog)){
 		        ResultSet rs = stmt.executeQuery();
 		        
 		        while(rs.next()) {
@@ -53,34 +59,34 @@ public class ErrorLoggQueries {
 		        
 			}
 		 
-			MySqlConnection.getConnectionSnooker().close();
+			con.close();
 		
-		} catch (ClassNotFoundException e) {
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.error(erroeMessage, e);
+			e.printStackTrace();
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.error(erroeMessage, e);
+			e.printStackTrace();
 		} 
 		
 		return errorList;
 		
 	}
 	
-	public static ErrorMassage loadError(int newsId) {
+	public ErrorMassage loadError(int newsId) throws SQLException, NamingException {
 		
 		ErrorMassage massage = new ErrorMassage();
 		
 		try{
 			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 			
 			String queryError = "SELECT * FROM error_log"
 					+ " WHERE error_id = ?";
 		
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryError)){
+			try(PreparedStatement stmt = con.prepareStatement(queryError)){
 				stmt.setInt(1, newsId);
 		        ResultSet rs = stmt.executeQuery();
 		        
@@ -97,33 +103,33 @@ public class ErrorLoggQueries {
 		        
 			}
 		 
-			MySqlConnection.getConnectionSnooker().close();
+			con.close();
 		
-		} catch (ClassNotFoundException e) {
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.error(erroeMessage, e);
+			e.printStackTrace();
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
-		} 
+			logger.error(erroeMessage, e);
+			e.printStackTrace();
+		}  
 		
 		return massage;
 		
 	}
 	
-	public static void newErrorLogEntry(String title, String description) {
+	public void newErrorLogEntry(String title, String description) throws SQLException, NamingException {
 		
 		try{
 			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 		
 			String queryError = "INSERT INTO error_log VALUES (?, ?, ?, ?)";
 			
 			int id = ThorbenDierkesService.generateId();
 			
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryError)){
+			try(PreparedStatement stmt = con.prepareStatement(queryError)){
 				int counter = 1;
 				stmt.setInt(counter++, id);
 				stmt.setString(counter++, title);
@@ -134,15 +140,15 @@ public class ErrorLoggQueries {
 		        
 			}
 			
-			MySqlConnection.getConnectionSnooker().close();
-		} catch (ClassNotFoundException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
-		} catch (SQLException e) {
+			con.close();
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.error(erroeMessage, e);
+			e.printStackTrace();
+		} catch (SQLException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.error(erroeMessage, e);
+			e.printStackTrace();
 		} 
 		
 	}

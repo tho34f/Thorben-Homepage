@@ -1,7 +1,9 @@
 package com.thorben.helloworld.service;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 public class ObjectBrowser implements Serializable{
@@ -10,6 +12,8 @@ public class ObjectBrowser implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -5766256589960477549L;
+	
+	private static ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
 	private int objectType;
 	private String objectTitle;
@@ -31,7 +35,7 @@ public class ObjectBrowser implements Serializable{
     	this.objectType = objectType;
     }
 	
-	public static ObjectBrowser setHeaderInformation(final HttpServletRequest request, int id) {
+	public static ObjectBrowser setHeaderInformation(final HttpServletRequest request, int id) throws SQLException, NamingException {
 		ObjectBrowser ob = null;
 		switch(id) {
 			case ThorbenDierkes.NEWS:
@@ -48,7 +52,7 @@ public class ObjectBrowser implements Serializable{
 				break;
 			default:
 				String errorMassage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_OB).toString();
-				ThorbenDierkesLogger.errorLog("Fehlende OB Elemente",errorMassage);
+				logger.errorLog("Fehlende OB Elemente",errorMassage);
 				break;
 		}
 		

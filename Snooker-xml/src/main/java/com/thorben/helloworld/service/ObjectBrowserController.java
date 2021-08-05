@@ -1,12 +1,15 @@
 package com.thorben.helloworld.service;
 
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.thorben.helloworld.queries.CalendarQueries;
 import com.thorben.helloworld.queries.ErrorLoggQueries;
+import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.queries.NewsQueries;
 import com.thorben.helloworld.snooker.ErrorMassage;
 import com.thorben.helloworld.snooker.News;
@@ -14,11 +17,7 @@ import com.thorben.helloworld.snooker.Termin;
 
 public class ObjectBrowserController {
 	
-	private ObjectBrowserController() {
-    	
-    	throw new IllegalStateException("Utility Class");
-    	
-    }
+	private static ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
 	private static Set<News> newsList = new HashSet<>();
 	private static Set<Termin> calendarList = new HashSet<>();
@@ -27,13 +26,13 @@ public class ObjectBrowserController {
 	private static final String INFORMATION_LIST = "informationList";
 	private static final String ERROR_MESSAGE = "errorMessage";
 	
-	public static void  getInformationForOb(ObjectBrowser ob, final HttpServletRequest request) {
+	public static void  getInformationForOb(ObjectBrowser ob, final HttpServletRequest request) throws SQLException, NamingException {
 		
 		int id = ob.getObjectType();
 		
 		switch(id) {
 			case ThorbenDierkes.NEWS:
-				setNewsList(NewsQueries.loadNewsList());
+				setNewsList(MySql.getInstance().getNewsQueries().loadNewsList());
 				if(!getNewsList().isEmpty()) {
 					request.getSession().setAttribute(INFORMATION_LIST, newsList);
 				} else {
@@ -41,7 +40,7 @@ public class ObjectBrowserController {
 				}
 				break;
 			case ThorbenDierkes.CALENDAR: 
-				setCalendarList(CalendarQueries.loadCalendarList());
+				setCalendarList(MySql.getInstance().getCalendarQueries().loadCalendarList());
 				if(!getCalendarList().isEmpty()) {
 					request.getSession().setAttribute(INFORMATION_LIST, calendarList);
 				} else {
@@ -49,7 +48,7 @@ public class ObjectBrowserController {
 				}
 				break;
 			case ThorbenDierkes.ERROR_LOG_MASSAGE:
-				setErrorMassageList(ErrorLoggQueries.loadErrorLogList());
+				setErrorMassageList(MySql.getInstance().getErrorLoggQueries().loadErrorLogList());
 				if(!getErrorMassageList().isEmpty()) {
 					request.getSession().setAttribute(INFORMATION_LIST, errorMassageList);
 				} else {
@@ -58,7 +57,7 @@ public class ObjectBrowserController {
 				break;
 			default:
 				String errorMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_OB).toString();
-				ThorbenDierkesLogger.errorLog("Fehlende OB Elemente",errorMessage);
+				logger.errorLog("Fehlende OB Elemente",errorMessage);
 				break;
 		}
 		

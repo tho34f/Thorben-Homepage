@@ -1,27 +1,25 @@
 package com.thorben.helloworld.service;
 
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.thorben.helloworld.queries.ErrorLoggQueries;
+import com.thorben.helloworld.queries.MySql;
 
 public class ThorbenDierkesLogger {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ThorbenDierkesLogger.class);
 	
-	private ThorbenDierkesLogger() {
-	   	
-		throw new IllegalStateException("Utility Class");
-	    	
-    }
-	
-	public static void errorLog(String title, String massage) {
-		ErrorLoggQueries.newErrorLogEntry(title,massage);
+	public void errorLog(String title, String massage) throws SQLException, NamingException {
+		MySql.getInstance().getErrorLoggQueries().newErrorLogEntry(title,massage);
 		logger.info(massage);
 	}
 	
-	public static void errorLogWithTrace(String title, String massage, Exception e) {
-		ErrorLoggQueries.newErrorLogEntry(title,massage);
+	public void errorLogWithTrace(String title, String massage, Exception e) throws SQLException, NamingException {
+		MySql.getInstance().getErrorLoggQueries().newErrorLogEntry(title,massage);
 		logger.info(massage);
 		e.printStackTrace();
 	}

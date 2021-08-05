@@ -1,5 +1,6 @@
 package com.thorben.helloworld.service;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -7,12 +8,14 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.queries.SnookerQueries;
 import com.thorben.helloworld.snooker.Tournament;
 import com.thorben.helloworld.snooker.TournamentSeason;
@@ -44,18 +47,18 @@ public class ThorbenDierkesService {
 	
 	}
 	
-	public static TournamentSeason creatSeason(int year) {
+	public static TournamentSeason creatSeason(int year) throws SQLException, NamingException {
 		
 		TournamentSeason season = new TournamentSeason(year);
 		
         // Ergebnisse anzeigen.
-		SnookerQueries.creatTournamentList("tournament", season);
-		SnookerQueries.creatPlayerList("snookerplayers", season);
+		MySql.getInstance().getSnookerQueries().creatTournamentList("tournament", season);
+		MySql.getInstance().getSnookerQueries().creatPlayerList("snookerplayers", season);
 
 		return season;
 	}
 	
-	public static void setSeason(String number, final HttpServletRequest request) {
+	public static void setSeason(String number, final HttpServletRequest request) throws SQLException, NamingException {
 		
 		TournamentSeason season = null;
 		
