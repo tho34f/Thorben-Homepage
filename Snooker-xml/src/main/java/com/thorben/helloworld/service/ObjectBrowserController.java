@@ -1,49 +1,71 @@
 package com.thorben.helloworld.service;
 
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.thorben.helloworld.queries.CalendarQueries;
+import com.thorben.helloworld.queries.ErrorLoggQueries;
+import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.queries.NewsQueries;
+import com.thorben.helloworld.snooker.ErrorMassage;
 import com.thorben.helloworld.snooker.News;
 import com.thorben.helloworld.snooker.Termin;
 
 public class ObjectBrowserController {
 	
-	private ObjectBrowserController() {
-    	
-    	throw new IllegalStateException("Utility Class");
-    	
-    }
+	private static ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
 	private static Set<News> newsList = new HashSet<>();
 	private static Set<Termin> calendarList = new HashSet<>();
+	private static Set<ErrorMassage> errorMassageList = new HashSet<>();
 	
-	public static void  getInformationForOb(ObjectBrowser ob, final HttpServletRequest request) {
+	private static final String INFORMATION_LIST = "informationList";
+	private static final String ERROR_MESSAGE = "errorMessage";
+	
+	public static void  getInformationForOb(ObjectBrowser ob, final HttpServletRequest request) throws SQLException, NamingException {
 		
 		int id = ob.getObjectType();
 		
 		switch(id) {
-			case 39:
-				setNewsList(NewsQueries.loadNewsList());
+			case ThorbenDierkes.NEWS:
+				setNewsList(MySql.getInstance().getNewsQueries().loadNewsList());
 				if(!getNewsList().isEmpty()) {
-					request.getSession().setAttribute("informationList", newsList);
+					request.getSession().setAttribute(INFORMATION_LIST, newsList);
 				} else {
-					request.getSession().setAttribute("errorMessage", "Es sind keine ELemente vorhanden.");
+					clearInformationAndSetError(request);
 				}
 				break;
-			case 40: 
-				setCalendarList(CalendarQueries.loadCalendarList());
+			case ThorbenDierkes.CALENDAR: 
+				setCalendarList(MySql.getInstance().getCalendarQueries().loadCalendarList());
 				if(!getCalendarList().isEmpty()) {
-					request.getSession().setAttribute("informationList", calendarList);
+					request.getSession().setAttribute(INFORMATION_LIST, calendarList);
 				} else {
-					request.getSession().setAttribute("errorMessage", "Es sind keine ELemente vorhanden.");
+					clearInformationAndSetError(request);
 				}
+				break;
+			case ThorbenDierkes.ERROR_LOG_MASSAGE:
+				setErrorMassageList(MySql.getInstance().getErrorLoggQueries().loadErrorLogList());
+				if(!getErrorMassageList().isEmpty()) {
+					request.getSession().setAttribute(INFORMATION_LIST, errorMassageList);
+				} else {
+					clearInformationAndSetError(request);
+				}
+				break;
+			default:
+				String errorMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_OB).toString();
+				logger.errorLog("Fehlende OB Elemente",errorMessage);
 				break;
 		}
 		
+	}
+	
+	public static void clearInformationAndSetError(final HttpServletRequest request) {
+		request.getSession().setAttribute(ERROR_MESSAGE, ThorbenDierkes.ERROR_MESSAGE_NO_ELEMENTS);
+		request.getSession().removeAttribute(INFORMATION_LIST);
 	}
 
 	public static Set<News> getNewsList() {
@@ -60,6 +82,14 @@ public class ObjectBrowserController {
 
 	public static void setCalendarList(Set<Termin> calendarList) {
 		ObjectBrowserController.calendarList = calendarList;
+	}
+
+	public static Set<ErrorMassage> getErrorMassageList() {
+		return errorMassageList;
+	}
+
+	public static void setErrorMassageList(Set<ErrorMassage> errorMassageList) {
+		ObjectBrowserController.errorMassageList = errorMassageList;
 	}
 
 }

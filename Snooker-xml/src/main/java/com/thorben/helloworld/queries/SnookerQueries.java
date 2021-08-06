@@ -1,37 +1,37 @@
 package com.thorben.helloworld.queries;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.servlet.ServletContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import com.thorben.helloworld.service.ThorbenDierkes;
+import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.Spieler;
 import com.thorben.helloworld.snooker.Tournament;
 import com.thorben.helloworld.snooker.TournamentSeason;
 
-public class SnookerQueries {
+public class SnookerQueries extends AbstractQuerries {
 	
-private static final Logger logger = LoggerFactory.getLogger(SnookerQueries.class);
+	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
-    private SnookerQueries() {
+    public SnookerQueries(MySql sql, DataSource ds) {
     	
-    	throw new IllegalStateException("Utility Class");
+    	super(sql, ds);
     	
     }
     
-    public static void creatTournamentList(String nameOfTable, TournamentSeason tournamentSeason) {
+    public void creatTournamentList(String nameOfTable, TournamentSeason tournamentSeason) throws SQLException, NamingException{
     	try {
         	//Verbindung Datenbank erzeugen
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 			
 	        // Statement mit Benennung der Tablle
 	        String query = "SELECT * FROM " + nameOfTable;
-	        try(Statement stmt = MySqlConnection.getConnectionSnooker().createStatement()){
+	        try(Statement stmt = con.createStatement()){
 		        ResultSet rs = stmt.executeQuery(query);
 		        
 		        // Tournement Erzeugen und in einer Liste speichern
@@ -53,28 +53,27 @@ private static final Logger logger = LoggerFactory.getLogger(SnookerQueries.clas
 
 	        }
 	        
-	        MySqlConnection.getConnectionSnooker().close();
+	        con.close();
 	        
-		} catch (ClassNotFoundException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE
-                    + e.getLocalizedMessage());
-            e.printStackTrace();
+		} catch (NamingException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE_SQL + e.getLocalizedMessage());
-            e.printStackTrace();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
         
     }
     
-    public static void creatPlayerList(String nameOfTable, TournamentSeason tournamentSeason) {
+    public void creatPlayerList(String nameOfTable, TournamentSeason tournamentSeason) throws SQLException, NamingException  {
     	
     	try {
 	    	//Verbindung Datenbank erzeugen
-    		MySqlConnection.createConnection();
+    		Connection con = getDataSource().getConnection();
 	        // Statement mit Benennung der Tablle
 	        String query = "SELECT * FROM " + nameOfTable;
 	        
-	        try(Statement stmt = MySqlConnection.getConnectionSnooker().createStatement()){
+	        try(Statement stmt = con.createStatement()){
 	        ResultSet rs = stmt.executeQuery(query);
 	        // Spieler Erzeugen und in einer Liste speichern
 	        while (rs.next()) {
@@ -98,17 +97,15 @@ private static final Logger logger = LoggerFactory.getLogger(SnookerQueries.clas
 	        rs.close();
 	        }
 	        
-	        MySqlConnection.getConnectionSnooker().close();
-    	} catch (ClassNotFoundException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE
-                    + e.getLocalizedMessage());
-            e.printStackTrace();
+	        con.close();
+    	} catch (NamingException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
-			((ServletContext) logger).log(ThorbenDierkes.ERROR_MESSAGE_SQL + e.getLocalizedMessage());
-            e.printStackTrace();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
-        
-        
+
     }
 
 }

@@ -2,41 +2,43 @@ package com.thorben.helloworld.queries;
 
 import java.awt.Image;
 import java.sql.Blob;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.ThorbenDierkes;
+import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.Termin;
 
-public class CalendarQueries {
+public class CalendarQueries extends AbstractQuerries {
 	
-private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.class);
+	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
-    private CalendarQueries() {
+    public CalendarQueries(MySql sql, DataSource ds) {
     	
-    	throw new IllegalStateException("Utility Class");
+    	super(sql, ds);
     	
     }
     
-	public static Set<Termin> loadCalendarList() {
+	public Set<Termin> loadCalendarList() throws SQLException, NamingException {
 		
 		Set<Termin> calendarList = new HashSet<>();
 		
 		try{
 			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 			
 			String queryNews = "SELECT * FROM termine ORDER BY creation_date";
 		
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 		        ResultSet rs = stmt.executeQuery();
 		        
 		        while(rs.next()) {
@@ -45,6 +47,7 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 		        	tm.setChangeDate(rs.getLong("change_date"));
 		        	tm.setCreationDate(rs.getLong("creation_date"));
 		        	tm.setCreationDateAsString(DateConverter.long2Date(tm.getCreationDate(),1));
+		        	tm.setCreationDateForSlider(DateConverter.long2Date(tm.getDate(),3));
 		        	if(tm.getChangeDate() != 0) {
 		        		tm.setChangeDateAsString(DateConverter.long2Date(tm.getChangeDate(),1));
 		        	} else {
@@ -63,33 +66,31 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 		        
 			}
 		 
-			MySqlConnection.getConnectionSnooker().close();
+			con.close();
 		
-		} catch (ClassNotFoundException e) {
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		} 
 		
 		return calendarList;
 		
 	}
 	
-	public static Termin loadCalendar(int terminId) {
+	public Termin loadCalendar(int terminId) throws SQLException, NamingException {
 		
 		Termin tm = new Termin();
 		
 		try{
 			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 			
 			String queryNews = "SELECT * FROM termine WHERE id = ?";
 		
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				stmt.setInt(1, terminId);
 		        ResultSet rs = stmt.executeQuery();
 		        
@@ -111,31 +112,31 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 		        
 			}
 		 
-			MySqlConnection.getConnectionSnooker().close();
+			con.close();
 		
-		} catch (ClassNotFoundException e) {
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		} 
 		
 		return tm;
 		
 	}
 	
-	public static void newCalendarEntry(String title, String description, String teaser) {
+	public boolean newCalendarEntry(String title, String description, String teaser) throws SQLException, NamingException {
+		
+		boolean isCreate = false;
 		
 		try{
 			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 		
 			String queryNews = "INSERT INTO termine (id, title, description, date, creation_date, change_date, teaser) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				int counter = 1;
 				stmt.setInt(counter++, ThorbenDierkesService.generateId());
 				stmt.setString(counter++, title);
@@ -145,33 +146,35 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 				stmt.setLong(counter++, 0);
 				stmt.setString(counter++, teaser);
 				
-		        stmt.execute();
+		        isCreate = stmt.execute();
 		        
 			}
 			
-			MySqlConnection.getConnectionSnooker().close();
-		} catch (ClassNotFoundException e) {
+			con.close();
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		} 
+		
+		return isCreate;
 		
 	}
 	
-	public static void updateCalendarEntry(int calendarId, String title, String text, String teaser, Image img) {
+	public boolean updateCalendarEntry(int calendarId, String title, String text, String teaser, Image img) throws SQLException, NamingException {
+		
+		boolean isUpdate = false;
 		
 		try{
 			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 		
 			String queryNews = "UPDATE termine SET title=?, description=?, teaser=?, change_date=?, date=?" +
 					" WHERE id=?";
 			
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				int counter = 1;
 				stmt.setString(counter++, title);
 				stmt.setString(counter++, teaser);
@@ -179,20 +182,20 @@ private static final Logger logger = LoggerFactory.getLogger(CalendarQueries.cla
 				stmt.setLong(counter++, System.currentTimeMillis());
 				stmt.setInt(counter++, calendarId);
 				
-		        stmt.execute();
+		        isUpdate = stmt.execute();
 		        
 			}
 			
-			MySqlConnection.getConnectionSnooker().close();
-		} catch (ClassNotFoundException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
-		} catch (SQLException e) {
+			con.close();
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
+		} catch (SQLException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		} 
+		
+		return isUpdate;
 		
 	}
 

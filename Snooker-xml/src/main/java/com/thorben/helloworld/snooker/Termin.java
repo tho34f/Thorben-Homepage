@@ -14,6 +14,7 @@ public class Termin implements Serializable{
 	private long creationDate;
 	private String changeDateAsString;
 	private String creationDateAsString;
+	private String creationDateForSlider;
 	private String title;
 	private String description;
 	private String teaser;
@@ -124,6 +125,14 @@ public class Termin implements Serializable{
 
 	public void setCreationDateAsString(String creationDateAsString) {
 		this.creationDateAsString = creationDateAsString;
+	}
+
+	public String getCreationDateForSlider() {
+		return creationDateForSlider;
+	}
+
+	public void setCreationDateForSlider(String creationDateForSlider) {
+		this.creationDateForSlider = creationDateForSlider;
 	}
 
 }

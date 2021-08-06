@@ -27,7 +27,7 @@
 								<tbody>
 									<tr class="obTableHeader">
 										<th class="redThorben ob_title_datacolumn_on" id="obObjectTitle">Title</th>
-										<th class="redThorben ob_title_datacolumn_on" id="obObjectTeaser">Teaser</th>
+										<th class="redThorben ob_title_datacolumn_on" id="obObjectTeaser">Teaser/Beschreibung</th>
 										<th class="redThorben ob_title_datacolumn_on" id="obObjectTeaser">Erstellungsdatum</th>
 										<th class="redThorben ob_title_datacolumn_on" id="obObjectTeaser">Änderungsdatum</th>
 									</tr>
@@ -37,8 +37,13 @@
 									<c:if test="${not empty informationList}">
 										<c:forEach items="${informationList}" var="element">
 											<tr id="object_${element.id}">
-												<td class="ob_row"><a id="${element.id}" href="" onclick="openWizard('${element.id}', ${Objectbrowser.objectType})">${element.title}</a></td>
-												<td class="ob_row">${element.teaser}</td>
+												<td class="ob_row">
+													<a id="${element.id}" href="" onclick="openWizard('${element.id}', ${Objectbrowser.objectType})">${element.title}</a>
+												</td>
+												<td class="ob_row">
+													<c:if test="${empty element.teaser}"> ${element.description} </c:if>
+													<c:if test="${not empty element.teaser}"> ${element.teaser} </c:if>
+													</td>
 												<td class="ob_row">${element.creationDateAsString}</td>
 												<td class="ob_row">
 													<c:if test="${empty element.changeDateAsString}">-</c:if>

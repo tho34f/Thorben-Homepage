@@ -12,23 +12,22 @@
 <header:defaultHaeder costumerCSS="thorben.css" favicon="thorben.ico"/>
 
 </head>
-<body onLoad="startTime()" >
+<body>
 
 <jsp:include page="../layout/mainhead.jsp" flush="true"/>
 
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1 class="heading">${messageToRead.title}</h1>
+		<h1 class="heading">${calendarToRead.title}</h1>
 		<div id="inhalt" class="row">
-			${messageToRead.text}
+			${calendarToRead.description}
 		</div>
 	</div>
 </div>
 
 <jsp:include page="../layout/mainfooter.jsp" flush="true"/>
 
-<script src="resources/core/js/clock.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 </body>

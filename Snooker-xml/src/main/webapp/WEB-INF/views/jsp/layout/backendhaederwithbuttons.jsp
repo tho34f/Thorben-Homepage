@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <header>
 	<div id="mainLogo">
 		<img src="../resources/core/images/logo_large.png" alt="Bild Thorben" style="width:500px;margin-top:4px;" />
@@ -31,6 +33,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=40" id="navbardrop"> Termine </a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=41" id="navbardrop"> Fehler-Log </a>
+				</li>
 			</ul>
 			<div>
 				<form class="example" id="search" method="post" action="search">
@@ -45,9 +50,11 @@
 				<h4 id="objectHeader">${Objectbrowser.objectTitle}</h4>
 			</div>
 			<div>
-				<button id="newObject" name="${Objectbrowser.objectType}" type="button" title="${Objectbrowser.buttonTitle} erzeugen">
-					<em>${Objectbrowser.buttonTitle}</em>
-				</button>
+				<c:if test="${not empty Objectbrowser.buttonTitle}">
+					<button id="newObject" name="${Objectbrowser.objectType}" type="button" title="${Objectbrowser.buttonTitle} erzeugen">
+						<em>${Objectbrowser.buttonTitle}</em>
+					</button>
+				</c:if>
 			</div>
 		</div>
 </header>

@@ -31,6 +31,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=40" id="navbardrop"> Termine </a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=41" id="navbardrop"> Fehler-Log </a>
+				</li>
 			</ul>
 			<div>
 				<form class="example" id="search" method="post" action="search">

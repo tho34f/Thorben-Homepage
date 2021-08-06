@@ -12,7 +12,7 @@
 <header:defaultHaeder costumerCSS="thorben.css" favicon="thorben.ico"/>
 
 </head>
-<body onLoad="startTime()" >
+<body>
 
 <jsp:include page="../layout/mainhead.jsp" flush="true"/>
 
@@ -28,7 +28,6 @@
 
 <jsp:include page="../layout/mainfooter.jsp" flush="true"/>
 
-<script src="resources/core/js/clock.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 </body>

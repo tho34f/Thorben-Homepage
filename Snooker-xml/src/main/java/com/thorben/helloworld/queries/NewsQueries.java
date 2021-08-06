@@ -2,42 +2,44 @@ package com.thorben.helloworld.queries;
 
 import java.awt.Image;
 import java.sql.Blob;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.ThorbenDierkes;
+import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.News;
 
-public class NewsQueries {
+public class NewsQueries extends AbstractQuerries {
 	
-private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
+	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
-    private NewsQueries() {
+    public NewsQueries(MySql sql, DataSource ds) {
     	
-    	throw new IllegalStateException("Utility Class");
+    	super(sql, ds);
     	
     }
     
-	public static Set<News> loadNewsList() {
+	public Set<News> loadNewsList() throws SQLException, NamingException {
 		
 		Set<News> newsList = new HashSet<>();
 		
 		try{
 			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();;
 			
 			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
 					+ " FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id ORDER BY nw.creation_date DESC";
 		
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 		        ResultSet rs = stmt.executeQuery();
 		        
 		        while(rs.next()) {
@@ -65,35 +67,33 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 		        
 			}
 		 
-			MySqlConnection.getConnectionSnooker().close();
+			con.close();
 		
-		} catch (ClassNotFoundException e) {
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
 		
 		return newsList;
 		
 	}
 	
-	public static News loadNews(int newsId) {
+	public News loadNews(int newsId) throws SQLException, NamingException {
 		
 		News massage = new News();
 		
 		try{
 			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 			
 			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
 					+ " FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id"
 					+ " WHERE nw.news_id = ?";
 		
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				stmt.setInt(1, newsId);
 		        ResultSet rs = stmt.executeQuery();
 		        
@@ -115,34 +115,34 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 		        
 			}
 		 
-			MySqlConnection.getConnectionSnooker().close();
+			con.close();
 		
-		} catch (ClassNotFoundException e) {
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
 		
 		return massage;
 		
 	}
 	
-	public static void newNewsEntry(String title, String text, String teaser, Image img) {
+	public boolean newNewsEntry(String title, String text, String teaser, Image img) throws SQLException, NamingException {
+		
+		boolean isSave = false;
 		
 		try{
 			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 		
 			String queryNews = "INSERT INTO news (news_id, news_title, news_teaser, news_image, change_date, creation_date) VALUES (?, ?, ?, ?, ?, ?)";
 			String queryNewsText = "INSERT INTO news_text (news_id, news_text) VALUES (?, ?)";
 			
 			int id = ThorbenDierkesService.generateId();
 			
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				int counter = 1;
 				stmt.setInt(counter++, id);
 				stmt.setString(counter++, title);
@@ -155,7 +155,7 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 		        
 			}
 			
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNewsText)){
+			try(PreparedStatement stmt = con.prepareStatement(queryNewsText)){
 				int counter = 1;
 				stmt.setInt(counter++, id);
 				stmt.setString(counter++, text);
@@ -164,60 +164,55 @@ private static final Logger logger = LoggerFactory.getLogger(NewsQueries.class);
 		        
 			}
 			
-			MySqlConnection.getConnectionSnooker().close();
-		} catch (ClassNotFoundException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
-		} catch (SQLException e) {
+			isSave = true;
+			
+			con.close();
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
+		} catch (SQLException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
+		
+		return isSave;
 		
 	}
 	
-	public static void updateNewsEntry(int newsId, String title, String text, String teaser, Image img) {
+	public boolean updateNewsEntry(int newsId, String title, String text, String teaser, Image img) throws SQLException, NamingException {
+		
+		boolean isUpdate = false;
 		
 		try{
-			
-			MySqlConnection.createConnection();
+			Connection con = getDataSource().getConnection();
 		
-			String queryNews = "UPDATE news SET news_title=?, news_teaser=?, news_image=?, change_date=?" +
-					" WHERE news_id=?";
-			String queryNewsText = "UPDATE news_text SET news_text=? WHERE news_id=?";
+			String updateQuerry = "Update news AS nw LEFT JOIN news_text AS nwt ON nw.news_id = nwt.news_id" + 
+					" SET nw.news_title=?, nw.news_teaser=?, nw.news_image=?, nw.change_date=?, nwt.news_text=?" + 
+					" WHERE nw.news_id=?";
 			
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNews)){
+			try(PreparedStatement stmt = con.prepareStatement(updateQuerry)){
 				int counter = 1;
 				stmt.setString(counter++, title);
 				stmt.setString(counter++, teaser);
 				stmt.setBlob(counter++, (Blob) img);
 				stmt.setLong(counter++, System.currentTimeMillis());
-				stmt.setInt(counter++, newsId);
-				
-		        stmt.execute();
-		        
-			}
-			
-			try(PreparedStatement stmt = MySqlConnection.getConnectionSnooker().prepareStatement(queryNewsText)){
-				int counter = 1;
 				stmt.setString(counter++, text);
 				stmt.setInt(counter++, newsId);
 				
-		        stmt.execute();
+		        isUpdate = stmt.execute();
 		        
 			}
 			
-			MySqlConnection.getConnectionSnooker().close();
-		} catch (ClassNotFoundException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
-		} catch (SQLException e) {
+			con.close();
+		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.info(erroeMessage);
-            e.printStackTrace();
+			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
+		} catch (SQLException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 
+		
+		return isUpdate;
 		
 	}
 

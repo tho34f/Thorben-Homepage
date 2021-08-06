@@ -1,7 +1,9 @@
 package com.thorben.helloworld.web;
 
+import java.sql.SQLException;
 import java.util.Map;
 
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.thorben.helloworld.queries.CalendarQueries;
+import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.queries.NewsQueries;
 import com.thorben.helloworld.queries.UserQueries;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.ObjectBrowser;
 import com.thorben.helloworld.service.ObjectBrowserController;
+import com.thorben.helloworld.service.ThorbenDierkes;
+import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.service.TypeConverter;
 import com.thorben.helloworld.snooker.News;
 import com.thorben.helloworld.snooker.Termin;
@@ -27,6 +32,7 @@ import com.thorben.helloworld.snooker.User;
 public class BackendController {
 	
 	private final Logger logger = LoggerFactory.getLogger(BackendController.class);
+	private static ThorbenDierkesLogger log = new ThorbenDierkesLogger();
 	private final ThorbenDierkesService helloWorldService;
 	
 	@Autowired
@@ -47,7 +53,7 @@ public class BackendController {
 	}
 	
 	@RequestMapping(value = "/backend/backendindex", method = RequestMethod.POST)
-	public String checkLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String checkLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		User loginUser = new User();
 		String forwordPath = null;
@@ -60,7 +66,7 @@ public class BackendController {
 			loginUser.setPassword(request.getParameter("password"));
 		}
 		
-		isLoginOk = UserQueries.checkLogin(loginUser);
+		isLoginOk = MySql.getInstance().getUserQueries().checkLogin(loginUser);
 		request.getSession().setAttribute(isLoginOkString, isLoginOk);
 		
 		if(isLoginOk) {
@@ -110,7 +116,7 @@ public class BackendController {
 	}
 	
 	@RequestMapping(value = "/backend/backendObjectBrowser", method = RequestMethod.GET)
-	public String getObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String getObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		String forwordPath = null;
 		int objectId = TypeConverter.string2int(request.getParameter("id"), 0);
@@ -129,7 +135,7 @@ public class BackendController {
 	}
 	
 	@RequestMapping(value = "/backend/newswizard", method = RequestMethod.GET)
-	public String creatNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String creatNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		String forwordPath = null;
 		News message = null;
@@ -138,7 +144,7 @@ public class BackendController {
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/newswizard";
 			if(newsId != null) {
-				message = NewsQueries.loadNews(TypeConverter.string2int(newsId, 0));
+				message = MySql.getInstance().getNewsQueries().loadNews(TypeConverter.string2int(newsId, 0));
 			}
 			request.getSession().setAttribute("message", message);
 		} else {
@@ -152,7 +158,7 @@ public class BackendController {
 	}
 	
 	@RequestMapping(value = "/backend/newswizard", method = RequestMethod.POST)
-	public String setNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String setNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		String forwordPath = null;
 		
@@ -161,7 +167,7 @@ public class BackendController {
 		String text = request.getParameter("textWizard");
 		
 		if(request.getSession().getAttribute("user") != null) {
-			NewsQueries.newNewsEntry(title, text, teaser, null);
+			MySql.getInstance().getNewsQueries().newNewsEntry(title, text, teaser, null);
 			forwordPath = "backend/newswizard";
 		} else {
 			request.getSession().setAttribute(isLoginOkString, false);
@@ -173,7 +179,7 @@ public class BackendController {
 	}
 	
 	@RequestMapping(value = "/backend/terminewizard", method = RequestMethod.GET)
-	public String creatTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String creatTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		String forwordPath = null;
 		Termin tm = null;
@@ -182,7 +188,7 @@ public class BackendController {
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/terminewizard";
 			if(terminId != null) {
-				tm = CalendarQueries.loadCalendar(TypeConverter.string2int(terminId, 0));
+				tm = MySql.getInstance().getCalendarQueries().loadCalendar(TypeConverter.string2int(terminId, 0));
 			}
 			request.getSession().setAttribute("termin", tm);
 		} else {
@@ -195,7 +201,7 @@ public class BackendController {
 	}
 	
 	@RequestMapping(value = "/backend/terminewizard", method = RequestMethod.POST)
-	public String setTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public String setTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 		
 		String forwordPath = null;
 		
@@ -204,7 +210,7 @@ public class BackendController {
 		String description = request.getParameter("beschreibungWizard");
 		
 		if(request.getSession().getAttribute("user") != null) {
-			CalendarQueries.newCalendarEntry(title, description, teaser);
+			MySql.getInstance().getCalendarQueries().newCalendarEntry(title, description, teaser);
 			forwordPath = "backend/terminewizard";
 		} else {
 			request.getSession().setAttribute(isLoginOkString, false);

@@ -12,7 +12,7 @@
 
 </head>
 </head>
-<body onLoad="startTime()" >
+<body >
 
 <jsp:include page="../layout/mainhead.jsp" flush="true"/>
 
@@ -30,7 +30,6 @@
 		</form> 
 		<br>
 		<table id="seasionOverview" style="border:1 px solid black; border-collapse:collapse">
-			<caption>He-Man and Skeletor facts</caption>
 			<tr> 
 				<th id="erzeugen"> Erzeugte Saison </th> 
 				<th id="anzeigen"> Turniere und Spieler anzeigen </th> 
@@ -50,7 +49,6 @@
 
 <jsp:include page="../layout/mainfooter.jsp" flush="true"/>
 
-<script src="resources/core/js/clock.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 </body>

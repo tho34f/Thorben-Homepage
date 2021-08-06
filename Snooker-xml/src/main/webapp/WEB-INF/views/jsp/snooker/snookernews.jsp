@@ -11,40 +11,29 @@
 <header:defaultHaeder costumerCSS="thorben.css" favicon="thorben.ico"/>
 
 </head>
-<body onLoad="startTime()" >
+<body >
 
 <jsp:include page="../layout/mainhead.jsp" flush="true"/>
 
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1>Herzlich Willkommen auf meiner Webseite!</h1>
+		<h1>Snookernews</h1>
+		<h2 class="headingPersonal">Links zu interessanten Seiten</h2>
 		<div id="inhalt" class="row">
 			<div class="col-md-6">
-				<p>Ich begrüßen Sie herzlich und freuen mich über Ihr Interesse. <br>
-				
-				Auf meiner Seite finden Sie interessante Fakten zur Sportart Snooker.
-				</p>
+				<a class="linkButton" href="https://wst.tv/">World Snooker Tour</a>
 			</div>
 			<div class="col-md-6">
-				<img src="resources/core/images/thorben.png" alt="Bild Thorben" style="hight:700px; width:300px;" />
+				<a 	class="linkButton" href="https://www.highbreak.de/">Snooker Club Hofgeismar</a>
 			</div>
 		</div>
-		<div id="inhalt" class="row" style="text-align:center">
-			<div class="col-md-4">
-				<h3>Persönliches</h3>
-				<p>Auf diesen Seiten finden Sie persönliches über mich.</p>
-				<a class="linkButton" href="/thorben-dierkes/personal">#PERSÖNLICHES</a>
+		<div id="inhalt" class="row">
+			<div class="col-md-6">
+				<a class="linkButton" href="https://mcbillard.de/">McBillard Online-Shop</a>
 			</div>
-			<div class="col-md-4">
-				<h3>Politik</h3>
-				<p>Auf diesen Seiten finden Sie mher über meine politische Agenda.</p>
-				<a 	class="linkButton" href="/thorben-dierkes/politik">#GEMEINSAMFÜRWARBURG</a>
-			</div>
-			<div class="col-md-4">
-				<h3>Snooker</h3>
-				<p>Auf diesen Seiten finden Sie mehr zum Thema Snooker.</p>
-				<a class="linkButton" href="/thorben-dierkes/snooker">#SNOOKER</a>
+			<div class="col-md-6">
+				<a class="linkButton" href="https://www.eurosport.de/snooker/">Snooker auf Eurosport</a>
 			</div>
 		</div>
 	</div>

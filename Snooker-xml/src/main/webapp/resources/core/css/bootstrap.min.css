@@ -92,6 +92,7 @@
 	border: 1px solid #0076a3;
 	border-left: none; /* Prevent double borders */
 	text-align:center;
+	border-radius: 0 15px 15px 0;
 }
 
  button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
@@ -214,7 +215,7 @@
  body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}
  input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
  
- a{color:#337ab7;text-decoration:none}a:focus,a:hover{color:#23527c;text-decoration:underline}
+ a{color:#990100;text-decoration:none}a:focus,a:hover{color:#990100;text-decoration:none}
  a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
  
  figure{margin:0}
@@ -307,7 +308,7 @@
  @media (min-width:992px){.container{width:970px}}
  @media (min-width:1200px){.container{width:1170px}}
  .container-fluid{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}
- .col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9{position:relative;min-height:1px;padding-right:15px;padding-left:15px}
+ .col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9{min-height:1px;padding-right:15px;padding-left:15px}
  .col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9{float:left}
  .col-xs-12{width:100%}
  .col-xs-11{width:91.66666667%}
@@ -743,7 +744,7 @@
   }
   
   .tab-content>.tab-pane{display:none}.tab-content>.active{display:block}.nav-tabs .dropdown-menu{margin-top:-1px;border-top-left-radius:0;border-top-right-radius:0}
-  .navbar{position:relative;min-height:50px;margin-bottom:20px;border:1px solid transparent}
+  .navbar{position:relative;min-height:50px;margin-bottom:12px;border:1px solid transparent}
   @media (min-width:768px){.navbar{display:flex}}
   @media (min-width:768px){
   	.navbar-header{float:left}}
@@ -879,6 +880,7 @@
   .jumbotron .h1,.jumbotron h1{color:inherit}.jumbotron p{margin-bottom:15px;font-size:21px;font-weight:200}.jumbotron>hr{border-top-color:#d5d5d5}
   .container .jumbotron,.container-fluid .jumbotron{border-radius:6px}
   .jumbotron .container{max-width:100%}
+  .jumbotron a{font-size:21px;font-weight:200}
   
   @media screen and (min-width:768px){
 	  .jumbotron{padding:48px 0}.container .jumbotron,.container-fluid .jumbotron{padding-right:60px;padding-left:60px}
@@ -1058,21 +1060,6 @@
   
   @media print{.visible-print-inline-block{display:inline-block!important}}
   @media print{.hidden-print{display:none!important}}
-  
-  /* Style the submit button */
-form.example button {
-	position:absolute;
-	width: 8%;
-	padding: 6.5px;
-	background: linear-gradient(#00adee,#0078a5);
-	color: #fff;
-	font-family:arial;
-	font-size: 14px;
-	border: 1px solid #0076a3;
-	border-left: none; /* Prevent double borders */
-	cursor: pointer;
-	text-align:center;
-}
 
 form.example button:hover {
   background: linear-gradient(#0095cc,#00678e);
