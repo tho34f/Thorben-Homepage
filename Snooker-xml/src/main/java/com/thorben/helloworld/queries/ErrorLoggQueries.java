@@ -22,7 +22,7 @@ import com.thorben.helloworld.web.BackendController;
 
 public class ErrorLoggQueries extends AbstractQuerries {
 	
-	private final Logger logger = LoggerFactory.getLogger(BackendController.class);
+	private final Logger logger = LoggerFactory.getLogger(ErrorLoggQueries.class);
 	
 	 public ErrorLoggQueries(MySql sql, DataSource ds) {
 	    	
@@ -30,7 +30,7 @@ public class ErrorLoggQueries extends AbstractQuerries {
 	    	
 	    }
     
-	public Set<ErrorMassage> loadErrorLogList() throws SQLException, NamingException {
+	public Set<ErrorMassage> loadErrorLogList() {
 		
 		Set<ErrorMassage> errorList = new HashSet<>();
 		
@@ -75,7 +75,7 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		
 	}
 	
-	public ErrorMassage loadError(int newsId) throws SQLException, NamingException {
+	public ErrorMassage loadError(int newsId) {
 		
 		ErrorMassage massage = new ErrorMassage();
 		
@@ -119,7 +119,7 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		
 	}
 	
-	public void newErrorLogEntry(String title, String description) throws SQLException, NamingException {
+	public void newErrorLogEntry(String title, String description) {
 		
 		try{
 			

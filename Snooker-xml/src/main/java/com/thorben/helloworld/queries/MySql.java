@@ -38,9 +38,13 @@ public class MySql {
     	
     }
 	
-    public static MySql getInstance() throws SQLException, NamingException {
+    public MySql() {
+		
+	}
+
+	public static MySql getInstance() throws SQLException, NamingException {
     	
-    	MySql sql = null;
+    	MySql sql = new MySql();
     	
         try {
         	Context ctx = new InitialContext();
