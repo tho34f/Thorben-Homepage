@@ -1,9 +1,8 @@
 package com.thorben.helloworld.web;
 
-import java.sql.SQLException;
 import java.util.Map;
 
-import javax.naming.NamingException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,49 +10,48 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import com.thorben.helloworld.queries.CalendarQueries;
 import com.thorben.helloworld.queries.MySql;
-import com.thorben.helloworld.queries.NewsQueries;
-import com.thorben.helloworld.queries.UserQueries;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.ObjectBrowser;
 import com.thorben.helloworld.service.ObjectBrowserController;
-import com.thorben.helloworld.service.ThorbenDierkes;
-import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.service.TypeConverter;
-import com.thorben.helloworld.snooker.News;
-import com.thorben.helloworld.snooker.Termin;
 import com.thorben.helloworld.snooker.User;
 
 @Controller
-public class BackendController {
+public class BackendController extends HttpServlet {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1217699872564172806L;
 	private final Logger logger = LoggerFactory.getLogger(BackendController.class);
-	private static ThorbenDierkesLogger log = new ThorbenDierkesLogger();
-	private final ThorbenDierkesService helloWorldService;
+	private ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	
+	private static final String LOGIN = "backend/login";
+	private static final String ERROR_MASSAGE = "errormasage";
+	private static final String IS_LOGIN_OK = "isLoginOk";
+	
+	public BackendController(){
+		
+	}
 	
 	@Autowired
 	public BackendController(ThorbenDierkesService helloWorldService) {
 		this.helloWorldService = helloWorldService;
 	}
 	
-	String login = "backend/login";
-	String userNotLogin = "Der User ist nicht eingeloggt.";
-	String erromessage = "errormasage";
-	String isLoginOkString = "isLoginOk";
-	
-	@RequestMapping(value = "/backend/login", method = RequestMethod.GET)
+	@GetMapping(value = "/backend/login")
 	public String startLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		request.getSession().setAttribute("user", null);
-		return login;
+		return LOGIN;
 	}
 	
-	@RequestMapping(value = "/backend/backendindex", method = RequestMethod.POST)
-	public String checkLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
+	@PostMapping(value = "/backend/backendindex")
+	public String checkLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		User loginUser = new User();
 		String forwordPath = null;
@@ -67,7 +65,7 @@ public class BackendController {
 		}
 		
 		isLoginOk = MySql.getInstance().getUserQueries().checkLogin(loginUser);
-		request.getSession().setAttribute(isLoginOkString, isLoginOk);
+		request.getSession().setAttribute(IS_LOGIN_OK, isLoginOk);
 		
 		if(isLoginOk) {
 			request.getSession().setAttribute("user", loginUser);
@@ -75,15 +73,15 @@ public class BackendController {
 			logger.info("Login war erfolgreich.");
 			
 		} else {
-			request.setAttribute(erromessage, "Der User ist nicht gültig.");
-			forwordPath = login;
+			request.setAttribute(ERROR_MASSAGE, "Der User ist nicht gültig.");
+			forwordPath = LOGIN;
 			logger.info("Der User ist nicht gültig.");
 		}
 		
 		return forwordPath;
 	}
 	
-	@RequestMapping(value = "/backend/backendindex", method = RequestMethod.GET)
+	@GetMapping(value = "/backend/backendindex")
 	public String createIndex(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
@@ -91,15 +89,13 @@ public class BackendController {
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/backendindex";
 		} else {
-			request.getSession().setAttribute(isLoginOkString, false);
-			request.setAttribute(erromessage, userNotLogin);
-			forwordPath = login;
+			forwordPath = helloWorldService.errorUserLogin(request);
 		} 
 		
 		return forwordPath;
 	}
 	
-	@RequestMapping(value = "/backend/backendObjectBrowser", method = RequestMethod.POST)
+	@PostMapping(value = "/backend/backendObjectBrowser")
 	public String createObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
@@ -107,16 +103,14 @@ public class BackendController {
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/backendObjectBrowser";
 		} else {
-			request.getSession().setAttribute(isLoginOkString, false);
-			request.setAttribute(erromessage, userNotLogin);
-			forwordPath = login;
+			forwordPath = helloWorldService.errorUserLogin(request);
 		} 
 		
 		return forwordPath;
 	}
 	
-	@RequestMapping(value = "/backend/backendObjectBrowser", method = RequestMethod.GET)
-	public String getObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
+	@GetMapping(value = "/backend/backendObjectBrowser")
+	public String getObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
 		int objectId = TypeConverter.string2int(request.getParameter("id"), 0);
@@ -126,96 +120,7 @@ public class BackendController {
 			ObjectBrowserController.getInformationForOb(ob, request);
 			forwordPath = "backend/backendObjectBrowser";
 		} else {
-			request.getSession().setAttribute(isLoginOkString, false);
-			request.setAttribute(erromessage, userNotLogin);
-			forwordPath = login;
-		} 
-		
-		return forwordPath;
-	}
-	
-	@RequestMapping(value = "/backend/newswizard", method = RequestMethod.GET)
-	public String creatNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
-		
-		String forwordPath = null;
-		News message = null;
-		String newsId = request.getParameter("id");
-		
-		if(request.getSession().getAttribute("user") != null) {
-			forwordPath = "backend/newswizard";
-			if(newsId != null) {
-				message = MySql.getInstance().getNewsQueries().loadNews(TypeConverter.string2int(newsId, 0));
-			}
-			request.getSession().setAttribute("message", message);
-		} else {
-			request.getSession().setAttribute(isLoginOkString, false);
-			request.setAttribute(erromessage, userNotLogin);
-			forwordPath = login;
-		} 
-		
-		
-		return forwordPath;
-	}
-	
-	@RequestMapping(value = "/backend/newswizard", method = RequestMethod.POST)
-	public String setNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
-		
-		String forwordPath = null;
-		
-		String title = request.getParameter("titleWizard");
-		String teaser = request.getParameter("teaserWizard");
-		String text = request.getParameter("textWizard");
-		
-		if(request.getSession().getAttribute("user") != null) {
-			MySql.getInstance().getNewsQueries().newNewsEntry(title, text, teaser, null);
-			forwordPath = "backend/newswizard";
-		} else {
-			request.getSession().setAttribute(isLoginOkString, false);
-			request.setAttribute(erromessage, userNotLogin);
-			forwordPath = login;
-		} 
-		
-		return forwordPath;
-	}
-	
-	@RequestMapping(value = "/backend/terminewizard", method = RequestMethod.GET)
-	public String creatTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
-		
-		String forwordPath = null;
-		Termin tm = null;
-		String terminId = request.getParameter("id");
-		
-		if(request.getSession().getAttribute("user") != null) {
-			forwordPath = "backend/terminewizard";
-			if(terminId != null) {
-				tm = MySql.getInstance().getCalendarQueries().loadCalendar(TypeConverter.string2int(terminId, 0));
-			}
-			request.getSession().setAttribute("termin", tm);
-		} else {
-			request.getSession().setAttribute(isLoginOkString, false);
-			request.setAttribute(erromessage, userNotLogin);
-			forwordPath = login;
-		} 
-		
-		return forwordPath;
-	}
-	
-	@RequestMapping(value = "/backend/terminewizard", method = RequestMethod.POST)
-	public String setTermin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
-		
-		String forwordPath = null;
-		
-		String title = request.getParameter("titleWizard");
-		String teaser = request.getParameter("teaserWizard");
-		String description = request.getParameter("beschreibungWizard");
-		
-		if(request.getSession().getAttribute("user") != null) {
-			MySql.getInstance().getCalendarQueries().newCalendarEntry(title, description, teaser);
-			forwordPath = "backend/terminewizard";
-		} else {
-			request.getSession().setAttribute(isLoginOkString, false);
-			request.setAttribute(erromessage, userNotLogin);
-			forwordPath = login;
+			forwordPath = helloWorldService.errorUserLogin(request);
 		} 
 		
 		return forwordPath;

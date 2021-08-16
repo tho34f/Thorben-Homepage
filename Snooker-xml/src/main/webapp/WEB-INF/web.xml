@@ -32,11 +32,19 @@
 		<param-value>/WEB-INF/spring-core-config.xml</param-value>
 	</context-param>
 	
+	<jsp-config>
+		 <taglib>
+	        <taglib-uri>/thorben</taglib-uri>
+	        <taglib-location>/WEB-INF/tags/taglib/eigeneTags.tld</taglib-location>
+	    </taglib>
+    </jsp-config>
+	
 	<resource-ref>
-    <description>postgreSQL Datasource example</description>
-    <res-ref-name>jdbc/postgres</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
+	    <description>postgreSQL Datasource example</description>
+	    <res-ref-name>jdbc/thorbenDB</res-ref-name>
+	    <res-type>javax.sql.DataSource</res-type>
+	    <res-auth>Container</res-auth>
+	    <res-sharing-scope>Shareable</res-sharing-scope>
 	</resource-ref>
 
 </web-app>

@@ -81,9 +81,13 @@ header {
             transition: all 0.4s ease;
 }
 
-header.sticky{
+header.sticky#pageHeader{
 	position: sticky;
 	height:135px;	
+}
+
+header.sticky{
+	position: sticky;
 }
 
 .carousel-inner img {

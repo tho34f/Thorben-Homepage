@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.thorben.helloworld.queries.MySql;
-import com.thorben.helloworld.queries.SnookerQueries;
 import com.thorben.helloworld.snooker.Tournament;
 import com.thorben.helloworld.snooker.TournamentSeason;
 import com.thorben.helloworld.snooker.News;
@@ -29,11 +28,15 @@ public class ThorbenDierkesService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ThorbenDierkesService.class);
 	
-	private static Random generator = new Random();
+	private Random generator;
 	
-	public static int generateId() {
+	public ThorbenDierkesService() {
+		this.generator = new Random();
+	}
+	
+	public int generateId() {
 		
-		return (1 + generator.nextInt(500));
+		return (1 + getGenerator().nextInt(500));
 	}
 	
 	
@@ -127,6 +130,23 @@ public class ThorbenDierkesService {
 		}
 		
 		return splitedTerminList;
+	}
+	
+	public String errorUserLogin(HttpServletRequest request) {
+		
+		request.getSession().setAttribute(ThorbenDierkes.IS_LOGIN_OK, false);
+		request.setAttribute(ThorbenDierkes.ERROR_MASSAGE, ThorbenDierkes.USER_NOT_LOGIN );
+		
+		return ThorbenDierkes.LOGIN;
+		
+	}
+
+	public Random getGenerator() {
+		return generator;
+	}
+
+	public void setGenerator(Random generator) {
+		this.generator = generator;
 	}
 	
 

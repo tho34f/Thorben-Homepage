@@ -12,13 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.thorben.helloworld.service.ThorbenDierkes;
-import com.thorben.helloworld.service.ThorbenDierkesLogger;
 
 
 public class MySql {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MySql.class);
-	private static ThorbenDierkesLogger log = new ThorbenDierkesLogger();
 	
 	private Connection con;
 	private DataSource ds;
@@ -35,6 +33,10 @@ public class MySql {
     	this.ds = ds;
     	this.calendarQueries = new CalendarQueries(this, ds);
     	this.errorLoggQueries = new ErrorLoggQueries(this,ds);
+    	this.newsQueries = new NewsQueries(this,ds);
+    	this.snookerQueries = new SnookerQueries(this, ds);
+    	this.userQueries = new UserQueries(this,ds);
+    	this.updateDB = new UpdateDB(this,ds);
     	
     }
 	
@@ -42,7 +44,7 @@ public class MySql {
 		
 	}
 
-	public static MySql getInstance() throws SQLException, NamingException {
+	public static MySql getInstance() {
     	
     	MySql sql = new MySql();
     	
@@ -51,11 +53,18 @@ public class MySql {
         	sql = new MySql((DataSource)ctx.lookup("java:comp/env/jdbc/thorbenDB"));
         } catch (NamingException e) {
         	String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_DATA_SOURCE).append(e.getLocalizedMessage()).toString();
-  			log.errorLogWithTrace(ThorbenDierkes.DATA_SOURCE, erroeMessage, e);
+  			logger.error(ThorbenDierkes.DATA_SOURCE, erroeMessage, e);
+  			e.printStackTrace();
        }
         
         if(sql.getDs() != null) {
-        	sql.setCon(sql.getDs().getConnection());
+        	try {
+				sql.setCon(sql.getDs().getConnection());
+			} catch (SQLException e) {
+				String erroeMessage = new StringBuilder().append(ThorbenDierkes.SQL_FEHLER).append(e.getLocalizedMessage()).toString();
+	  			logger.error(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+	  			e.printStackTrace();
+			}
     	}
         
         logger.info("Verbindung mit Datenbank hergestellt.");

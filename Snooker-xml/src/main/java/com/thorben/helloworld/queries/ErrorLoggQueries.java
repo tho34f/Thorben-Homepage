@@ -16,9 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.ThorbenDierkes;
-import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.ErrorMassage;
-import com.thorben.helloworld.web.BackendController;
 
 public class ErrorLoggQueries extends AbstractQuerries {
 	
@@ -34,9 +32,9 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		
 		Set<ErrorMassage> errorList = new HashSet<>();
 		
-		try{
-			
-			Connection con = getDataSource().getConnection();
+		try(Connection con = getDataSource().getConnection()){
+
+			con.setAutoCommit(false);
 			
 			String queryErrorLog = "SELECT * FROM error_log";
 		
@@ -58,11 +56,9 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		        rs.close();
 		        
 			}
-		 
-			con.close();
 		
 		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.error(erroeMessage, e);
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -79,9 +75,9 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		
 		ErrorMassage massage = new ErrorMassage();
 		
-		try{
+		try(Connection con = getDataSource().getConnection()){
 			
-			Connection con = getDataSource().getConnection();
+			con.setAutoCommit(false);
 			
 			String queryError = "SELECT * FROM error_log"
 					+ " WHERE error_id = ?";
@@ -102,11 +98,9 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		        rs.close();
 		        
 			}
-		 
-			con.close();
 		
 		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.error(erroeMessage, e);
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -121,13 +115,14 @@ public class ErrorLoggQueries extends AbstractQuerries {
 	
 	public void newErrorLogEntry(String title, String description) {
 		
-		try{
-			
-			Connection con = getDataSource().getConnection();
+		try(Connection con = getDataSource().getConnection()){
+
+			con.setAutoCommit(false);
 		
 			String queryError = "INSERT INTO error_log VALUES (?, ?, ?, ?)";
 			
-			int id = ThorbenDierkesService.generateId();
+			ThorbenDierkesService tds = new ThorbenDierkesService();
+			int id = tds.generateId();
 			
 			try(PreparedStatement stmt = con.prepareStatement(queryError)){
 				int counter = 1;
@@ -140,9 +135,8 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		        
 			}
 			
-			con.close();
 		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.error(erroeMessage, e);
 			e.printStackTrace();
 		} catch (SQLException e) {

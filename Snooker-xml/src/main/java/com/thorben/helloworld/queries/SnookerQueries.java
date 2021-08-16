@@ -24,10 +24,10 @@ public class SnookerQueries extends AbstractQuerries {
     	
     }
     
-    public void creatTournamentList(String nameOfTable, TournamentSeason tournamentSeason) throws SQLException, NamingException{
-    	try {
-        	//Verbindung Datenbank erzeugen
-			Connection con = getDataSource().getConnection();
+    public void creatTournamentList(String nameOfTable, TournamentSeason tournamentSeason){
+    	try(Connection con = getDataSource().getConnection()) {
+        	
+			con.setAutoCommit(false);
 			
 	        // Statement mit Benennung der Tablle
 	        String query = "SELECT * FROM " + nameOfTable;
@@ -53,10 +53,8 @@ public class SnookerQueries extends AbstractQuerries {
 
 	        }
 	        
-	        con.close();
-	        
 		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
@@ -65,11 +63,11 @@ public class SnookerQueries extends AbstractQuerries {
         
     }
     
-    public void creatPlayerList(String nameOfTable, TournamentSeason tournamentSeason) throws SQLException, NamingException  {
+    public void creatPlayerList(String nameOfTable, TournamentSeason tournamentSeason)  {
     	
-    	try {
-	    	//Verbindung Datenbank erzeugen
-    		Connection con = getDataSource().getConnection();
+    	try(Connection con = getDataSource().getConnection()) {
+
+    		con.setAutoCommit(false);
 	        // Statement mit Benennung der Tablle
 	        String query = "SELECT * FROM " + nameOfTable;
 	        
@@ -96,10 +94,8 @@ public class SnookerQueries extends AbstractQuerries {
 	        // Ich schlieﬂe die Streams wieder und gebe die Tabelle wieder frei.
 	        rs.close();
 	        }
-	        
-	        con.close();
     	} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();

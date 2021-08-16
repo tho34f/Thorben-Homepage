@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="tho" tagdir="/WEB-INF/tags/taglib/eigeneTags.tld"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>

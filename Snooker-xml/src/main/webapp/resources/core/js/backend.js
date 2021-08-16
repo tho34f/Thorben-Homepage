@@ -13,7 +13,11 @@ $("#wechselButton").click(function(){
 $("#newObject").click(function(){
 	var id = $("#newObject").attr("name");
 	
-	if(id == 39){
+	if(id == 38){
+		 window.open("/thorben-dierkes/backend/userwizard","popName",'scrollbars=1,height=650,width=1050').focus();
+	 }
+	 
+	 if(id == 39){
 		 window.open("/thorben-dierkes/backend/newswizard","popName",'scrollbars=1,height=650,width=1050').focus();
 	 }
 	 
@@ -23,6 +27,10 @@ $("#newObject").click(function(){
 });
 
 function openWizard(id, objectType){
+	if(objectType == 38){
+		 window.open("/thorben-dierkes/backend/userwizard?id=" + id,"popName",'scrollbars=1,height=650,width=1050').focus();
+	}
+	 
 	if(objectType == 39){
 		 window.open("/thorben-dierkes/backend/newswizard?id=" + id,"popName",'scrollbars=1,height=650,width=1050').focus();
 	 }

@@ -28,13 +28,13 @@ public class CalendarQueries extends AbstractQuerries {
     	
     }
     
-	public Set<Termin> loadCalendarList() throws SQLException, NamingException {
+	public Set<Termin> loadCalendarList() {
 		
 		Set<Termin> calendarList = new HashSet<>();
 		
-		try{
+		try(Connection con = getDataSource().getConnection()){
 			
-			Connection con = getDataSource().getConnection();
+			con.setAutoCommit(false);
 			
 			String queryNews = "SELECT * FROM termine ORDER BY creation_date";
 		
@@ -65,11 +65,9 @@ public class CalendarQueries extends AbstractQuerries {
 		        rs.close();
 		        
 			}
-		 
-			con.close();
 		
 		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
@@ -80,13 +78,13 @@ public class CalendarQueries extends AbstractQuerries {
 		
 	}
 	
-	public Termin loadCalendar(int terminId) throws SQLException, NamingException {
+	public Termin loadCalendar(int terminId) {
 		
 		Termin tm = new Termin();
 		
-		try{
-			
-			Connection con = getDataSource().getConnection();
+		try(Connection con = getDataSource().getConnection()){
+
+			con.setAutoCommit(false);
 			
 			String queryNews = "SELECT * FROM termine WHERE id = ?";
 		
@@ -111,11 +109,9 @@ public class CalendarQueries extends AbstractQuerries {
 		        rs.close();
 		        
 			}
-		 
-			con.close();
 		
 		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
@@ -126,19 +122,21 @@ public class CalendarQueries extends AbstractQuerries {
 		
 	}
 	
-	public boolean newCalendarEntry(String title, String description, String teaser) throws SQLException, NamingException {
+	public boolean newCalendarEntry(String title, String description, String teaser) {
 		
 		boolean isCreate = false;
 		
-		try{
-			
-			Connection con = getDataSource().getConnection();
+		try(Connection con = getDataSource().getConnection()){
+
+			con.setAutoCommit(false);
 		
 			String queryNews = "INSERT INTO termine (id, title, description, date, creation_date, change_date, teaser) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			
+			ThorbenDierkesService tds = new ThorbenDierkesService();
+			
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				int counter = 1;
-				stmt.setInt(counter++, ThorbenDierkesService.generateId());
+				stmt.setInt(counter++, tds.generateId());
 				stmt.setString(counter++, title);
 				stmt.setString(counter++, description);
 				stmt.setLong(counter++, System.currentTimeMillis());
@@ -150,9 +148,8 @@ public class CalendarQueries extends AbstractQuerries {
 		        
 			}
 			
-			con.close();
 		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
@@ -163,13 +160,13 @@ public class CalendarQueries extends AbstractQuerries {
 		
 	}
 	
-	public boolean updateCalendarEntry(int calendarId, String title, String text, String teaser, Image img) throws SQLException, NamingException {
+	public boolean updateCalendarEntry(int calendarId, String title, String text, String teaser, Image img) {
 		
 		boolean isUpdate = false;
 		
-		try{
-			
-			Connection con = getDataSource().getConnection();
+		try(Connection con = getDataSource().getConnection()){
+	
+			con.setAutoCommit(false);
 		
 			String queryNews = "UPDATE termine SET title=?, description=?, teaser=?, change_date=?, date=?" +
 					" WHERE id=?";
@@ -186,9 +183,8 @@ public class CalendarQueries extends AbstractQuerries {
 		        
 			}
 			
-			con.close();
 		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();

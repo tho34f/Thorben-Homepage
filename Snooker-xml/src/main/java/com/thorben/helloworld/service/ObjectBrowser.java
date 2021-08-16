@@ -1,9 +1,6 @@
 package com.thorben.helloworld.service;
 
 import java.io.Serializable;
-import java.sql.SQLException;
-
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 public class ObjectBrowser implements Serializable{
@@ -35,20 +32,20 @@ public class ObjectBrowser implements Serializable{
     	this.objectType = objectType;
     }
 	
-	public static ObjectBrowser setHeaderInformation(final HttpServletRequest request, int id) throws SQLException, NamingException {
+	public static ObjectBrowser setHeaderInformation(final HttpServletRequest request, int id) {
 		ObjectBrowser ob = null;
 		switch(id) {
 			case ThorbenDierkes.NEWS:
 				ob = new ObjectBrowser("Nachrichten", "Neue Nachricht", "fas fa-newspaper", id);
-				request.getSession().setAttribute("Objectbrowser", ob);
+				request.getSession().setAttribute(ThorbenDierkes.OBJEKT_BROWSER, ob);
 				break;
 			case ThorbenDierkes.CALENDAR: 
 				ob = new ObjectBrowser("Termine", "Neuer Termin", "far fa-calendar-alt", id);
-				request.getSession().setAttribute("Objectbrowser", ob);
+				request.getSession().setAttribute(ThorbenDierkes.OBJEKT_BROWSER, ob);
 				break;
 			case ThorbenDierkes.ERROR_LOG_MASSAGE:
 				ob = new ObjectBrowser("Fehler-Log", "fas fa-exclamation-triangle", id);
-				request.getSession().setAttribute("Objectbrowser", ob);
+				request.getSession().setAttribute(ThorbenDierkes.OBJEKT_BROWSER, ob);
 				break;
 			default:
 				String errorMassage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_OB).toString();

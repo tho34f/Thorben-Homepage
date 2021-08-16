@@ -17,8 +17,8 @@ public class UpdateDB extends AbstractQuerries {
     }
 
 	public void updateDatenbank(List<String> provisionalRanking) {
-		try {
-			Connection con = getDataSource().getConnection();
+		try (Connection con = getDataSource().getConnection()){
+			con.setAutoCommit(false);
 		} catch (NamingException | SQLException e) {
 			e.printStackTrace();
 		}

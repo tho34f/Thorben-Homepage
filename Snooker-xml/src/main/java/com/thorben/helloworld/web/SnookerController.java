@@ -3,10 +3,12 @@ package com.thorben.helloworld.web;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,10 +16,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.service.DateConverter;
+import com.thorben.helloworld.service.GetHomepageData;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.TypeConverter;
 import com.thorben.helloworld.snooker.Spieler;
@@ -25,15 +29,23 @@ import com.thorben.helloworld.snooker.Tournament;
 import com.thorben.helloworld.snooker.TournamentSeason;
 
 @Controller
-public class SnookerController {
+public class SnookerController extends HttpServlet {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9071950597448957942L;
 	private final Logger logger = LoggerFactory.getLogger(SnookerController.class);
-	private final ThorbenDierkesService helloWorldService;
+	private ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
 	private static final String SEASION = "seasion";
 	private static final String SEASON = "season";
 	
-	Date indexDate = new Date();
+	private static Date indexDate = new Date();
 	private static Set<TournamentSeason> seasons = new HashSet<>();
+	
+	public SnookerController() {
+		
+	}
 	
 	@Autowired
 	public SnookerController(ThorbenDierkesService helloWorldService) {
@@ -41,15 +53,18 @@ public class SnookerController {
 		
 	}
 	
-	@RequestMapping(value = "/snooker", method = RequestMethod.GET)
+	@GetMapping(value = "/snooker")
 	public String snooker(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		DateConverter.setDateFooter(indexDate, request);
+		
+		List<String> provisionalRanking = GetHomepageData.getData();
+		MySql.getInstance().getUpdateDB().updateDatenbank(provisionalRanking);
 				
 		return "snooker/snooker";
 	}
 	
-	@RequestMapping(value = "/simulation", method = RequestMethod.GET)
+	@GetMapping(value = "/simulation")
 	public String simulation(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		DateConverter.setDateFooter(indexDate, request);
@@ -73,7 +88,7 @@ public class SnookerController {
 		
 	}
 	
-	@RequestMapping(value = "/simulation", method = RequestMethod.POST)
+	@PostMapping(value = "/simulation")
 	public String simulationT(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		
@@ -95,7 +110,7 @@ public class SnookerController {
 		
 	}
 	
-	@RequestMapping(value = "/saisonOverwiev", method = RequestMethod.GET)
+	@GetMapping(value = "/saisonOverwiev")
 	public String overviewget(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		DateConverter.setDateFooter(indexDate, request);
@@ -103,7 +118,7 @@ public class SnookerController {
 		return "snooker/saisonOverwiev";
 	}
 	
-	@RequestMapping(value = "/saisonOverwiev", method = RequestMethod.POST)
+	@PostMapping(value = "/saisonOverwiev")
 	public String overviewpost(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 			
 		String number = request.getParameter(SEASON);
@@ -112,7 +127,7 @@ public class SnookerController {
 		return "snooker/saisonOverwiev";
 	}
 	
-	@RequestMapping(value = "/saison", method = RequestMethod.GET)
+	@GetMapping(value = "/saison")
 	public String saison(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		int yearint = TypeConverter.string2int(request.getParameter("id"), 0);
@@ -144,7 +159,7 @@ public class SnookerController {
 		return "snooker/saison";
 	}
 	
-	@RequestMapping(value = "/saison", method = RequestMethod.POST)
+	@PostMapping(value = "/saison")
 	public String establishSeasion(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
 			
 		String number = request.getParameter(SEASON);
@@ -167,7 +182,7 @@ public class SnookerController {
 		return "snooker/saison";
 	}
 	
-	@RequestMapping(value = "/snookernews", method = RequestMethod.GET)
+	@GetMapping(value = "/snookernews")
 	public String snookerNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		DateConverter.setDateFooter(indexDate, request);
@@ -175,7 +190,7 @@ public class SnookerController {
 		return "snooker/snookernews";
 	}
 	
-	@RequestMapping(value = "/snookerrules", method = RequestMethod.GET)
+	@GetMapping(value = "/snookerrules")
 	public String snookerrules(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		DateConverter.setDateFooter(indexDate, request);
@@ -183,7 +198,7 @@ public class SnookerController {
 		return "snooker/snookerrules";
 	}
 	
-	@RequestMapping(value = "/snookermaterials", method = RequestMethod.GET)
+	@GetMapping(value = "/snookermaterials")
 	public String snookermaterials(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		DateConverter.setDateFooter(indexDate, request);
@@ -191,7 +206,7 @@ public class SnookerController {
 		return "snooker/snookermaterials";
 	}
 	
-	@RequestMapping(value = "/overview", method = RequestMethod.GET)
+	@GetMapping(value = "/overview")
 	public String snookeroverview(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		DateConverter.setDateFooter(indexDate, request);
@@ -199,7 +214,7 @@ public class SnookerController {
 		return "snooker/overview";
 	}
 	
-	@RequestMapping(value = "/snookerhistory", method = RequestMethod.GET)
+	@GetMapping(value = "/snookerhistory")
 	public String snookerhistory(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		DateConverter.setDateFooter(indexDate, request);

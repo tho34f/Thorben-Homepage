@@ -1,7 +1,5 @@
 package com.thorben.helloworld.queries;
 
-import java.sql.SQLException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -26,7 +24,7 @@ public class AbstractQuerries {
 		this.sql = sql;
 	}
 	
-	public DataSource getDataSource() throws NamingException, SQLException {
+	public DataSource getDataSource() throws NamingException {
     	
         try {
         	Context ctx = new InitialContext();

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -23,13 +25,13 @@ public class UserQueries extends AbstractQuerries {
     	
     }
     
-	public Boolean createUser(String firstName, String lastName, String password, String loginName) throws SQLException, NamingException {
+	public Boolean createUser(String firstName, String lastName, String password, String loginName) {
 		
 		Boolean isCreate = false;
 		
-		try{
+		try(Connection con = getDataSource().getConnection()){
 			
-			Connection con = getDataSource().getConnection();
+			con.setAutoCommit(false);
 		
 			String queryUser = "INSERT INTO user (user_firstname, user_lastname, user_password, user_login) "
 					+ "VALUES (?,?,SHA2(" + password + ",224) ,?)";
@@ -42,11 +44,9 @@ public class UserQueries extends AbstractQuerries {
 				isCreate = stmt.execute();
 		        
 			}
-		 
-			con.close();
 		
 		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
@@ -56,13 +56,12 @@ public class UserQueries extends AbstractQuerries {
 		return isCreate;
 	}
 	
-	public Boolean checkLogin(User loginUser) throws SQLException, NamingException {
+	public Boolean checkLogin(User loginUser) {
 		
 		Boolean isLoginOk = false;
 		
-		try{
-			
-			Connection con = getDataSource().getConnection();
+		try(Connection con = getDataSource().getConnection()){
+			con.setAutoCommit(false);
 		
 			String queryUser = "SELECT * FROM user where user_login = '" + loginUser.getUserLogin() + "' and user_password = SHA2('" + loginUser.getPassword() + "',224)";
 		
@@ -79,11 +78,9 @@ public class UserQueries extends AbstractQuerries {
 		        rs.close();
 		        
 			}
-		 
-			con.close();
 		
 		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
@@ -91,6 +88,82 @@ public class UserQueries extends AbstractQuerries {
 		}  
 		
 		return isLoginOk;
+	}
+	
+	public User loadUser(int userId) {
+		
+		User user = new User();
+		
+		try(Connection con = getDataSource().getConnection()){
+			con.setAutoCommit(false);
+		
+			String queryUser = "SELECT * FROM user where user_id = '" + userId;
+
+		
+			try(Statement stmt = con.createStatement()){
+		        ResultSet rs = stmt.executeQuery(queryUser);
+		        
+		        while(rs.next()) {
+		        	user.setUserId(userId);
+		        	user.setFirstName(rs.getString("user_firstname"));
+		        	user.setLastName(rs.getString("user_lastname"));
+		        	user.setUserLogin(rs.getString("user_login"));
+		        } 
+		        
+		        rs.close();
+		        
+			}
+		
+		} catch (NamingException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
+		} catch (SQLException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+		}  
+		
+		return user;
+	}
+	
+	public Set<User> loadUserList() {
+		
+		Set<User> userList = new HashSet<>();
+		
+		try(Connection con = getDataSource().getConnection()){
+			
+			con.setAutoCommit(false);
+			
+			String queryNews = "SELECT * FROM USER"; 
+		
+			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
+		        ResultSet rs = stmt.executeQuery();
+		        
+		        while(rs.next()) {
+					User user = new User();
+					
+					user.setUserId(rs.getInt("user_id"));
+		        	user.setFirstName(rs.getString("user_firstname"));
+		        	user.setLastName(rs.getString("user_lastname"));
+		        	user.setUserLogin(rs.getString("user_login"));
+					
+		        	userList.add(user);
+		        	
+		        } 
+		        
+		        rs.close();
+		        
+			}
+		
+		} catch (NamingException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
+		} catch (SQLException e) {
+			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+		} 
+		
+		return userList;
+		
 	}
 
 }
