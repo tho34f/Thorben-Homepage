@@ -1,15 +1,14 @@
 package com.thorben.helloworld.web;
 
-import java.util.Map;
+import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.service.ThorbenDierkesService;
@@ -25,6 +24,7 @@ public class UserWizardController extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -3295292219817459332L;
 	private ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	private static final String CONTROLLER_MAPPING = "/WEB-INF/views/jsp/backend/userwizard.jsp";
 	
 	public UserWizardController() {
 		
@@ -34,29 +34,33 @@ public class UserWizardController extends HttpServlet {
 	public UserWizardController(ThorbenDierkesService helloWorldService) {
 		this.helloWorldService = helloWorldService;
 	}
-
-	@GetMapping(value = "/backend/userwizard")
-	public String creatNews(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+	
+	@Override
+	public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		
 		String forwordPath = null;
 		User user = null;
 		String userId = request.getParameter("id");
 		
 		if(request.getSession().getAttribute("user") != null) {
-			forwordPath = "backend/userwizard";
+			forwordPath = CONTROLLER_MAPPING;
 			if(userId != null) {
 				user = MySql.getInstance().getUserQueries().loadUser(TypeConverter.string2int(userId, 0));
 			}
 			request.getSession().setAttribute("user", user);
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request);
+			forwordPath = helloWorldService.errorUserLogin(request, true);
 		} 
 		
-		return forwordPath;
+		try {
+			request.getServletContext().getRequestDispatcher(forwordPath).forward(request, response);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	@PostMapping(value = "/backend/userwizard")
-	public String setNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	@Override
+	public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		
 		String forwordPath = null;
 		
@@ -67,12 +71,16 @@ public class UserWizardController extends HttpServlet {
 		
 		if(request.getSession().getAttribute("user") != null) {
 			MySql.getInstance().getUserQueries().createUser(firstName, lastName, login, password);
-			forwordPath = "backend/userwizard";
+			forwordPath = CONTROLLER_MAPPING;
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request);
+			forwordPath = helloWorldService.errorUserLogin(request, false);
 		} 
 		
-		return forwordPath;
+		try {
+			request.getServletContext().getRequestDispatcher(forwordPath).forward(request, response);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 

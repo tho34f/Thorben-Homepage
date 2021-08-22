@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.ThorbenDierkes;
 import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.User;
@@ -18,6 +19,8 @@ import com.thorben.helloworld.snooker.User;
 public class UserQueries extends AbstractQuerries {
 	
 	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
+	private static final String FIRST_NAME = "user_firstname";
+	private static final String LAST_NAME = "user_lastname";
 	
     public UserQueries(MySql sql, DataSource ds) {
     	
@@ -33,24 +36,25 @@ public class UserQueries extends AbstractQuerries {
 			
 			con.setAutoCommit(false);
 		
-			String queryUser = "INSERT INTO user (user_firstname, user_lastname, user_password, user_login) "
-					+ "VALUES (?,?,SHA2(" + password + ",224) ,?)";
+			String queryUser = "INSERT INTO user (user_firstname, user_lastname, user_password, user_login, creation_date) "
+					+ "VALUES (?,?,SHA2(" + password + ",224) ,?,?)";
 		
 			try(PreparedStatement stmt = con.prepareStatement(queryUser)){
 				int counter = 1;
 				stmt.setString(counter++, firstName);
 				stmt.setString(counter++, lastName);
 				stmt.setString(counter++, loginName);
+				stmt.setLong(counter++, System.currentTimeMillis());
 				isCreate = stmt.execute();
 		        
 			}
 		
 		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
+			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		} 
 		
 		return isCreate;
@@ -70,9 +74,9 @@ public class UserQueries extends AbstractQuerries {
 		        
 		        while(rs.next()) {
 		        	isLoginOk = true;
-		        	loginUser.setUserId(rs.getInt("user_id"));
-		        	loginUser.setFirstName(rs.getString("user_firstname"));
-		        	loginUser.setLastName(rs.getString("user_lastname"));
+		        	loginUser.setId(rs.getInt("user_id"));
+		        	loginUser.setFirstName(rs.getString(FIRST_NAME));
+		        	loginUser.setLastName(rs.getString(LAST_NAME));
 		        } 
 		        
 		        rs.close();
@@ -81,10 +85,10 @@ public class UserQueries extends AbstractQuerries {
 		
 		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
+			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		}  
 		
 		return isLoginOk;
@@ -104,10 +108,12 @@ public class UserQueries extends AbstractQuerries {
 		        ResultSet rs = stmt.executeQuery(queryUser);
 		        
 		        while(rs.next()) {
-		        	user.setUserId(userId);
-		        	user.setFirstName(rs.getString("user_firstname"));
-		        	user.setLastName(rs.getString("user_lastname"));
+		        	user.setId(userId);
+		        	user.setFirstName(rs.getString(FIRST_NAME));
+		        	user.setLastName(rs.getString(LAST_NAME));
 		        	user.setUserLogin(rs.getString("user_login"));
+		        	user.setCreationDate(rs.getLong("creation_date"));
+		        	user.setCreationDateAsString(DateConverter.long2Date(user.getCreationDate(),1));
 		        } 
 		        
 		        rs.close();
@@ -116,10 +122,10 @@ public class UserQueries extends AbstractQuerries {
 		
 		} catch (NamingException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
+			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		}  
 		
 		return user;
@@ -141,10 +147,12 @@ public class UserQueries extends AbstractQuerries {
 		        while(rs.next()) {
 					User user = new User();
 					
-					user.setUserId(rs.getInt("user_id"));
-		        	user.setFirstName(rs.getString("user_firstname"));
-		        	user.setLastName(rs.getString("user_lastname"));
+					user.setId(rs.getInt("user_id"));
+		        	user.setFirstName(rs.getString(FIRST_NAME));
+		        	user.setLastName(rs.getString(LAST_NAME));
 		        	user.setUserLogin(rs.getString("user_login"));
+		        	user.setCreationDate(rs.getLong("creation_date"));
+		        	user.setCreationDateAsString(DateConverter.long2Date(user.getCreationDate(),1));
 					
 		        	userList.add(user);
 		        	

@@ -49,7 +49,7 @@ public class StandardController extends HttpServlet {
 	}
 	
 	@GetMapping(value = "/")
-	public ModelAndView start(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView start(final HttpServletRequest request, final HttpServletResponse response) {
 		
 		ModelAndView mav = new ModelAndView("index");
 		
@@ -63,7 +63,9 @@ public class StandardController extends HttpServlet {
 	}
 	
 	@PostMapping(value = "/search")
-	public String searchfunction(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView searchfunction(final HttpServletRequest request, final HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("orga/search");
 		
 		DateConverter.setDateFooter(indexDate, request);
 			
@@ -71,11 +73,13 @@ public class StandardController extends HttpServlet {
 		
 		request.setAttribute("searchresult", searchParameter);
 				
-		return "orga/search";
+		return mav;
 	}
 	
 	@GetMapping(value = "/terminslider")
-	public String createTerminSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView createTerminSlider(final HttpServletRequest request, final HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("personal/terminslider");
 		
 		DateConverter.setDateFooter(indexDate, request);
 		String action = request.getParameter("action");
@@ -108,11 +112,13 @@ public class StandardController extends HttpServlet {
 		request.getSession().setAttribute("terminList", terminList);
 		request.getSession().setAttribute("sliderlenght", slider);
 				
-		return "personal/terminslider";
+		return mav;
 	}
 	
 	@GetMapping(value = "/terminreader")
-	public String createTerminReader(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView createTerminReader(final HttpServletRequest request, final HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("personal/terminreader");
 		
 		DateConverter.setDateFooter(indexDate, request);
 		
@@ -124,11 +130,13 @@ public class StandardController extends HttpServlet {
 		
 		request.getSession().setAttribute("calendarToRead", terminToRead);
 				
-		return "personal/terminreader";
+		return mav;
 	}
 	
 	@GetMapping(value = "/newsslider")
-	public String createNewsSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView createNewsSlider(final HttpServletRequest request, final HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("personal/newsslider");
 		
 		DateConverter.setDateFooter(indexDate, request);
 		String action = request.getParameter("action");
@@ -161,12 +169,13 @@ public class StandardController extends HttpServlet {
 		request.getSession().setAttribute("newsList", newsList);
 		request.getSession().setAttribute("sliderlenght", slider);
 				
-		return "personal/newsslider";
+		return mav;
 	}
 	
 	@GetMapping(value = "/newsreader")
-	public String createNewsReader(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView createNewsReader(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("personal/newsreader");
 		DateConverter.setDateFooter(indexDate, request);
 		
 		String newsId = request.getParameter("id");
@@ -177,55 +186,61 @@ public class StandardController extends HttpServlet {
 		
 		request.getSession().setAttribute("messageToRead", messageToRead);
 				
-		return "personal/newsreader";
+		return mav;
 	}
 	
 	@GetMapping(value = "/politik")
-	public String politik(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView politik(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("political/politik");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "political/politik";
+		return mav;
 	}
 	
 	@GetMapping(value = "/politik-werdegang")
-	public String werdegang(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView werdegang(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("political/politikwerdegang");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "political/politikwerdegang";
+		return mav;
 	}
 	
 	@GetMapping(value = "/personal")
-	public String personal(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView personal(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("personal/personal");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "personal/personal";
+		return mav;
 	}
 	
 	@GetMapping(value = "/datenschutz")
-	public String data(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView data(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("orga/datenschutz");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "orga/datenschutz";
+		return mav;
 	}
 	
 	@GetMapping(value = "/impressum")
-	public String impressum(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView impressum(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("orga/impressum");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "orga/impressum";
+		return mav;
 	}
 	
 	@GetMapping(value = "/kontakt")
-	public String kontakt(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	public ModelAndView kontakt(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("orga/kontaktdaten");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "orga/kontaktdaten";
+		return mav;
 	}
 
 	public static Set<TournamentSeason> getSeasons() {

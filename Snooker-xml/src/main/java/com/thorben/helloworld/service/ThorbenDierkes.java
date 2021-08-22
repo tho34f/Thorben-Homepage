@@ -38,5 +38,20 @@ public class ThorbenDierkes {
 	public static final String ERROR_MASSAGE = "errormasage";
 	public static final String IS_LOGIN_OK = "isLoginOk";
 	public static final String LOGIN = "backend/login";
+	public static final String LOGIN_WIZARD = "/WEB-INF/views/jsp/backend/login.jsp";
+	
+	//ObjectBrowserTitle
+	public static final String ID = "Id";
+	public static final String TITLE = "Title";
+	public static final String TITLE_TITLE = "title";
+	public static final String TEASER = "teaser";
+	public static final String TEASER_TITLE = "Teaser";
+	public static final String CREATION_DATE = "creationDate";
+	public static final String CREATION_DATE_TITLE = "Erstellungsdatum";
+	public static final String CHANGE_DATE = "changeDate";
+	public static final String CHANGE_DATE_TITLE = "Änderungsdatum";
+	public static final String DESCRIPTION = "changeDate";
+	public static final String DESCRIPTION_TITLE = "Änderungsdatum";
+	
 
 }

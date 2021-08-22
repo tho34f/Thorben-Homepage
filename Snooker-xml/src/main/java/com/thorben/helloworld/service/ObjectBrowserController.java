@@ -13,9 +13,9 @@ import com.thorben.helloworld.snooker.User;
 
 public class ObjectBrowserController {
 	
-	  private ObjectBrowserController() {
-		    throw new IllegalStateException("Utility class");
-		  }
+	private ObjectBrowserController() {
+		throw new IllegalStateException("Utility class");
+	}
 	
 	private static ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
@@ -30,7 +30,6 @@ public class ObjectBrowserController {
 	public static void  getInformationForOb(ObjectBrowser ob, final HttpServletRequest request) {
 		
 		int id = ob.getObjectType();
-		
 		switch(id) {
 			case ThorbenDierkes.USER:
 				setUserList(MySql.getInstance().getUserQueries().loadUserList());

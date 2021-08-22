@@ -1,6 +1,5 @@
 package com.thorben.helloworld.service;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -8,7 +7,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -50,7 +48,7 @@ public class ThorbenDierkesService {
 	
 	}
 	
-	public static TournamentSeason creatSeason(int year) throws SQLException, NamingException {
+	public static TournamentSeason creatSeason(int year) {
 		
 		TournamentSeason season = new TournamentSeason(year);
 		
@@ -61,7 +59,7 @@ public class ThorbenDierkesService {
 		return season;
 	}
 	
-	public static void setSeason(String number, final HttpServletRequest request) throws SQLException, NamingException {
+	public static void setSeason(String number, final HttpServletRequest request) {
 		
 		TournamentSeason season = null;
 		
@@ -132,12 +130,17 @@ public class ThorbenDierkesService {
 		return splitedTerminList;
 	}
 	
-	public String errorUserLogin(HttpServletRequest request) {
+	public String errorUserLogin(HttpServletRequest request, boolean isWizard) {
 		
 		request.getSession().setAttribute(ThorbenDierkes.IS_LOGIN_OK, false);
 		request.setAttribute(ThorbenDierkes.ERROR_MASSAGE, ThorbenDierkes.USER_NOT_LOGIN );
 		
-		return ThorbenDierkes.LOGIN;
+		if(!isWizard) {
+			return ThorbenDierkes.LOGIN;
+		} else {
+			return ThorbenDierkes.LOGIN_WIZARD;
+		}
+		
 		
 	}
 

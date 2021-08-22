@@ -43,6 +43,13 @@ public class BackendController extends HttpServlet {
 		this.helloWorldService = helloWorldService;
 	}
 	
+	@GetMapping(value = "/backend")
+	public String startLoginBackend(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		request.getSession().setAttribute("user", null);
+		return LOGIN;
+	}
+	
 	@GetMapping(value = "/backend/login")
 	public String startLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
@@ -89,7 +96,7 @@ public class BackendController extends HttpServlet {
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/backendindex";
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request);
+			forwordPath = helloWorldService.errorUserLogin(request, false);
 		} 
 		
 		return forwordPath;
@@ -103,7 +110,7 @@ public class BackendController extends HttpServlet {
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/backendObjectBrowser";
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request);
+			forwordPath = helloWorldService.errorUserLogin(request, false);
 		} 
 		
 		return forwordPath;
@@ -120,7 +127,7 @@ public class BackendController extends HttpServlet {
 			ObjectBrowserController.getInformationForOb(ob, request);
 			forwordPath = "backend/backendObjectBrowser";
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request);
+			forwordPath = helloWorldService.errorUserLogin(request, false);
 		} 
 		
 		return forwordPath;

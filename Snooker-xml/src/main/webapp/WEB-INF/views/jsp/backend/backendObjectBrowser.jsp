@@ -23,10 +23,9 @@
 				<caption style="display:none">OB3 second table</caption>
 				<tbody>
 					<tr class="obTableHeader">
-						<th class="redThorben ob_title_datacolumn_on" id="obObjectTitle">Title</th>
-						<th class="redThorben ob_title_datacolumn_on" id="obObjectTeaser">Teaser/Beschreibung</th>
-						<th class="redThorben ob_title_datacolumn_on" id="obObjectTeaser">Erstellungsdatum</th>
-						<th class="redThorben ob_title_datacolumn_on" id="obObjectTeaser">Änderungsdatum</th>
+						<c:forEach items="${Objectbrowser.tableTitle}" var="title">
+							<th class="redThorben ob_title_datacolumn_on" id="obObject_${title.description}">${title.description}</th>
+						</c:forEach>
 					</tr>
 					<c:if test="${empty informationList}">
 						<tr><td>${errorMessage}</td></tr>
@@ -35,17 +34,38 @@
 						<c:forEach items="${informationList}" var="element">
 							<tr id="object_${element.id}">
 								<td class="ob_row">
-									<a id="${element.id}" title="${element.title}" href="#" onclick="openWizard('${element.id}', ${Objectbrowser.objectType});return false;">${element.title}</a>
+									<c:if test="${Objectbrowser.objectType eq 38}">
+										<a id="${element.id}" title="${element.userLogin}" href="#" onclick="openWizard('${element.id}', ${Objectbrowser.objectType});return false;">${element.userLogin}</a>
+									</c:if>
+									<c:if test="${Objectbrowser.objectType ne 38}">
+										<a id="${element.id}" title="${element.title}" href="#" onclick="openWizard('${element.id}', ${Objectbrowser.objectType});return false;">${element.title}</a>
+									</c:if>
 								</td>
-								<td class="ob_row">
-									<c:if test="${empty element.teaser}"> ${element.description} </c:if>
-									<c:if test="${not empty element.teaser}"> ${element.teaser} </c:if>
-								</td>
+								<c:if test="${Objectbrowser.objectType eq 39 or  Objectbrowser.objectType eq 40}">
+									<td class="ob_row">
+										${element.teaser}
+									</td>
+								</c:if>
+								<c:if test="${Objectbrowser.objectType eq 41}">
+									 <td class="ob_row">
+									 	${element.description}
+									 </td>
+								</c:if>
+								<c:if test="${Objectbrowser.objectType eq 38}">
+									 <td class="ob_row">
+									 	${element.firstName}
+									 </td>
+									 <td class="ob_row">
+									 	${element.lastName}
+									 </td>
+								</c:if>
 								<td class="ob_row">${element.creationDateAsString}</td>
-								<td class="ob_row">
-									<c:if test="${empty element.changeDateAsString}">-</c:if>
-									<c:if test="${not empty element.changeDateAsString}">${element.changeDateAsString}</c:if>
-								</td>
+								<c:if test="${Objectbrowser.objectType eq 39 or  Objectbrowser.objectType eq 40}">
+									<td class="ob_row">
+										<c:if test="${empty element.changeDateAsString}">-</c:if>
+										<c:if test="${not empty element.changeDateAsString}">${element.changeDateAsString}</c:if>
+									</td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</c:if>
