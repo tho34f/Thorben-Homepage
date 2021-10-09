@@ -6,19 +6,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.GetHomepageData;
@@ -31,27 +27,15 @@ import com.thorben.helloworld.snooker.TournamentSeason;
 @Controller
 public class SnookerController extends HttpServlet {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -9071950597448957942L;
 	private final Logger logger = LoggerFactory.getLogger(SnookerController.class);
-	private ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
 	private static final String SEASION = "seasion";
 	private static final String SEASON = "season";
 	
 	private static Date indexDate = new Date();
 	private static Set<TournamentSeason> seasons = new HashSet<>();
 	
-	public SnookerController() {
-		
-	}
-	
-	@Autowired
-	public SnookerController(ThorbenDierkesService helloWorldService) {
-		this.helloWorldService = helloWorldService;
-		
-	}
 	
 	@GetMapping(value = "/snooker")
 	public String snooker(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
@@ -230,7 +214,7 @@ public class SnookerController extends HttpServlet {
 		SnookerController.seasons = seasons;
 	}
 
-	public ThorbenDierkesService getHelloWorldService() {
+	public static ThorbenDierkesService getHelloWorldService() {
 		return helloWorldService;
 	}
 

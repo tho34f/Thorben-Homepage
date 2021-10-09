@@ -42,9 +42,7 @@ public class ThorbenDierkesService {
 		
 		String[] arrayPlayer = participationPlayer.split(",");
 		
-		Spieler gewinner = null;
-		
-		return gewinner;
+		return new Spieler(arrayPlayer[0], arrayPlayer[1],0,0,0,0,0, 0);
 	
 	}
 	

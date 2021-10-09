@@ -6,10 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.TypeConverter;
@@ -19,21 +16,9 @@ import com.thorben.helloworld.snooker.Termin;
 @Controller
 public class TerminWizardController extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3295292219817459332L;
-	private ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
 	private static final String CONTROLLER_MAPPING = "/WEB-INF/views/jsp/backend/terminewizard.jsp";
-	
-	public TerminWizardController() {
-		
-	}
-
-	@Autowired
-	public TerminWizardController(ThorbenDierkesService helloWorldService) {
-		this.helloWorldService = helloWorldService;
-	}
 	
 	@Override
 	public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {

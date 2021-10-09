@@ -1,8 +1,5 @@
 package com.thorben.helloworld.queries;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,7 +15,6 @@ public class MySql {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MySql.class);
 	
-	private Connection con;
 	private DataSource ds;
 	
 	private CalendarQueries calendarQueries;
@@ -31,12 +27,12 @@ public class MySql {
     private MySql(DataSource ds) {
     	
     	this.ds = ds;
-    	this.calendarQueries = new CalendarQueries(this, ds);
-    	this.errorLoggQueries = new ErrorLoggQueries(this,ds);
-    	this.newsQueries = new NewsQueries(this,ds);
-    	this.snookerQueries = new SnookerQueries(this, ds);
-    	this.userQueries = new UserQueries(this,ds);
-    	this.updateDB = new UpdateDB(this,ds);
+    	this.calendarQueries = new CalendarQueries(this);
+    	this.errorLoggQueries = new ErrorLoggQueries(this);
+    	this.newsQueries = new NewsQueries(this);
+    	this.snookerQueries = new SnookerQueries(this);
+    	this.userQueries = new UserQueries(this);
+    	this.updateDB = new UpdateDB(this);
     	
     }
 	
@@ -54,32 +50,13 @@ public class MySql {
         } catch (NamingException e) {
         	String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_DATA_SOURCE).append(e.getLocalizedMessage()).toString();
   			logger.error(ThorbenDierkes.DATA_SOURCE, erroeMessage, e);
-  			e.printStackTrace();
        }
-        
-        if(sql.getDs() != null) {
-        	try {
-				sql.setCon(sql.getDs().getConnection());
-			} catch (SQLException e) {
-				String erroeMessage = new StringBuilder().append(ThorbenDierkes.SQL_FEHLER).append(e.getLocalizedMessage()).toString();
-	  			logger.error(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
-	  			e.printStackTrace();
-			}
-    	}
         
         logger.info("Verbindung mit Datenbank hergestellt.");
         
         return sql;
 
     }
-
-	public Connection getCon() {
-		return con;
-	}
-
-	public void setCon(Connection con) {
-		this.con = con;
-	}
 
 	public DataSource getDs() {
 		return ds;

@@ -4,17 +4,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.ThorbenDierkesService;
@@ -27,26 +23,14 @@ import com.thorben.helloworld.snooker.Termin;
 @Controller
 public class StandardController extends HttpServlet {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6766367415600280400L;
 
-	private ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
-	
+	private static final long serialVersionUID = 6766367415600280400L;
+	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
 	private static Date indexDate = new Date();
 	private static Set<TournamentSeason> seasons = new HashSet<>();
 	private static int pageReminderNewsList = 1;
 	private static int pageReminderTerminList = 1;
 	
-	public StandardController() {
-		
-	}
-	
-	@Autowired
-	public StandardController(ThorbenDierkesService helloWorldService) {
-		this.helloWorldService = helloWorldService;
-	}
 	
 	@GetMapping(value = "/")
 	public ModelAndView start(final HttpServletRequest request, final HttpServletResponse response) {
@@ -251,7 +235,7 @@ public class StandardController extends HttpServlet {
 		StandardController.seasons = seasons;
 	}
 
-	public ThorbenDierkesService getHelloWorldService() {
+	public static ThorbenDierkesService getHelloWorldService() {
 		return helloWorldService;
 	}
 

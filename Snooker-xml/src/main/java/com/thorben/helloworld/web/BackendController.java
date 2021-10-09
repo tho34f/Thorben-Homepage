@@ -5,14 +5,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.ObjectBrowser;
@@ -23,25 +20,13 @@ import com.thorben.helloworld.snooker.User;
 @Controller
 public class BackendController extends HttpServlet {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1217699872564172806L;
 	private final Logger logger = LoggerFactory.getLogger(BackendController.class);
-	private ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
 	
 	private static final String LOGIN = "backend/login";
 	private static final String ERROR_MASSAGE = "errormasage";
 	private static final String IS_LOGIN_OK = "isLoginOk";
-	
-	public BackendController(){
-		
-	}
-	
-	@Autowired
-	public BackendController(ThorbenDierkesService helloWorldService) {
-		this.helloWorldService = helloWorldService;
-	}
 	
 	@GetMapping(value = "/backend")
 	public String startLoginBackend(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
@@ -133,7 +118,7 @@ public class BackendController extends HttpServlet {
 		return forwordPath;
 	}
 
-	public ThorbenDierkesService getHelloWorldService() {
+	public static ThorbenDierkesService getHelloWorldService() {
 		return helloWorldService;
 	}
 

@@ -22,9 +22,9 @@ public class ErrorLoggQueries extends AbstractQuerries {
 	
 	private final Logger logger = LoggerFactory.getLogger(ErrorLoggQueries.class);
 	
-	 public ErrorLoggQueries(MySql sql, DataSource ds) {
+	 public ErrorLoggQueries(MySql sql) {
 	    	
-	    	super(sql, ds);
+	    	super(sql);
 	    	
 	    }
     
@@ -32,7 +32,7 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		
 		Set<ErrorMassage> errorList = new HashSet<>();
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 
 			con.setAutoCommit(false);
 			
@@ -57,10 +57,6 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		        
 			}
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.error(erroeMessage, e);
-			e.printStackTrace();
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.error(erroeMessage, e);
@@ -75,7 +71,7 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		
 		ErrorMassage massage = new ErrorMassage();
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 			
 			con.setAutoCommit(false);
 			
@@ -99,10 +95,6 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		        
 			}
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.error(erroeMessage, e);
-			e.printStackTrace();
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.error(erroeMessage, e);
@@ -115,7 +107,7 @@ public class ErrorLoggQueries extends AbstractQuerries {
 	
 	public void newErrorLogEntry(String title, String description) {
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 
 			con.setAutoCommit(false);
 		
@@ -135,10 +127,6 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		        
 			}
 			
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.error(erroeMessage, e);
-			e.printStackTrace();
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.error(erroeMessage, e);

@@ -10,16 +10,16 @@ import javax.sql.DataSource;
 
 public class UpdateDB extends AbstractQuerries {
 	
-    public UpdateDB(MySql sql, DataSource ds) {
+    public UpdateDB(MySql sql) {
     	
-    	super(sql, ds);
+    	super(sql);
     	
     }
 
 	public void updateDatenbank(List<String> provisionalRanking) {
-		try (Connection con = getDataSource().getConnection()){
+		try (Connection con = getSql().getDs().getConnection()){
 			con.setAutoCommit(false);
-		} catch (NamingException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 			

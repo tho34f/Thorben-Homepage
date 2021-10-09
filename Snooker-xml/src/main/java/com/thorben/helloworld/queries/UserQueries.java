@@ -22,9 +22,9 @@ public class UserQueries extends AbstractQuerries {
 	private static final String FIRST_NAME = "user_firstname";
 	private static final String LAST_NAME = "user_lastname";
 	
-    public UserQueries(MySql sql, DataSource ds) {
+    public UserQueries(MySql sql) {
     	
-    	super(sql, ds);
+    	super(sql);
     	
     }
     
@@ -32,7 +32,7 @@ public class UserQueries extends AbstractQuerries {
 		
 		Boolean isCreate = false;
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 			
 			con.setAutoCommit(false);
 		
@@ -49,9 +49,6 @@ public class UserQueries extends AbstractQuerries {
 		        
 			}
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
@@ -64,7 +61,7 @@ public class UserQueries extends AbstractQuerries {
 		
 		Boolean isLoginOk = false;
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 			con.setAutoCommit(false);
 		
 			String queryUser = "SELECT * FROM user where user_login = '" + loginUser.getUserLogin() + "' and user_password = SHA2('" + loginUser.getPassword() + "',224)";
@@ -83,9 +80,6 @@ public class UserQueries extends AbstractQuerries {
 		        
 			}
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
@@ -98,7 +92,7 @@ public class UserQueries extends AbstractQuerries {
 		
 		User user = new User();
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 			con.setAutoCommit(false);
 		
 			String queryUser = "SELECT * FROM user where user_id = '" + userId;
@@ -120,9 +114,6 @@ public class UserQueries extends AbstractQuerries {
 		        
 			}
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
@@ -135,7 +126,7 @@ public class UserQueries extends AbstractQuerries {
 		
 		Set<User> userList = new HashSet<>();
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 			
 			con.setAutoCommit(false);
 			
@@ -162,9 +153,6 @@ public class UserQueries extends AbstractQuerries {
 		        
 			}
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);

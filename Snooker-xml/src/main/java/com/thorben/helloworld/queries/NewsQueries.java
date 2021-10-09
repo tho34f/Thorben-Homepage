@@ -22,9 +22,9 @@ public class NewsQueries extends AbstractQuerries {
 	
 	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
-    public NewsQueries(MySql sql, DataSource ds) {
+    public NewsQueries(MySql sql) {
     	
-    	super(sql, ds);
+    	super(sql);
     	
     }
     
@@ -32,7 +32,7 @@ public class NewsQueries extends AbstractQuerries {
 		
 		Set<News> newsList = new HashSet<>();
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 			
 			con.setAutoCommit(false);
 			
@@ -67,9 +67,6 @@ public class NewsQueries extends AbstractQuerries {
 		        
 			}
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
@@ -83,7 +80,7 @@ public class NewsQueries extends AbstractQuerries {
 		
 		News massage = new News();
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 			
 			con.setAutoCommit(false);
 			
@@ -113,9 +110,6 @@ public class NewsQueries extends AbstractQuerries {
 		        
 			}
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
@@ -129,7 +123,7 @@ public class NewsQueries extends AbstractQuerries {
 		
 		boolean isSave = false;
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 			
 			con.setAutoCommit(false);
 		
@@ -162,9 +156,6 @@ public class NewsQueries extends AbstractQuerries {
 			}
 			
 			isSave = true;
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
@@ -178,7 +169,7 @@ public class NewsQueries extends AbstractQuerries {
 		
 		boolean isUpdate = false;
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 			
 			con.setAutoCommit(false);
 		
@@ -199,9 +190,6 @@ public class NewsQueries extends AbstractQuerries {
 		        
 			}
 			
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);

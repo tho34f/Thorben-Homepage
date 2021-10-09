@@ -18,14 +18,14 @@ public class SnookerQueries extends AbstractQuerries {
 	
 	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
-    public SnookerQueries(MySql sql, DataSource ds) {
+    public SnookerQueries(MySql sql) {
     	
-    	super(sql, ds);
+    	super(sql);
     	
     }
     
     public void creatTournamentList(String nameOfTable, TournamentSeason tournamentSeason){
-    	try(Connection con = getDataSource().getConnection()) {
+    	try(Connection con = getSql().getDs().getConnection()) {
         	
 			con.setAutoCommit(false);
 			
@@ -53,9 +53,6 @@ public class SnookerQueries extends AbstractQuerries {
 
 	        }
 	        
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
@@ -65,7 +62,7 @@ public class SnookerQueries extends AbstractQuerries {
     
     public void creatPlayerList(String nameOfTable, TournamentSeason tournamentSeason)  {
     	
-    	try(Connection con = getDataSource().getConnection()) {
+    	try(Connection con = getSql().getDs().getConnection()) {
 
     		con.setAutoCommit(false);
 	        // Statement mit Benennung der Tablle
@@ -94,10 +91,7 @@ public class SnookerQueries extends AbstractQuerries {
 	        // Ich schlieﬂe die Streams wieder und gebe die Tabelle wieder frei.
 	        rs.close();
 	        }
-    	} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
-		} catch (SQLException e) {
+    	} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
 		} 

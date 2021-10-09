@@ -22,9 +22,9 @@ public class CalendarQueries extends AbstractQuerries {
 	
 	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
-    public CalendarQueries(MySql sql, DataSource ds) {
+    public CalendarQueries(MySql sql) {
     	
-    	super(sql, ds);
+    	super(sql);
     	
     }
     
@@ -32,7 +32,7 @@ public class CalendarQueries extends AbstractQuerries {
 		
 		Set<Termin> calendarList = new HashSet<>();
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 			
 			con.setAutoCommit(false);
 			
@@ -66,9 +66,6 @@ public class CalendarQueries extends AbstractQuerries {
 		        
 			}
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
@@ -82,7 +79,7 @@ public class CalendarQueries extends AbstractQuerries {
 		
 		Termin tm = new Termin();
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 
 			con.setAutoCommit(false);
 			
@@ -110,9 +107,6 @@ public class CalendarQueries extends AbstractQuerries {
 		        
 			}
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
@@ -126,7 +120,7 @@ public class CalendarQueries extends AbstractQuerries {
 		
 		boolean isCreate = false;
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 
 			con.setAutoCommit(false);
 		
@@ -148,9 +142,6 @@ public class CalendarQueries extends AbstractQuerries {
 		        
 			}
 			
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
@@ -164,7 +155,7 @@ public class CalendarQueries extends AbstractQuerries {
 		
 		boolean isUpdate = false;
 		
-		try(Connection con = getDataSource().getConnection()){
+		try(Connection con = getSql().getDs().getConnection()){
 	
 			con.setAutoCommit(false);
 		
@@ -183,9 +174,6 @@ public class CalendarQueries extends AbstractQuerries {
 		        
 			}
 			
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_DB_TREIBER).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.TREIBER, erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
