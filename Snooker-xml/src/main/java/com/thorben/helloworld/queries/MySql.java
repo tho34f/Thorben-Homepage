@@ -1,8 +1,5 @@
 package com.thorben.helloworld.queries;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -12,15 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.thorben.helloworld.service.ThorbenDierkes;
-import com.thorben.helloworld.service.ThorbenDierkesLogger;
 
 
 public class MySql {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MySql.class);
-	private static ThorbenDierkesLogger log = new ThorbenDierkesLogger();
 	
-	private Connection con;
 	private DataSource ds;
 	
 	private CalendarQueries calendarQueries;
@@ -33,8 +27,12 @@ public class MySql {
     private MySql(DataSource ds) {
     	
     	this.ds = ds;
-    	this.calendarQueries = new CalendarQueries(this, ds);
-    	this.errorLoggQueries = new ErrorLoggQueries(this,ds);
+    	this.calendarQueries = new CalendarQueries(this);
+    	this.errorLoggQueries = new ErrorLoggQueries(this);
+    	this.newsQueries = new NewsQueries(this);
+    	this.snookerQueries = new SnookerQueries(this);
+    	this.userQueries = new UserQueries(this);
+    	this.updateDB = new UpdateDB(this);
     	
     }
 	
@@ -42,7 +40,7 @@ public class MySql {
 		
 	}
 
-	public static MySql getInstance() throws SQLException, NamingException {
+	public static MySql getInstance() {
     	
     	MySql sql = new MySql();
     	
@@ -51,26 +49,14 @@ public class MySql {
         	sql = new MySql((DataSource)ctx.lookup("java:comp/env/jdbc/thorbenDB"));
         } catch (NamingException e) {
         	String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_DATA_SOURCE).append(e.getLocalizedMessage()).toString();
-  			log.errorLogWithTrace(ThorbenDierkes.DATA_SOURCE, erroeMessage, e);
+  			logger.error(ThorbenDierkes.DATA_SOURCE, erroeMessage, e);
        }
-        
-        if(sql.getDs() != null) {
-        	sql.setCon(sql.getDs().getConnection());
-    	}
         
         logger.info("Verbindung mit Datenbank hergestellt.");
         
         return sql;
 
     }
-
-	public Connection getCon() {
-		return con;
-	}
-
-	public void setCon(Connection con) {
-		this.con = con;
-	}
 
 	public DataSource getDs() {
 		return ds;

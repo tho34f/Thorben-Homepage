@@ -26,6 +26,9 @@
 					<a class="nav-link" href="/thorben-dierkes/backend/backendindex">Startseite</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=38" id="navbardrop"> Benutzer </a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=39" id="navbardrop"> Nachrichten </a>
 				</li>
 				<li class="nav-item">

@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class Spieler  implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 916064280372814616L;
 	private String firstname;
 	private String lastname;

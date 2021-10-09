@@ -16,10 +16,37 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+		<servlet>
+		<servlet-name>newsController</servlet-name>
+		<servlet-class>com.thorben.helloworld.web.NewsWizardController</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>terminController</servlet-name>
+		<servlet-class>com.thorben.helloworld.web.TerminWizardController</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>userController</servlet-name>
+		<servlet-class>com.thorben.helloworld.web.UserWizardController</servlet-class>
+		<load-on-startup>4</load-on-startup>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>hello-dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>newsController</servlet-name>
+		<url-pattern>/backend/newswizard</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>terminController</servlet-name>
+		<url-pattern>/backend/terminewizard</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>userController</servlet-name>
+		<url-pattern>/backend/userwizard</url-pattern>
 	</servlet-mapping>
 
 	<!-- For root context -->
@@ -32,11 +59,19 @@
 		<param-value>/WEB-INF/spring-core-config.xml</param-value>
 	</context-param>
 	
+	<jsp-config>
+		 <taglib>
+	        <taglib-uri>/thorben</taglib-uri>
+	        <taglib-location>/WEB-INF/tags/taglib/eigeneTags.tld</taglib-location>
+	    </taglib>
+    </jsp-config>
+	
 	<resource-ref>
-    <description>postgreSQL Datasource example</description>
-    <res-ref-name>jdbc/postgres</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
+	    <description>postgreSQL Datasource example</description>
+	    <res-ref-name>jdbc/thorbenDB</res-ref-name>
+	    <res-type>javax.sql.DataSource</res-type>
+	    <res-auth>Container</res-auth>
+	    <res-sharing-scope>Shareable</res-sharing-scope>
 	</resource-ref>
 
 </web-app>

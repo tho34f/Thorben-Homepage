@@ -5,10 +5,10 @@
 					<a class="nav-link" href="/thorben-dierkes">Startseite</a>
 				</li>
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="/thorben-dierkes/personal" id="navbardrop" data-toggle="dropdown"> Persönliches </a>
+					<a class="nav-link dropdown-toggle" href="/thorben-dierkes/personal" id="navbardrop" data-toggle="dropdown"> Thorben Dierkes </a>
       				<div class="dropdown-menu">
-      					<a class="dropdown-item" href="/thorben-dierkes/newsslider">Aktuelles</a>
-      					<a class="dropdown-item" href="/thorben-dierkes/personal">Über Mich</a>
+      					<a class="dropdown-item" href="/thorben-dierkes/personal">Über Thorben Dierkes</a>
+      					<a class="dropdown-item" href="/thorben-dierkes/newsslider">News</a>
       					<a class="dropdown-item" href="/thorben-dierkes/terminslider">Termine</a>
 					</div>
 				</li>

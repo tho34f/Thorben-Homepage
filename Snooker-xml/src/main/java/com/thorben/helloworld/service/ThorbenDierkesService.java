@@ -1,6 +1,5 @@
 package com.thorben.helloworld.service;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -8,7 +7,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -16,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.thorben.helloworld.queries.MySql;
-import com.thorben.helloworld.queries.SnookerQueries;
 import com.thorben.helloworld.snooker.Tournament;
 import com.thorben.helloworld.snooker.TournamentSeason;
 import com.thorben.helloworld.snooker.News;
@@ -29,11 +26,15 @@ public class ThorbenDierkesService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ThorbenDierkesService.class);
 	
-	private static Random generator = new Random();
+	private Random generator;
 	
-	public static int generateId() {
+	public ThorbenDierkesService() {
+		this.generator = new Random();
+	}
+	
+	public int generateId() {
 		
-		return (1 + generator.nextInt(500));
+		return (1 + getGenerator().nextInt(500));
 	}
 	
 	
@@ -41,13 +42,11 @@ public class ThorbenDierkesService {
 		
 		String[] arrayPlayer = participationPlayer.split(",");
 		
-		Spieler gewinner = null;
-		
-		return gewinner;
+		return new Spieler(arrayPlayer[0], arrayPlayer[1],0,0,0,0,0, 0);
 	
 	}
 	
-	public static TournamentSeason creatSeason(int year) throws SQLException, NamingException {
+	public static TournamentSeason creatSeason(int year) {
 		
 		TournamentSeason season = new TournamentSeason(year);
 		
@@ -58,7 +57,7 @@ public class ThorbenDierkesService {
 		return season;
 	}
 	
-	public static void setSeason(String number, final HttpServletRequest request) throws SQLException, NamingException {
+	public static void setSeason(String number, final HttpServletRequest request) {
 		
 		TournamentSeason season = null;
 		
@@ -127,6 +126,28 @@ public class ThorbenDierkesService {
 		}
 		
 		return splitedTerminList;
+	}
+	
+	public String errorUserLogin(HttpServletRequest request, boolean isWizard) {
+		
+		request.getSession().setAttribute(ThorbenDierkes.IS_LOGIN_OK, false);
+		request.setAttribute(ThorbenDierkes.ERROR_MASSAGE, ThorbenDierkes.USER_NOT_LOGIN );
+		
+		if(!isWizard) {
+			return ThorbenDierkes.LOGIN;
+		} else {
+			return ThorbenDierkes.LOGIN_WIZARD;
+		}
+		
+		
+	}
+
+	public Random getGenerator() {
+		return generator;
+	}
+
+	public void setGenerator(Random generator) {
+		this.generator = generator;
 	}
 	
 

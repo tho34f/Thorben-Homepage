@@ -1,29 +1,18 @@
 package com.thorben.helloworld.web;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.naming.NamingException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.thorben.helloworld.queries.CalendarQueries;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 import com.thorben.helloworld.queries.MySql;
-import com.thorben.helloworld.queries.NewsQueries;
-import com.thorben.helloworld.queries.UpdateDB;
 import com.thorben.helloworld.service.DateConverter;
-import com.thorben.helloworld.service.GetHomepageData;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.TypeConverter;
 import com.thorben.helloworld.snooker.TournamentSeason;
@@ -32,38 +21,35 @@ import com.thorben.helloworld.snooker.Termin;
 
 
 @Controller
-public class StandardController {
+public class StandardController extends HttpServlet {
 
-	private final Logger logger = LoggerFactory.getLogger(StandardController.class);
-	private final ThorbenDierkesService helloWorldService;
-	
-	Date indexDate = new Date();
+
+	private static final long serialVersionUID = 6766367415600280400L;
+	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	private static Date indexDate = new Date();
 	private static Set<TournamentSeason> seasons = new HashSet<>();
 	private static int pageReminderNewsList = 1;
 	private static int pageReminderTerminList = 1;
-
-	@Autowired
-	public StandardController(ThorbenDierkesService helloWorldService) {
-		this.helloWorldService = helloWorldService;
-	}
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String start(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
+	
+	
+	@GetMapping(value = "/")
+	public ModelAndView start(final HttpServletRequest request, final HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("index");
 		
 		if(request.getSession().getAttribute("seasions") == null) {
 			request.getSession().setAttribute("seasions", getSeasons());
 		}
 		
-		List<String> provisionalRanking = GetHomepageData.getData();
-		MySql.getInstance().getUpdateDB().updateDatenbank(provisionalRanking);
-		
 		DateConverter.setDateFooter(indexDate, request);
 		
-		return "index";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String searchfunction(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	@PostMapping(value = "/search")
+	public ModelAndView searchfunction(final HttpServletRequest request, final HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("orga/search");
 		
 		DateConverter.setDateFooter(indexDate, request);
 			
@@ -71,11 +57,13 @@ public class StandardController {
 		
 		request.setAttribute("searchresult", searchParameter);
 				
-		return "orga/search";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/terminslider", method = RequestMethod.GET)
-	public String createTerminSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
+	@GetMapping(value = "/terminslider")
+	public ModelAndView createTerminSlider(final HttpServletRequest request, final HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("personal/terminslider");
 		
 		DateConverter.setDateFooter(indexDate, request);
 		String action = request.getParameter("action");
@@ -108,11 +96,13 @@ public class StandardController {
 		request.getSession().setAttribute("terminList", terminList);
 		request.getSession().setAttribute("sliderlenght", slider);
 				
-		return "personal/terminslider";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/terminreader", method = RequestMethod.GET)
-	public String createTerminReader(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
+	@GetMapping(value = "/terminreader")
+	public ModelAndView createTerminReader(final HttpServletRequest request, final HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("personal/terminreader");
 		
 		DateConverter.setDateFooter(indexDate, request);
 		
@@ -124,11 +114,13 @@ public class StandardController {
 		
 		request.getSession().setAttribute("calendarToRead", terminToRead);
 				
-		return "personal/terminreader";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/newsslider", method = RequestMethod.GET)
-	public String createNewsSlider(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
+	@GetMapping(value = "/newsslider")
+	public ModelAndView createNewsSlider(final HttpServletRequest request, final HttpServletResponse response) {
+		
+		ModelAndView mav = new ModelAndView("personal/newsslider");
 		
 		DateConverter.setDateFooter(indexDate, request);
 		String action = request.getParameter("action");
@@ -161,12 +153,13 @@ public class StandardController {
 		request.getSession().setAttribute("newsList", newsList);
 		request.getSession().setAttribute("sliderlenght", slider);
 				
-		return "personal/newsslider";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/newsreader", method = RequestMethod.GET)
-	public String createNewsReader(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
+	@GetMapping(value = "/newsreader")
+	public ModelAndView createNewsReader(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("personal/newsreader");
 		DateConverter.setDateFooter(indexDate, request);
 		
 		String newsId = request.getParameter("id");
@@ -177,55 +170,61 @@ public class StandardController {
 		
 		request.getSession().setAttribute("messageToRead", messageToRead);
 				
-		return "personal/newsreader";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/politik", method = RequestMethod.GET)
-	public String politik(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	@GetMapping(value = "/politik")
+	public ModelAndView politik(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("political/politik");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "political/politik";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/politik-werdegang", method = RequestMethod.GET)
-	public String werdegang(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	@GetMapping(value = "/politik-werdegang")
+	public ModelAndView werdegang(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("political/politikwerdegang");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "political/politikwerdegang";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/personal", method = RequestMethod.GET)
-	public String personal(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	@GetMapping(value = "/personal")
+	public ModelAndView personal(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("personal/personal");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "personal/personal";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/datenschutz", method = RequestMethod.GET)
-	public String data(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	@GetMapping(value = "/datenschutz")
+	public ModelAndView data(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("orga/datenschutz");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "orga/datenschutz";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/impressum", method = RequestMethod.GET)
-	public String impressum(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	@GetMapping(value = "/impressum")
+	public ModelAndView impressum(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("orga/impressum");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "orga/impressum";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/kontakt", method = RequestMethod.GET)
-	public String kontakt(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+	@GetMapping(value = "/kontakt")
+	public ModelAndView kontakt(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		ModelAndView mav = new ModelAndView("orga/kontaktdaten");
 		DateConverter.setDateFooter(indexDate, request);
 				
-		return "orga/kontaktdaten";
+		return mav;
 	}
 
 	public static Set<TournamentSeason> getSeasons() {
@@ -236,7 +235,7 @@ public class StandardController {
 		StandardController.seasons = seasons;
 	}
 
-	public ThorbenDierkesService getHelloWorldService() {
+	public static ThorbenDierkesService getHelloWorldService() {
 		return helloWorldService;
 	}
 

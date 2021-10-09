@@ -8,11 +8,13 @@ public class User implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -8512259499299806566L;
-	private int userId;
+	private int id;
 	private String userLogin;
 	private String firstName;
 	private String lastName;
 	private String password;
+	private long creationDate;
+	private String creationDateAsString;
 	
 	public User() {
 		
@@ -23,7 +25,7 @@ public class User implements Serializable{
 		this.lastName = lastName;
 		this.password = password;
 		this.userLogin = userLogin;
-		this.userId = userId;
+		this.id = userId;
 	}
 	
 	public String getFirstName() {
@@ -45,12 +47,12 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	public int getUserId() {
-		return userId;
+	public int getId() {
+		return id;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setId(int userId) {
+		this.id = userId;
 	}
 
 	public String getUserLogin() {
@@ -59,6 +61,22 @@ public class User implements Serializable{
 
 	public void setUserLogin(String userLogin) {
 		this.userLogin = userLogin;
+	}
+
+	public long getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(long creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getCreationDateAsString() {
+		return creationDateAsString;
+	}
+
+	public void setCreationDateAsString(String creationDateAsString) {
+		this.creationDateAsString = creationDateAsString;
 	}
 
 }

@@ -22,19 +22,19 @@ public class NewsQueries extends AbstractQuerries {
 	
 	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
-    public NewsQueries(MySql sql, DataSource ds) {
+    public NewsQueries(MySql sql) {
     	
-    	super(sql, ds);
+    	super(sql);
     	
     }
     
-	public Set<News> loadNewsList() throws SQLException, NamingException {
+	public Set<News> loadNewsList() {
 		
 		Set<News> newsList = new HashSet<>();
 		
-		try{
+		try(Connection con = getSql().getDs().getConnection()){
 			
-			Connection con = getDataSource().getConnection();;
+			con.setAutoCommit(false);
 			
 			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
 					+ " FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id ORDER BY nw.creation_date DESC";
@@ -66,28 +66,23 @@ public class NewsQueries extends AbstractQuerries {
 		        rs.close();
 		        
 			}
-		 
-			con.close();
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		} 
 		
 		return newsList;
 		
 	}
 	
-	public News loadNews(int newsId) throws SQLException, NamingException {
+	public News loadNews(int newsId) {
 		
 		News massage = new News();
 		
-		try{
+		try(Connection con = getSql().getDs().getConnection()){
 			
-			Connection con = getDataSource().getConnection();
+			con.setAutoCommit(false);
 			
 			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
 					+ " FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id"
@@ -114,33 +109,29 @@ public class NewsQueries extends AbstractQuerries {
 		        rs.close();
 		        
 			}
-		 
-			con.close();
 		
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		} 
 		
 		return massage;
 		
 	}
 	
-	public boolean newNewsEntry(String title, String text, String teaser, Image img) throws SQLException, NamingException {
+	public boolean newNewsEntry(String title, String text, String teaser, Image img) {
 		
 		boolean isSave = false;
 		
-		try{
+		try(Connection con = getSql().getDs().getConnection()){
 			
-			Connection con = getDataSource().getConnection();
+			con.setAutoCommit(false);
 		
 			String queryNews = "INSERT INTO news (news_id, news_title, news_teaser, news_image, change_date, creation_date) VALUES (?, ?, ?, ?, ?, ?)";
 			String queryNewsText = "INSERT INTO news_text (news_id, news_text) VALUES (?, ?)";
 			
-			int id = ThorbenDierkesService.generateId();
+			ThorbenDierkesService tds = new ThorbenDierkesService();
+			int id = tds.generateId();
 			
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				int counter = 1;
@@ -165,26 +156,22 @@ public class NewsQueries extends AbstractQuerries {
 			}
 			
 			isSave = true;
-			
-			con.close();
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		} 
 		
 		return isSave;
 		
 	}
 	
-	public boolean updateNewsEntry(int newsId, String title, String text, String teaser, Image img) throws SQLException, NamingException {
+	public boolean updateNewsEntry(int newsId, String title, String text, String teaser, Image img) {
 		
 		boolean isUpdate = false;
 		
-		try{
-			Connection con = getDataSource().getConnection();
+		try(Connection con = getSql().getDs().getConnection()){
+			
+			con.setAutoCommit(false);
 		
 			String updateQuerry = "Update news AS nw LEFT JOIN news_text AS nwt ON nw.news_id = nwt.news_id" + 
 					" SET nw.news_title=?, nw.news_teaser=?, nw.news_image=?, nw.change_date=?, nwt.news_text=?" + 
@@ -203,13 +190,9 @@ public class NewsQueries extends AbstractQuerries {
 		        
 			}
 			
-			con.close();
-		} catch (NamingException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("Datenbanktreiber", erroeMessage, e);
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 		} 
 		
 		return isUpdate;

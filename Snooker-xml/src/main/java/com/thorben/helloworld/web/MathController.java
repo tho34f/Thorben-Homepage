@@ -3,43 +3,32 @@ package com.thorben.helloworld.web;
 import java.util.Date;
 import java.util.Map;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 
 
 @Controller
-public class MathController {
+public class MathController extends HttpServlet {
 
-	private final Logger logger = LoggerFactory.getLogger(MathController.class);
-	private final ThorbenDierkesService helloWorldService;
-	
-	Date indexDate = new Date();
+	private static final long serialVersionUID = -3295292219817459332L;
+	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	private static Date indexDate = new Date();
 
-	@Autowired
-	public MathController(ThorbenDierkesService helloWorldService) {
-		this.helloWorldService = helloWorldService;
-	}
-
-	@RequestMapping(value = "/math", method = RequestMethod.GET)
+	@GetMapping(value = "/math")
 	public String start(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		DateConverter.setDateFooter(indexDate, request);
 		
-		return "index";
+		return "math/math";
 	}
 	
 
-	public ThorbenDierkesService getHelloWorldService() {
+	public static ThorbenDierkesService getHelloWorldService() {
 		return helloWorldService;
 	}
 
