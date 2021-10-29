@@ -282,3 +282,19 @@ textarea#beschreibung{
     border: 1px solid #0076a3;
     padding: 8px;
 }
+
+.linkButton {
+    color: #ffffff;
+    border: 1px solid;
+    text-transform: uppercase;
+    border-color: #a00403 #870403 #6e0302;
+    border-radius: 15px;
+    font-size: 18px;
+    padding: 0.64286em 1.42857em;
+    background: linear-gradient(rgb(202, 0, 0), #721403);
+}
+
+.linkButton:hover{
+	color:#ffffff; 
+	background: linear-gradient( #6e0302, #aa0504);
+}

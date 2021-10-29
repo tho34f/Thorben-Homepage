@@ -53,5 +53,9 @@ public class ThorbenDierkes {
 	public static final String DESCRIPTION = "changeDate";
 	public static final String DESCRIPTION_TITLE = "Änderungsdatum";
 	
+	//Snooker-URL`S
+	public static final String PROVISIONAL_RANKING = "https://wst.tv/rankings/1-year-ranking-list/";
+	public static final String WORLD_RANKING = "https://wst.tv/rankings/world-rankings-2/";
+	
 
 }

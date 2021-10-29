@@ -1,5 +1,6 @@
 package com.thorben.helloworld.web;
 
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -28,18 +29,19 @@ public class BackendController extends HttpServlet {
 	private static final String ERROR_MASSAGE = "errormasage";
 	private static final String IS_LOGIN_OK = "isLoginOk";
 	
+	private static String language;
+	
 	@GetMapping(value = "/backend")
 	public String startLoginBackend(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
+		setLanguage(Locale.getDefault().getLanguage());
 		request.getSession().setAttribute("user", null);
 		return LOGIN;
 	}
 	
 	@GetMapping(value = "/backend/login")
 	public String startLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
-		
-		request.getSession().setAttribute("user", null);
-		return LOGIN;
+		return startLoginBackend(model, request, response);
 	}
 	
 	@PostMapping(value = "/backend/backendindex")
@@ -47,6 +49,7 @@ public class BackendController extends HttpServlet {
 		
 		User loginUser = new User();
 		String forwordPath = null;
+		setLanguage(Locale.getDefault().getLanguage());
 		boolean isLoginOk = false;
 		
 		String test = request.getParameter("username");
@@ -77,6 +80,7 @@ public class BackendController extends HttpServlet {
 	public String createIndex(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
+		setLanguage(Locale.getDefault().getLanguage());
 		
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/backendindex";
@@ -91,6 +95,7 @@ public class BackendController extends HttpServlet {
 	public String createObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
+		setLanguage(Locale.getDefault().getLanguage());
 		
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/backendObjectBrowser";
@@ -105,10 +110,11 @@ public class BackendController extends HttpServlet {
 	public String getObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		String forwordPath = null;
+		setLanguage(Locale.getDefault().getLanguage());
 		int objectId = TypeConverter.string2int(request.getParameter("id"), 0);
 		
 		if(request.getSession().getAttribute("user") != null) {
-			ObjectBrowser ob = ObjectBrowser.setHeaderInformation(request, objectId);
+			ObjectBrowser ob = ObjectBrowserController.setHeaderInformation(request, objectId);
 			ObjectBrowserController.getInformationForOb(ob, request);
 			forwordPath = "backend/backendObjectBrowser";
 		} else {
@@ -120,6 +126,14 @@ public class BackendController extends HttpServlet {
 
 	public static ThorbenDierkesService getHelloWorldService() {
 		return helloWorldService;
+	}
+
+	public static String getLanguage() {
+		return language;
+	}
+
+	public static void setLanguage(String language) {
+		BackendController.language = language;
 	}
 
 }

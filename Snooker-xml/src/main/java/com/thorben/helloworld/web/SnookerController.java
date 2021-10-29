@@ -1,12 +1,10 @@
 package com.thorben.helloworld.web;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.GetHomepageData;
+import com.thorben.helloworld.service.ThorbenDierkes;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.TypeConverter;
 import com.thorben.helloworld.snooker.Spieler;
@@ -32,6 +31,7 @@ public class SnookerController extends HttpServlet {
 	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
 	private static final String SEASION = "seasion";
 	private static final String SEASON = "season";
+	private static String language;
 	
 	private static Date indexDate = new Date();
 	private static Set<TournamentSeason> seasons = new HashSet<>();
@@ -42,7 +42,7 @@ public class SnookerController extends HttpServlet {
 		
 		DateConverter.setDateFooter(indexDate, request);
 		
-		List<String> provisionalRanking = GetHomepageData.getData();
+		List<String> provisionalRanking = GetHomepageData.getData(ThorbenDierkes.PROVISIONAL_RANKING);
 		MySql.getInstance().getUpdateDB().updateDatenbank(provisionalRanking);
 				
 		return "snooker/snooker";
@@ -103,7 +103,7 @@ public class SnookerController extends HttpServlet {
 	}
 	
 	@PostMapping(value = "/saisonOverwiev")
-	public String overviewpost(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
+	public String overviewpost(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 			
 		String number = request.getParameter(SEASON);
 		ThorbenDierkesService.setSeason(number, request);
@@ -144,7 +144,7 @@ public class SnookerController extends HttpServlet {
 	}
 	
 	@PostMapping(value = "/saison")
-	public String establishSeasion(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) throws SQLException, NamingException {
+	public String establishSeasion(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 			
 		String number = request.getParameter(SEASON);
 		TournamentSeason season = null;
@@ -216,6 +216,14 @@ public class SnookerController extends HttpServlet {
 
 	public static ThorbenDierkesService getHelloWorldService() {
 		return helloWorldService;
+	}
+
+	public static String getLanguage() {
+		return language;
+	}
+
+	public static void setLanguage(String language) {
+		SnookerController.language = language;
 	}
 
 }

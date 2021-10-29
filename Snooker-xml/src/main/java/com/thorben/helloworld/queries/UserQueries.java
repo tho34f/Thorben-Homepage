@@ -8,17 +8,11 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 import com.thorben.helloworld.service.DateConverter;
-import com.thorben.helloworld.service.ThorbenDierkes;
-import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.User;
 
 public class UserQueries extends AbstractQuerries {
 	
-	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	private static final String FIRST_NAME = "user_firstname";
 	private static final String LAST_NAME = "user_lastname";
 	
@@ -50,8 +44,7 @@ public class UserQueries extends AbstractQuerries {
 			}
 		
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		} 
 		
 		return isCreate;
@@ -81,8 +74,7 @@ public class UserQueries extends AbstractQuerries {
 			}
 		
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		}  
 		
 		return isLoginOk;
@@ -115,8 +107,7 @@ public class UserQueries extends AbstractQuerries {
 			}
 		
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		}  
 		
 		return user;
@@ -154,8 +145,7 @@ public class UserQueries extends AbstractQuerries {
 			}
 		
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		} 
 		
 		return userList;

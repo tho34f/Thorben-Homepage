@@ -30,6 +30,7 @@ public class StandardController extends HttpServlet {
 	private static Set<TournamentSeason> seasons = new HashSet<>();
 	private static int pageReminderNewsList = 1;
 	private static int pageReminderTerminList = 1;
+	private static String language;
 	
 	
 	@GetMapping(value = "/")
@@ -253,6 +254,14 @@ public class StandardController extends HttpServlet {
 
 	public static void setPageReminderTerminList(int pageReminderTerminList) {
 		StandardController.pageReminderTerminList = pageReminderTerminList;
+	}
+
+	public static String getLanguage() {
+		return language;
+	}
+
+	public static void setLanguage(String language) {
+		StandardController.language = language;
 	}
 
 }

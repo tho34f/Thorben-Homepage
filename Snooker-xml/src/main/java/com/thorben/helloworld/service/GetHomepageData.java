@@ -11,7 +11,7 @@ import org.jsoup.select.Elements;
 
 public class GetHomepageData {
 	
-	private static List<String> provisionalRanking = null;
+	private static List<String> data = null;
 	
 	private GetHomepageData() {
 	   	
@@ -19,37 +19,37 @@ public class GetHomepageData {
 	    	
     }
 	
-	public static List<String> getData() {
-		provisionalRanking = new ArrayList<>();
+	public static List<String> getData(String url) {
+		data = new ArrayList<>();
 		try {
-			Document doc = Jsoup.connect("https://wst.tv/rankings/1-year-ranking-list/").get();
+			Document doc = Jsoup.connect(url).get();
 			Elements player = doc.select("tr[class]");
 			for (Element elem : player) {
-				Elements data = elem.children();
-				String textData = data.text();
+				Elements element = elem.children();
+				String textData = element.text();
 				if(!textData.equals("")) {
 					String[] splitTextData = textData.split(" ");
-					provisionalRanking.add(splitTextData[0]);
-					provisionalRanking.add(splitTextData[1]);
-					provisionalRanking.add(splitTextData[2]);
+					data.add(splitTextData[0]);
+					data.add(splitTextData[1]);
+					data.add(splitTextData[2]);
 				}
 			}
 			
-			return provisionalRanking;
+			return data;
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-			return provisionalRanking;
+			return data;
 		}
 		
 	}
 
-	public static List<String> getProvisionalRanking() {
-		return provisionalRanking;
+	public static List<String> getData() {
+		return data;
 	}
 
-	public static void setProvisionalRanking(List<String> provisionalRanking) {
-		GetHomepageData.provisionalRanking = provisionalRanking;
+	public static void setData(List<String> data) {
+		GetHomepageData.data = data;
 	}
 
 }
