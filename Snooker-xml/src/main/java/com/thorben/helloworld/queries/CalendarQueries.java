@@ -9,18 +9,11 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.ThorbenDierkesService;
-import com.thorben.helloworld.service.ThorbenDierkes;
-import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.Termin;
 
 public class CalendarQueries extends AbstractQuerries {
-	
-	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
     public CalendarQueries(MySql sql) {
     	
@@ -67,8 +60,7 @@ public class CalendarQueries extends AbstractQuerries {
 			}
 		
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		} 
 		
 		return calendarList;
@@ -108,8 +100,7 @@ public class CalendarQueries extends AbstractQuerries {
 			}
 		
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		} 
 		
 		return tm;
@@ -143,15 +134,14 @@ public class CalendarQueries extends AbstractQuerries {
 			}
 			
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		} 
 		
 		return isCreate;
 		
 	}
 	
-	public boolean updateCalendarEntry(int calendarId, String title, String text, String teaser, Image img) {
+	public boolean updateCalendarEntry(int calendarId, String title, String teaser, Image img) {
 		
 		boolean isUpdate = false;
 		
@@ -175,8 +165,7 @@ public class CalendarQueries extends AbstractQuerries {
 			}
 			
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		} 
 		
 		return isUpdate;

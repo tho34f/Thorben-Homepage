@@ -19,6 +19,7 @@ public class TerminWizardController extends HttpServlet {
 	private static final long serialVersionUID = -3295292219817459332L;
 	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
 	private static final String CONTROLLER_MAPPING = "/WEB-INF/views/jsp/backend/terminewizard.jsp";
+	private static String language;
 	
 	@Override
 	public void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
@@ -68,6 +69,14 @@ public class TerminWizardController extends HttpServlet {
 
 	public ThorbenDierkesService getHelloWorldService() {
 		return helloWorldService;
+	}
+
+	public static String getLanguage() {
+		return language;
+	}
+
+	public static void setLanguage(String language) {
+		TerminWizardController.language = language;
 	}
 
 

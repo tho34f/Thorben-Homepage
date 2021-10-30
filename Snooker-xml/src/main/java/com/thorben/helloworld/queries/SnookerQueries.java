@@ -5,18 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-import com.thorben.helloworld.service.ThorbenDierkes;
-import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.Spieler;
 import com.thorben.helloworld.snooker.Tournament;
 import com.thorben.helloworld.snooker.TournamentSeason;
 
 public class SnookerQueries extends AbstractQuerries {
-	
-	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
     public SnookerQueries(MySql sql) {
     	
@@ -54,8 +47,7 @@ public class SnookerQueries extends AbstractQuerries {
 	        }
 	        
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+			handleSqlException(e);
 		} 
         
     }
@@ -92,8 +84,7 @@ public class SnookerQueries extends AbstractQuerries {
 	        rs.close();
 	        }
     	} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace("SQL - Fehler", erroeMessage, e);
+    		handleSqlException(e);
 		} 
 
     }

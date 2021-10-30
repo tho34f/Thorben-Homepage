@@ -1,12 +1,6 @@
 package com.thorben.helloworld.queries;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.sql.SQLException;
 
 import com.thorben.helloworld.service.ThorbenDierkes;
 import com.thorben.helloworld.service.ThorbenDierkesLogger;
@@ -14,12 +8,15 @@ import com.thorben.helloworld.service.ThorbenDierkesLogger;
 public class AbstractQuerries {
 	
 	private MySql sql;
-	
-	private static final Logger logger = LoggerFactory.getLogger(AbstractQuerries.class);
-	private ThorbenDierkesLogger log = new ThorbenDierkesLogger();
+	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
 	public AbstractQuerries(MySql sql) {
 		this.sql = sql;
+	}
+	
+	public void handleSqlException(SQLException e) {
+		String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
+		logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
 	}
 
 	public MySql getSql() {

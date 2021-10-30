@@ -71,6 +71,35 @@ public class ObjectBrowserController {
 		
 	}
 	
+	public static ObjectBrowser setHeaderInformation(final HttpServletRequest request, int id) {
+		ObjectBrowser ob = null;
+		ObjectBrowserData obd = new ObjectBrowserData();
+		switch(id) {
+			case ThorbenDierkes.USER:
+				ob = new ObjectBrowser("Benutzer", "Neuer Benutzer", "fas fa-user", id, obd.getUserObjectTitle());
+				request.getSession().setAttribute(ThorbenDierkes.OBJEKT_BROWSER, ob);
+				break;
+			case ThorbenDierkes.NEWS:
+				ob = new ObjectBrowser("Nachrichten", "Neue Nachricht", "fas fa-newspaper", id, obd.getNewsObjectTitle());
+				request.getSession().setAttribute(ThorbenDierkes.OBJEKT_BROWSER, ob);
+				break;
+			case ThorbenDierkes.CALENDAR: 
+				ob = new ObjectBrowser("Termine", "Neuer Termin", "far fa-calendar-alt", id, obd.getTerminObjectTitle());
+				request.getSession().setAttribute(ThorbenDierkes.OBJEKT_BROWSER, ob);
+				break;
+			case ThorbenDierkes.ERROR_LOG_MASSAGE:
+				ob = new ObjectBrowser("Fehler-Log", "fas fa-exclamation-triangle", id, obd.getErrorLogObjectTitle());
+				request.getSession().setAttribute(ThorbenDierkes.OBJEKT_BROWSER, ob);
+				break;
+			default:
+				String errorMassage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_OB).toString();
+				logger.errorLog("Fehlende OB Elemente",errorMassage);
+				break;
+		}
+		
+		return ob;
+	}
+	
 	public static void clearInformationAndSetError(final HttpServletRequest request) {
 		request.getSession().setAttribute(ERROR_MESSAGE, ThorbenDierkes.ERROR_MESSAGE_NO_ELEMENTS);
 		request.getSession().removeAttribute(INFORMATION_LIST);

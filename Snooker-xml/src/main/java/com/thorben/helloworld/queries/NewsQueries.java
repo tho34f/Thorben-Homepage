@@ -9,18 +9,11 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 import com.thorben.helloworld.service.DateConverter;
 import com.thorben.helloworld.service.ThorbenDierkesService;
-import com.thorben.helloworld.service.ThorbenDierkes;
-import com.thorben.helloworld.service.ThorbenDierkesLogger;
 import com.thorben.helloworld.snooker.News;
 
 public class NewsQueries extends AbstractQuerries {
-	
-	private ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
     public NewsQueries(MySql sql) {
     	
@@ -68,8 +61,7 @@ public class NewsQueries extends AbstractQuerries {
 			}
 		
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		} 
 		
 		return newsList;
@@ -111,8 +103,7 @@ public class NewsQueries extends AbstractQuerries {
 			}
 		
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		} 
 		
 		return massage;
@@ -157,8 +148,7 @@ public class NewsQueries extends AbstractQuerries {
 			
 			isSave = true;
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		} 
 		
 		return isSave;
@@ -191,8 +181,7 @@ public class NewsQueries extends AbstractQuerries {
 			}
 			
 		} catch (SQLException e) {
-			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
-			logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+			handleSqlException(e);
 		} 
 		
 		return isUpdate;
