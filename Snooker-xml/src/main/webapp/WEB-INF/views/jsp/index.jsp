@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
-<%@ taglib prefix="tho" tagdir="/WEB-INF/tags/taglib/eigeneTags.tld"%>
+<%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -22,17 +22,12 @@
 		<h1>Mathematik - die schönste Nebensache der Welt</h1>
 		<div id="inhalt" class="row">
 			<div class="col-md-6">
-				<p><strong>Ich begrüßen Sie herzlich und freuen mich über Ihr Interesse.</strong></p>
+				<p><strong><tho:out value="global.hompage.intro"/></strong></p>
+				<p><tho:out value="global.hompage.intro.part.one"/></p>
+				<p><tho:out value="global.hompage.intro.part.two"/></p>
 				<p>
-					Auf meiner Seite finden Sie Informationen zu meiner Person. Zudem können Sie sich über meine politischen Ziele und Interessen informieren.
-					Weiterhin finden Sie interessante Fakten zur Sportart Snooker.
-				</p>
-				<p>
-					Habe ich Ihr Interesse gewäckt? Oder haben Sie konkrete Fragen zu meiner Person, meinen Zielen oder zur Sportart Snooker? Dann sprechen Sie mich an.
-				</p>
-				<p>
-					Ihr <br><br>
-					Thorben Dierkes
+					<tho:out value="global.name.owner.salutation"/> <br><br>
+					<tho:out value="global.name.owner"/>
 				</p>
 			</div>
 			<div class="col-md-6">
@@ -41,18 +36,18 @@
 		</div>
 		<div id="inhalt" class="row" style="text-align:center">
 			<div class="col-md-4">
-				<h3>Persönliches</h3>
-				<p>Auf diesen Seiten finden Sie persönliches über mich.</p>
+				<h3><tho:out value="global.personal"/></h3>
+				<p><tho:out value="global.personal.desc"/></p>
 				<a class="linkButton" href="/thorben-dierkes/personal">#PERSÖNLICHES</a>
 			</div>
 			<div class="col-md-4">
-				<h3>Politik</h3>
-				<p>Auf diesen Seiten finden Sie mher über meine politische Agenda.</p>
+				<h3><tho:out value="global.politic"/></h3>
+				<p><tho:out value="global.politic.desc"/></p>
 				<a 	class="linkButton" href="/thorben-dierkes/politik">#GEMEINSAMFÜRWARBURG</a>
 			</div>
 			<div class="col-md-4">
-				<h3>Snooker</h3>
-				<p>Auf diesen Seiten finden Sie mehr zum Thema Snooker.</p>
+				<h3><tho:out value="global.snooker"/></h3>
+				<p><tho:out value="global.snooker.desc"/></p>
 				<a class="linkButton" href="/thorben-dierkes/snooker">#SNOOKER</a>
 			</div>
 		</div>
