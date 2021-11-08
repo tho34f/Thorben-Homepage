@@ -20,32 +20,16 @@ public class ObjectBrowserData {
 		return newsObjectTitle;
 	}
 
-	public void setNewsObjectTitle(ObjectBrowserTitle[] newsObjectTitle) {
-		this.newsObjectTitle = newsObjectTitle;
-	}
-
 	public ObjectBrowserTitle[] getTerminObjectTitle() {
 		return terminObjectTitle;
-	}
-
-	public void setTerminObjectTitle(ObjectBrowserTitle[] terminObjectTitle) {
-		this.terminObjectTitle = terminObjectTitle;
 	}
 
 	public ObjectBrowserTitle[] getUserObjectTitle() {
 		return userObjectTitle;
 	}
 
-	public void setUserObjectTitle(ObjectBrowserTitle[] userObjectTitle) {
-		this.userObjectTitle = userObjectTitle;
-	}
-
 	public ObjectBrowserTitle[] getErrorLogObjectTitle() {
 		return errorLogObjectTitle;
-	}
-
-	public void setErrorLogObjectTitle(ObjectBrowserTitle[] errorLogObjectTitle) {
-		this.errorLogObjectTitle = errorLogObjectTitle;
 	}
 
 }

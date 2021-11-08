@@ -72,11 +72,12 @@ public class ThorbenDierkesService {
 
 	}
 	
-	public static void errorMessage(final HttpServletRequest request) {
+	public static boolean errorMessage(final HttpServletRequest request) {
 		
 		String errorMessageSaison = "Es konnte keine Saison erzeugt werden";
-		
 		request.getSession().setAttribute("errormassage", errorMessageSaison);
+		
+		return true;
 		
 	}
 	
@@ -128,7 +129,7 @@ public class ThorbenDierkesService {
 		return splitedTerminList;
 	}
 	
-	public String errorUserLogin(HttpServletRequest request, boolean isWizard) {
+	public static String errorUserLogin(HttpServletRequest request, boolean isWizard) {
 		
 		request.getSession().setAttribute(ThorbenDierkes.IS_LOGIN_OK, false);
 		request.setAttribute(ThorbenDierkes.ERROR_MASSAGE, ThorbenDierkes.USER_NOT_LOGIN );

@@ -52,15 +52,15 @@ public class TypeConverter {
 
 	public static double string2double(String string, double defaultNumber) {
 	
-	double value;
-	
-	if(string == null) {
-		return defaultNumber;
-	} else {
-		value = Double.parseDouble(string);
-	}
-	
-	return value;
+		double value;
+		
+		if(string == null) {
+			return defaultNumber;
+		} else {
+			value = Double.parseDouble(string);
+		}
+		
+		return value;
 	
 	}
 

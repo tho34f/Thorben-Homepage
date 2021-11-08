@@ -18,6 +18,7 @@ public class BundleTranslatorTest {
 		String valueEn = btEn.translatBundle("global.politic.desc");
 		
 		assertEquals("Auf diesen Seiten finden Sie mher über meine politische Agenda.", valueDe);
+		assertEquals("de", btDe.getLanguage());
 		assertEquals("On these pages you will find more about my political agenda.", valueEn);
 		
 	}

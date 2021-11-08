@@ -1,14 +1,13 @@
 package service;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.util.Date;
 import java.util.Locale;
-
-import org.apache.tomcat.jni.Local;
 import org.junit.Test;
-
 import com.thorben.helloworld.service.DateConverter;
+import javax.servlet.http.*;
 
 public class DataConverterTest {
 	
@@ -43,5 +42,16 @@ public class DataConverterTest {
 		assertEquals("08:13:00", mediumDateTwo);
 		assertEquals("31. Oktober 2021", longDate);
 		assertEquals(null, nullDate);
+	}
+	
+	@Test
+	public void setDateFooterTest() {
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		HttpSession session = mock(HttpSession.class);
+		Date indexDate = new Date(1636187910688l);
+		when(request.getSession()).thenReturn(session);
+		when(request.getSession().getAttribute("formatDate")).thenReturn(null);
+		boolean isOk = DateConverter.setDateFooter(indexDate,request);
+		assertEquals(true, isOk);
 	}
 }

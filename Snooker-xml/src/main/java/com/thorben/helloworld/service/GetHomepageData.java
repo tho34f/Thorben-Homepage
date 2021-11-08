@@ -11,8 +11,6 @@ import org.jsoup.select.Elements;
 
 public class GetHomepageData {
 	
-	private static List<String> data = null;
-	
 	private GetHomepageData() {
 	   	
 		throw new IllegalStateException("Utility Class");
@@ -20,7 +18,7 @@ public class GetHomepageData {
     }
 	
 	public static List<String> getData(String url) {
-		data = new ArrayList<>();
+		List<String> data = new ArrayList<>();
 		try {
 			Document doc = Jsoup.connect(url).get();
 			Elements player = doc.select("tr[class]");
@@ -42,14 +40,6 @@ public class GetHomepageData {
 			return data;
 		}
 		
-	}
-
-	public static List<String> getData() {
-		return data;
-	}
-
-	public static void setData(List<String> data) {
-		GetHomepageData.data = data;
 	}
 
 }
