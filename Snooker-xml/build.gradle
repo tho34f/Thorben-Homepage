@@ -16,6 +16,7 @@ dependencies {
  	
  	// Use JUnit test framework.
     testImplementation 'junit:junit:4.13'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
  	implementation group: 'aopalliance', name: 'aopalliance', version: '1.0'
  	implementation 'commons-logging:commons-logging:1.2'
  	implementation 'org.jsoup:jsoup:1.13.1'
