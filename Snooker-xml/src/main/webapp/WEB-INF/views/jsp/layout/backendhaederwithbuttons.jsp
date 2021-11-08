@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tho" uri="/thorben"%>
 
 <header>
 	<div id="mainLogo">
@@ -25,25 +26,25 @@
 		<nav class="navbar navbar-inverse navbar-expand-sm">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link" href="/thorben-dierkes/backend/backendindex">Startseite</a>
+					<a class="nav-link" href="/thorben-dierkes/backend/backendindex"><tho:out value="global.hompage.home"/></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=38" id="navbardrop"> Benutzer </a>
+					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=38" id="navbardrop"> <tho:out value="global.user"/> </a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=39" id="navbardrop"> Nachrichten </a>
+					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=39" id="navbardrop"> <tho:out value="global.news"/> </a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=40" id="navbardrop"> Termine </a>
+					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=40" id="navbardrop"> <tho:out value="global.events"/> </a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=41" id="navbardrop"> Fehler-Log </a>
+					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=41" id="navbardrop"> <tho:out value="global.error.log"/> </a>
 				</li>
 			</ul>
 			<div>
 				<form class="example" id="search" method="post" action="search">
 					<input type="text" id="suche" placeholder="Suche..." name="suchen">
-					<button type="submit">Los!</button>
+					<button type="submit"><tho:out value="global.go"/></button>
 				</form>
 			</div>
 		</nav>

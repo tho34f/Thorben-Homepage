@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -18,17 +19,17 @@
 	<main id="main">
  	<form method="post" id="loginBackend" action="backendindex">
  		<div class="formbody-login">
- 			<h1>Anmelden</h1>
+ 			<h1><tho:out value="global.login"/></h1>
 	 		<div class="widget">
-	 			<label for="username" >Benutzername</label>
+	 			<label for="username" ><tho:out value="global.username"/></label>
 	 			<input class="tl_text" type="text" name="username" id="username" value="" placeholder="Benutzername" required autocomplete="off" autocapitalize="off">
 	 		</div>
 	 		 <div class="widget">
-	 			<label for="password">Password</label>
+	 			<label for="password"><tho:out value="global.password"/></label>
 	 			<input class="tl_text" type="password" name="password" id="password" value="" placeholder="Password" required autocomplete="off">
 	 		</div>
 	 		<div class="submit_container">
-	 			<button class="tl_submit" type="submit" name="login" id="login">Weiter</button>
+	 			<button class="tl_submit" type="submit" name="login" id="login"><tho:out value="global.login"/></button>
 	 			<a class="footer_preview">Zum Frontend</a>
 	 		</div>
 	 		<div class="errormassage"  <c:if test="${isLoginOk eq true}">style="display:none;" </c:if>>

@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -18,21 +19,21 @@
 
 <div id="content" class="jumbotron">
 	<div class="container">
-		<h1>Herzlich Willkommen im Backend!</h1>
+		<h1><tho:out value="backend.intro"/></h1>
 		<div style="text-align:center">
 			<div class="col-md-4">
-				<h3>Benutzer</h3>
-				<p>Erhalten Sie eine Übersicht von allen erstellten Benutzern.</p>
+				<h3><tho:out value="global.user"/></h3>
+				<p><tho:out value="global.user.desc"/></p>
 				<a class="linkButton" href="/thorben-dierkes/personal">#USER</a>
 			</div>
 			<div class="col-md-4">
-				<h3>Nachrichten</h3>
-				<p>Erhalten Sie eine Übersicht von allen erstellten Nachrichten.</p>
+				<h3><tho:out value="global.news"/></h3>
+				<p><tho:out value="global.news.desc"/></p>
 				<a class="linkButton" href="/thorben-dierkes/personal">#News</a>
 			</div>
 			<div class="col-md-4">
-				<h3>Termine</h3>
-				<p>Erhalten Sie eine Übersicht von allen erstellten Terminen.</p>
+				<h3><tho:out value="global.events"/></h3>
+				<p><tho:out value="global.events.desc"/></p>
 				<a class="linkButton" href="/thorben-dierkes/personal">#Kalender</a>
 			</div>
 		</div>
