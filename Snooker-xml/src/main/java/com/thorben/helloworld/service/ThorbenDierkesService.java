@@ -51,24 +51,30 @@ public class ThorbenDierkesService {
 		TournamentSeason season = new TournamentSeason(year);
 		
         // Ergebnisse anzeigen.
-		MySql.getInstance().getSnookerQueries().creatTournamentList("tournament", season);
-		MySql.getInstance().getSnookerQueries().creatPlayerList("snookerplayers", season);
+		if(MySql.getInstance().getSnookerQueries() != null) {
+			MySql.getInstance().getSnookerQueries().creatTournamentList("tournament", season);
+			MySql.getInstance().getSnookerQueries().creatPlayerList("snookerplayers", season);
+		}
 
 		return season;
 	}
 	
-	public static void setSeason(String number, final HttpServletRequest request) {
+	public static boolean setSeason(String number, final HttpServletRequest request) {
 		
 		TournamentSeason season = null;
+		boolean isSeasonOk = false;
 		
 		if(!number.isEmpty()) {
 			int number2 = TypeConverter.string2int(number, 0);
 			season =  creatSeason(number2);
 			SnookerController.getSeasons().add(season);
+			isSeasonOk = true;
 		}
 		
 		logger.info("Saision erfolgreich erzeugt.");
 		request.getSession().setAttribute("seasions", SnookerController.getSeasons());	
+		
+		return isSeasonOk;
 
 	}
 	

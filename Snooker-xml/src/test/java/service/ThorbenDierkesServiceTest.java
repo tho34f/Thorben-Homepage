@@ -75,13 +75,32 @@ public class ThorbenDierkesServiceTest {
 		assertEquals(true,isOk);
 	}
 	
+	@Test
+	public void idTest() {
+		ThorbenDierkesService tds = new ThorbenDierkesService();
+		boolean isIdOk = tds.generateId() > 0;
+		assertEquals(true,isIdOk);
+		
+	}
+	
+	@Test
+	public void snookerTest() {
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		HttpSession session = mock(HttpSession.class);
+		when(request.getSession()).thenReturn(session);
+		
+		boolean isIdOk = ThorbenDierkesService.setSeason("2021", request);
+		assertEquals(true,isIdOk);
+		
+	}
+	
 	private void createNews(Set<News> newsList,int id, String teaser, String title, Image img, String text, long creationDate, long changeDate) {
-		News newsOne = new News(id,teaser,title,img,text,creationDate,changeDate);
+		News newsOne = new News(id,teaser,title,img,text,creationDate,changeDate,2);
 		newsList.add(newsOne);
 	}
 	
 	private void createEvents(Set<Termin> terminList,int id, String teaser, String title, long date, String text, long creationDate, long changeDate) {
-		Termin newsOne = new Termin(title,text,date,id,teaser,creationDate,changeDate);
+		Termin newsOne = new Termin(title,text,date,id,teaser,creationDate,changeDate,2);
 		terminList.add(newsOne);
 	}
 }
