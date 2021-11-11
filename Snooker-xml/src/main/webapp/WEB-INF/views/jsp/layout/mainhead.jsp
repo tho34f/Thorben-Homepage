@@ -3,7 +3,7 @@
 		<nav class="navbar navbar-inverse navbar-expand-sm" id="navigation">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link" href="/thorben-dierkes">Startseite</a>
+					<a class="nav-link" href="/thorben-dierkes"><tho:out value="global.hompage.home"/></a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="/thorben-dierkes/personal" id="navbardrop" data-toggle="dropdown"><tho:out value="global.name.owner"/></a>

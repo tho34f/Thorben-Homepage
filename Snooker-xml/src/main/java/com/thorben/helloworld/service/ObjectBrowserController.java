@@ -100,9 +100,11 @@ public class ObjectBrowserController {
 		return ob;
 	}
 	
-	public static void clearInformationAndSetError(final HttpServletRequest request) {
+	public static boolean clearInformationAndSetError(final HttpServletRequest request) {
 		request.getSession().setAttribute(ERROR_MESSAGE, ThorbenDierkes.ERROR_MESSAGE_NO_ELEMENTS);
 		request.getSession().removeAttribute(INFORMATION_LIST);
+		
+		return true;
 	}
 
 	public static Set<News> getNewsList() {

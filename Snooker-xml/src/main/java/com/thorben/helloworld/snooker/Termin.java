@@ -2,6 +2,8 @@ package com.thorben.helloworld.snooker;
 
 import java.io.Serializable;
 
+import com.thorben.helloworld.queries.MySql;
+
 public class Termin implements Serializable{
 	
 	/**
@@ -18,12 +20,13 @@ public class Termin implements Serializable{
 	private String title;
 	private String description;
 	private String teaser;
+	private User author;
 	
 	public Termin() {
 		
 	}
 	
-	public Termin (String title, String description, long date, long id, String teaser, long creationDate, long changeDate) {
+	public Termin (String title, String description, long date, long id, String teaser, long creationDate, long changeDate, int userId) {
 		this.title = title;
 		this.description = description;
 		this.date = date;
@@ -31,6 +34,7 @@ public class Termin implements Serializable{
 		this.teaser = teaser;
 		this.changeDate = changeDate;
 		this.creationDate = creationDate;
+		this.author = setAuthor(userId);
 	}
 
 	public long getDate() {
@@ -133,6 +137,19 @@ public class Termin implements Serializable{
 
 	public void setCreationDateForSlider(String creationDateForSlider) {
 		this.creationDateForSlider = creationDateForSlider;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public User setAuthor(int userId) {
+		User user = null;
+		if(MySql.getInstance().getUserQueries() != null) {
+			user = MySql.getInstance().getUserQueries().loadUser(userId);
+		}
+		
+		return user;
 	}
 
 }

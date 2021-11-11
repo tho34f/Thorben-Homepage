@@ -85,7 +85,7 @@ public class BackendController extends HttpServlet {
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/backendindex";
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request, false);
+			forwordPath = ThorbenDierkesService.errorUserLogin(request, false);
 		} 
 		
 		return forwordPath;
@@ -100,7 +100,7 @@ public class BackendController extends HttpServlet {
 		if(request.getSession().getAttribute("user") != null) {
 			forwordPath = "backend/backendObjectBrowser";
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request, false);
+			forwordPath = ThorbenDierkesService.errorUserLogin(request, false);
 		} 
 		
 		return forwordPath;
@@ -118,7 +118,7 @@ public class BackendController extends HttpServlet {
 			ObjectBrowserController.getInformationForOb(ob, request);
 			forwordPath = "backend/backendObjectBrowser";
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request, false);
+			forwordPath = ThorbenDierkesService.errorUserLogin(request, false);
 		} 
 		
 		return forwordPath;

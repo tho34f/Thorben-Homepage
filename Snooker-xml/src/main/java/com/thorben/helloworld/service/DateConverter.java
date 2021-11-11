@@ -65,7 +65,7 @@ public class DateConverter {
 	    return parsedDate; 
 	}
 	
-	public static void setDateFooter(Date indexDate, final HttpServletRequest request) {
+	public static boolean setDateFooter(Date indexDate, final HttpServletRequest request) {
 		DateConverter.setDisplayDate(indexDate.getTime());
 		long date = DateConverter.getDisplayDate();
 		String formatDate = null;
@@ -74,6 +74,8 @@ public class DateConverter {
 			formatDate =  DateConverter.long2Date (date, 3);
 			request.getSession().setAttribute("formatDate", formatDate);
 		}
+		
+		return true;
 	}
 
 	public SimpleDateFormat getDayFormat() {

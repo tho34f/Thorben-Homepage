@@ -1,5 +1,6 @@
 package com.thorben.helloworld.dropbox;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.CreateFolderResult;
 import com.dropbox.core.v2.files.FileMetadata;
+import com.dropbox.core.v2.files.FolderMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.files.SearchV2Result;
@@ -20,6 +22,8 @@ import com.dropbox.core.v2.users.FullAccount;
 public class DropboxWizard {
 	
 	private static final String ACCESS_TOKEN = "kU34bXLSJfMAAAAAAAAAARLRIV8PFo_6IvKhSysNlTXO9mSDln6fUL-4eseEKmML";
+	private static final String PDF = ".pdf";
+	private static final String BACKSLASH = "/";
 	DbxClientV2 dbxClient;
 
 	public DropboxWizard() {
@@ -33,23 +37,30 @@ public class DropboxWizard {
 		return account.toString();
 	}
 
-	public void uploadToDropbox(String fileName) throws IOException, DbxException {
+	public boolean uploadToDropbox(String fileName) throws IOException, DbxException {
+		FileMetadata uploadFile = null;
+		boolean isUploadOk = false;
 		try(InputStream in = new FileInputStream(fileName)){
-			FileMetadata metadata = this.dbxClient.files().uploadBuilder("/" + fileName).uploadAndFinish(in);
+			uploadFile = this.dbxClient.files().uploadBuilder(BACKSLASH + fileName).uploadAndFinish(in);
+			isUploadOk = uploadFile.getIsDownloadable();
 		}
+		
+		return isUploadOk;
 	}
 
 	public List<String> listDropboxFolders(String folderPath) throws DbxException {
 		List<String> folders = new ArrayList<>();
-		ListFolderResult listing = this.dbxClient.files().listFolderBuilder("/" + folderPath).start();
+		ListFolderResult listing = this.dbxClient.files().listFolderBuilder(BACKSLASH + folderPath).start();
 		for(Metadata listItem : listing.getEntries()) {
 			folders.add(listItem.getPathDisplay());
 		}
 		return folders;
 	}
 
-	public void createFolder(String folderName) throws DbxException {
-		CreateFolderResult folder = this.dbxClient.files().createFolderV2("/" + folderName);
+	public boolean createFolder(String folderName) throws DbxException {
+		CreateFolderResult folder = this.dbxClient.files().createFolderV2(BACKSLASH + folderName);
+		FolderMetadata fmd = folder.getMetadata();
+		return fmd.getName().equals(folderName);
 	}
 	
 	public boolean checkFolder(String folderPath) throws DbxException {
@@ -57,10 +68,17 @@ public class DropboxWizard {
 		return search.getHasMore();
 	}
 
-	public void downloadFromDropbox(String fileName) throws DbxException, IOException {
-		try(FileOutputStream outputStream = new FileOutputStream(fileName)) {
-			FileMetadata downloadedFile = this.dbxClient.files().downloadBuilder("/" + fileName).download(outputStream);
+	public boolean downloadFromDropbox(String fileName, String dataName) throws DbxException, IOException {
+		FileMetadata downloadedFile = null;
+		boolean isDownloadOk = false;
+		String userName = System.getProperty("user.name");
+		File downloadPath = new File("C:/Users/" + userName + "/Documents/" + dataName + PDF);
+		try(FileOutputStream outputStream = new FileOutputStream(downloadPath)) {
+			downloadedFile = this.dbxClient.files().downloadBuilder(BACKSLASH +  fileName + BACKSLASH + dataName + PDF).download(outputStream);
+			isDownloadOk = downloadedFile.getIsDownloadable();
 		}
+		
+		return isDownloadOk;
 	}
 
 }

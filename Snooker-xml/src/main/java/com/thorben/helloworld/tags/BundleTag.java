@@ -7,7 +7,6 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import com.thorben.helloworld.service.BundleTranslator;
-import com.thorben.helloworld.service.DateConverter;
 
 public class BundleTag extends TagSupport{
 	

@@ -3,6 +3,8 @@ package com.thorben.helloworld.snooker;
 import java.awt.Image;
 import java.io.Serializable;
 
+import com.thorben.helloworld.queries.MySql;
+
 public class News implements Serializable{
 	
 	/**
@@ -19,12 +21,13 @@ public class News implements Serializable{
 	private String changeDateAsString;
 	private String creationDateAsString;
 	private String creationDateForSlider;
+	private User author;
 	
 	public News() {
 		
 	}
 	
-	public News(int id, String teaser, String title, Image img, String text, long creationDate, long changeDate) {
+	public News(int id, String teaser, String title, Image img, String text, long creationDate, long changeDate, int userId) {
 		this.id = id;
 		this.teaser = teaser;
 		this.text = text;
@@ -32,6 +35,7 @@ public class News implements Serializable{
 		this.img = img;
 		this.creationDate = creationDate;
 		this.changeDate = changeDate;
+		this.author = setAuthor(userId);
 	}
 
 	public int getId() {
@@ -134,6 +138,19 @@ public class News implements Serializable{
 
 	public void setCreationDateForSlider(String creationDateForSlider) {
 		this.creationDateForSlider = creationDateForSlider;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public User setAuthor(int userId) {
+		User user = null;
+		if(MySql.getInstance().getUserQueries() != null) {
+			user = MySql.getInstance().getUserQueries().loadUser(userId);
+		}
+		
+		return user;
 	}
 
 }

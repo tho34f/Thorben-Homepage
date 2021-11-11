@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -17,7 +18,7 @@
 	<div class="headerPanel">
 		<div style="margin-top: 0px;height: 75px;border-right: 1px solid #bbb;float: left;width: 270px;">
 			<div class="far fa-calendar-alt" id="objectIcon"></div>
-			<h4 id="objectHeaderWizard">Termine</h4>
+			<h4 id="objectHeaderWizard"><tho:out value="global.events"/></h4>
 		</div>
 		<div>
 			<form method="POST" action="terminewizard">
@@ -34,14 +35,14 @@
 
 <div id="content" class="jumbotron">
 	<div class="container">
-		<c:if test="${empty termin}"><h1>Erstellen eines neuen Termins</h1></c:if>
-		<c:if test="${not empty termin}"><h1>Bearbeitung eines vorhandenden Termins</h1></c:if>
+		<c:if test="${empty termin}"><h1><tho:out value="backend.events.wizard.new"/></h1></c:if>
+		<c:if test="${not empty termin}"><h1><tho:out value="backend.events.wizard.old"/></h1></c:if>
 		
 		
 		<div class="wizardRow">
-			<div class="wizardRowTitle">Title</div>
+			<div class="wizardRowTitle"><tho:out value="backend.wizard.title"/></div>
 			<div class="wizardRowInner">
-				<div class="span3"></div>
+				<div class="span3"><tho:out value="backend.wizard.title.desc.events"/></div>
 				<div class="span9">
 					<input type="text" id="title" name="title" min="1" max="255" maxlength="255" placeholder="Title" value="">
 				</div>
@@ -49,9 +50,9 @@
 		</div>
 		
 		<div class="wizardRow">
-			<div class="wizardRowTitle">Teaser</div>
+			<div class="wizardRowTitle"><tho:out value="backend.wizard.teaser"/></div>
 			<div class="wizardRowInner">
-				<div class="span3"></div>
+				<div class="span3"><tho:out value="backend.wizard.teaser.desc.events"/></div>
 				<div class="span9">
 					<textarea id="teaser" name="teaser" maxlength="65535" placeholder="Teaser" cols="100" rows="2"></textarea>
 				</div>
@@ -59,9 +60,9 @@
 		</div>
 		
 		<div class="wizardRow">
-			<div class="wizardRowTitle">Beschreibung</div>
+			<div class="wizardRowTitle"><tho:out value="backend.wizard.description"/></div>
 			<div class="wizardRowInner">
-				<div class="span3"></div>
+				<div class="span3"><tho:out value="backend.wizard.text.desc.events"/></div>
 				<div class="span9">
 					<textarea id="beschreibung" name="beschreibung" maxlength="16777215" placeholder="Text" cols="100" rows="5"></textarea>
 				</div>

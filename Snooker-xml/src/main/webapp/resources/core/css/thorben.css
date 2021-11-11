@@ -146,14 +146,12 @@ form.example::after {
 }
 
 .news-image-teaser {
-    position: relative;
     margin: 2.25em 0;
     padding-left: 12.5%;
 }
 
 .news-image-teaser-meta {
     float: left;
-    position: relative;
     left: -19.5%;
     width: 17.375%;
     margin-bottom: -6.25em;
@@ -166,7 +164,7 @@ form.example::after {
 
 .news-image-teaser h2 {
     display: block;
-    margin: 0.75em 0 0.25em;
+    margin: 1.2em 0 0.5em;
     padding: 0 0 0.41667em;
     border-bottom: 1px solid #701718;
     font-size: 1.5em;

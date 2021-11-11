@@ -51,32 +51,39 @@ public class ThorbenDierkesService {
 		TournamentSeason season = new TournamentSeason(year);
 		
         // Ergebnisse anzeigen.
-		MySql.getInstance().getSnookerQueries().creatTournamentList("tournament", season);
-		MySql.getInstance().getSnookerQueries().creatPlayerList("snookerplayers", season);
+		if(MySql.getInstance().getSnookerQueries() != null) {
+			MySql.getInstance().getSnookerQueries().creatTournamentList("tournament", season);
+			MySql.getInstance().getSnookerQueries().creatPlayerList("snookerplayers", season);
+		}
 
 		return season;
 	}
 	
-	public static void setSeason(String number, final HttpServletRequest request) {
+	public static boolean setSeason(String number, final HttpServletRequest request) {
 		
 		TournamentSeason season = null;
+		boolean isSeasonOk = false;
 		
 		if(!number.isEmpty()) {
 			int number2 = TypeConverter.string2int(number, 0);
 			season =  creatSeason(number2);
 			SnookerController.getSeasons().add(season);
+			isSeasonOk = true;
 		}
 		
 		logger.info("Saision erfolgreich erzeugt.");
 		request.getSession().setAttribute("seasions", SnookerController.getSeasons());	
+		
+		return isSeasonOk;
 
 	}
 	
-	public static void errorMessage(final HttpServletRequest request) {
+	public static boolean errorMessage(final HttpServletRequest request) {
 		
 		String errorMessageSaison = "Es konnte keine Saison erzeugt werden";
-		
 		request.getSession().setAttribute("errormassage", errorMessageSaison);
+		
+		return true;
 		
 	}
 	
@@ -128,7 +135,7 @@ public class ThorbenDierkesService {
 		return splitedTerminList;
 	}
 	
-	public String errorUserLogin(HttpServletRequest request, boolean isWizard) {
+	public static String errorUserLogin(HttpServletRequest request, boolean isWizard) {
 		
 		request.getSession().setAttribute(ThorbenDierkes.IS_LOGIN_OK, false);
 		request.setAttribute(ThorbenDierkes.ERROR_MASSAGE, ThorbenDierkes.USER_NOT_LOGIN );

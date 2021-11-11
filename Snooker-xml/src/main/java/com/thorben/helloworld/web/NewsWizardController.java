@@ -11,6 +11,7 @@ import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.TypeConverter;
 import com.thorben.helloworld.snooker.News;
+import com.thorben.helloworld.snooker.User;
 
 
 @Controller
@@ -34,7 +35,7 @@ public class NewsWizardController extends HttpServlet {
 			}
 			request.getSession().setAttribute("message", message);
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request, true);
+			forwordPath = ThorbenDierkesService.errorUserLogin(request, true);
 		} 
 		
 		try {
@@ -53,10 +54,11 @@ public class NewsWizardController extends HttpServlet {
 		String text = request.getParameter("textWizard");
 		
 		if(request.getSession().getAttribute("user") != null) {
-			MySql.getInstance().getNewsQueries().newNewsEntry(title, text, teaser, null);
+			User author = (User) request.getSession().getAttribute("user");
+			MySql.getInstance().getNewsQueries().newNewsEntry(title, text, teaser, null, author.getUserLogin(), author.getId());
 			forwordPath = CONTROLLER_MAPPING;
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request, true);
+			forwordPath = ThorbenDierkesService.errorUserLogin(request, true);
 		} 
 		
 		try {
