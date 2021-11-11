@@ -11,6 +11,7 @@ import com.thorben.helloworld.queries.MySql;
 import com.thorben.helloworld.service.ThorbenDierkesService;
 import com.thorben.helloworld.service.TypeConverter;
 import com.thorben.helloworld.snooker.Termin;
+import com.thorben.helloworld.snooker.User;
 
 
 @Controller
@@ -34,7 +35,7 @@ public class TerminWizardController extends HttpServlet {
 			}
 			request.getSession().setAttribute("termin", tm);
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request, true);
+			forwordPath = ThorbenDierkesService.errorUserLogin(request, true);
 		} 
 		
 		try {
@@ -53,10 +54,11 @@ public class TerminWizardController extends HttpServlet {
 		String description = request.getParameter("beschreibungWizard");
 		
 		if(request.getSession().getAttribute("user") != null) {
-			MySql.getInstance().getCalendarQueries().newCalendarEntry(title, description, teaser);
+			User author = (User) request.getSession().getAttribute("user");
+			MySql.getInstance().getCalendarQueries().newCalendarEntry(title, description, teaser, author.getUserLogin(), author.getId());
 			forwordPath = "backend/terminewizard";
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request, true);
+			forwordPath = ThorbenDierkesService.errorUserLogin(request, true);
 		} 
 		
 		try {

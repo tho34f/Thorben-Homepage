@@ -29,7 +29,8 @@ public class NewsQueries extends AbstractQuerries {
 			
 			con.setAutoCommit(false);
 			
-			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
+			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nw.author_id, " 
+					+ " nwt.news_text, nw.change_date, nw.creation_date" 
 					+ " FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id ORDER BY nw.creation_date DESC";
 		
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
@@ -50,8 +51,8 @@ public class NewsQueries extends AbstractQuerries {
 		        	} else {
 		        		massage.setChangeDateAsString("-");
 		        	}
-		        	
 		        	massage.setImg(null);
+		        	massage.setAuthor(rs.getInt("nw.author_id"));
 		        	newsList.add(massage);
 		        	
 		        } 
@@ -76,7 +77,7 @@ public class NewsQueries extends AbstractQuerries {
 			
 			con.setAutoCommit(false);
 			
-			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date" 
+			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nwt.news_text, nw.change_date, nw.creation_date, nw.author_id" 
 					+ " FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id"
 					+ " WHERE nw.news_id = ?";
 		
@@ -93,9 +94,8 @@ public class NewsQueries extends AbstractQuerries {
 		        	massage.setCreationDate(rs.getLong("nw.creation_date"));
 		        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
 		        	massage.setChangeDateAsString(DateConverter.long2Date(massage.getChangeDate(),1));
-		        	
 		        	massage.setImg(null);
-		        	
+		        	massage.setAuthor(rs.getInt("nw.author_id"));
 		        } 
 		        
 		        rs.close();
@@ -110,7 +110,7 @@ public class NewsQueries extends AbstractQuerries {
 		
 	}
 	
-	public boolean newNewsEntry(String title, String text, String teaser, Image img) {
+	public boolean newNewsEntry(String title, String text, String teaser, Image img, String authorLogin, int authorId) {
 		
 		boolean isSave = false;
 		
@@ -118,7 +118,9 @@ public class NewsQueries extends AbstractQuerries {
 			
 			con.setAutoCommit(false);
 		
-			String queryNews = "INSERT INTO news (news_id, news_title, news_teaser, news_image, change_date, creation_date) VALUES (?, ?, ?, ?, ?, ?)";
+			String queryNews = "INSERT INTO news (news_id, news_title, news_teaser, news_image, change_date, creation_date, author_login, author_id) " +
+					"VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			
 			String queryNewsText = "INSERT INTO news_text (news_id, news_text) VALUES (?, ?)";
 			
 			ThorbenDierkesService tds = new ThorbenDierkesService();
@@ -132,6 +134,8 @@ public class NewsQueries extends AbstractQuerries {
 				stmt.setBlob(counter++, (Blob) img);
 				stmt.setLong(counter++, 0);
 				stmt.setLong(counter++, System.currentTimeMillis());
+				stmt.setString(counter++, authorLogin);
+				stmt.setInt(counter++, authorId);
 				
 		        stmt.execute();
 		        

@@ -51,6 +51,7 @@ public class CalendarQueries extends AbstractQuerries {
 		        	tm.setDescription(rs.getString("description"));
 		        	tm.setId(rs.getInt("id"));
 		        	tm.setTeaser(rs.getString("teaser"));
+		        	tm.setAuthor(rs.getInt("author_id"));
 		        	calendarList.add(tm);
 		        	
 		        } 
@@ -92,6 +93,7 @@ public class CalendarQueries extends AbstractQuerries {
 		        	tm.setDescription(rs.getString("description"));
 		        	tm.setId(rs.getInt("id"));
 		        	tm.setTeaser(rs.getString("teaser"));
+		        	tm.setAuthor(rs.getInt("author_id"));
 		        	
 		        } 
 		        
@@ -107,7 +109,7 @@ public class CalendarQueries extends AbstractQuerries {
 		
 	}
 	
-	public boolean newCalendarEntry(String title, String description, String teaser) {
+	public boolean newCalendarEntry(String title, String description, String teaser, String authorLogin, int authorId) {
 		
 		boolean isCreate = false;
 		
@@ -115,7 +117,8 @@ public class CalendarQueries extends AbstractQuerries {
 
 			con.setAutoCommit(false);
 		
-			String queryNews = "INSERT INTO termine (id, title, description, date, creation_date, change_date, teaser) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String queryNews = "INSERT INTO termine (id, title, description, date, creation_date, change_date, teaser,author_login, author_id) " +
+					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			ThorbenDierkesService tds = new ThorbenDierkesService();
 			
@@ -128,6 +131,8 @@ public class CalendarQueries extends AbstractQuerries {
 				stmt.setLong(counter++, System.currentTimeMillis());
 				stmt.setLong(counter++, 0);
 				stmt.setString(counter++, teaser);
+				stmt.setString(counter++, authorLogin);
+				stmt.setInt(counter++, authorId);
 				
 		        isCreate = stmt.execute();
 		        
