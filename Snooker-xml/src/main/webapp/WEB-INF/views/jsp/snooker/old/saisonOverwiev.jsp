@@ -14,7 +14,7 @@
 </head>
 <body >
 
-<jsp:include page="../layout/mainhead.jsp" flush="true"/>
+<jsp:include page="../../layout/mainhead.jsp" flush="true"/>
 
 
 <div id="content" class="jumbotron">
@@ -47,7 +47,7 @@
 	<hr>
 </div>
 
-<jsp:include page="../layout/mainfooter.jsp" flush="true"/>
+<jsp:include page="../../layout/mainfooter.jsp" flush="true"/>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 

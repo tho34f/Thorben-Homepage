@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -18,22 +19,8 @@
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1 class="headingPersonal">Meine politsichen Ziele</h1>
-		<h2 class="headingPersonal">Links zu weiteren SPD-Seiten</h2>
-		<div id="inhalt" class="row">
-			<div class="col-md-3">
-				<a class="linkButton" href="https://spd-warburg.de/">SPD Warburg</a>
-			</div>
-			<div class="col-md-3">
-				<a 	class="linkButton" href="https://spd-hoexter.de/">Spd Höxter</a>
-			</div>
-			<div class="col-md-3">
-				<a class="linkButton" href="https://www.nrwspd.de/">SPD NRW</a>
-			</div>
-			<div class="col-md-3">
-				<a class="linkButton" href="https://www.spd.de/">Bundes SPD</a>
-			</div>
-		</div>
+		<h1 class="headingPersonal"><tho:out value="global.politic.goals.personal"/></h1>
+		<jsp:include page="../layout/spdlinks.jsp" flush="true"/>
 	</div>
 </div>
 
