@@ -18,7 +18,6 @@
       				<div class="dropdown-menu">
       					<a class="dropdown-item" href="/thorben-dierkes/snookernews"><tho:out value="global.snooker.news"/></a>
       					<a class="dropdown-item" href="/thorben-dierkes/overview"><tho:out value="global.snooker.history"/></a>
-      					<a class="dropdown-item" href="/thorben-dierkes/saisonOverwiev"><tho:out value="global.snooker.generated.seasons"/></a>
 						<a class="dropdown-item" href="/thorben-dierkes/saison"><tho:out value="global.snooker.seasons"/></a>
 					</div>
 				</li>

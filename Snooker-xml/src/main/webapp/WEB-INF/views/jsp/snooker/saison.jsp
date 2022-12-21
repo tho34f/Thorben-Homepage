@@ -37,7 +37,7 @@
 			<form class="example">
 				<label for="tournamentsearch" >Turnier:</label>
 				<input id="tornamentsearch" name="tornamentsearch" type="text"></input>
-				<button class="btn btn-primary" id="btn-search1" name="btn-search" type="button" onclick=findTournament()>Turnier suchen</button>
+				<button class="btn btn-primary" id="btn-search1" style="position:inherit; width:10%" name="btn-search" type="button" onclick=findTournament()>Turnier suchen</button>
 			</form>
 			<table id="tour"class="table table-striped">
 				<tr> 
@@ -62,7 +62,7 @@
 			<form class="example">
 				<label for="playersearch" >Spieler:</label>
 				<input id="playersearch" name="playersearch" type="text"></input>
-				<button class="btn btn-primary" id="btn-search2" name="btn-search" type="button" onclick=findPlayer()>Spieler suchen</button>
+				<button class="btn btn-primary" id="btn-search2" style="position:inherit; width:10%" name="btn-search" type="button" onclick=findPlayer()>Spieler suchen</button>
 			</form>
 			<table id="player" class="table table-striped">
 				<tr> 

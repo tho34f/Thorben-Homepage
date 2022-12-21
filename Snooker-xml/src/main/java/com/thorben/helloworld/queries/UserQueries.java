@@ -87,7 +87,7 @@ public class UserQueries extends AbstractQuerries {
 		try(Connection con = getSql().getDs().getConnection()){
 			con.setAutoCommit(false);
 		
-			String queryUser = "SELECT * FROM user where user_id = '" + userId;
+			String queryUser = "SELECT * FROM user where user_id = " + userId;
 
 		
 			try(Statement stmt = con.createStatement()){

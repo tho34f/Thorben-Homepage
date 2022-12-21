@@ -35,7 +35,7 @@ public class UserWizardController extends HttpServlet {
 			}
 			request.getSession().setAttribute("user", user);
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request, true);
+			forwordPath = ThorbenDierkesService.errorUserLogin(request, true);
 		} 
 		
 		try {
@@ -59,7 +59,7 @@ public class UserWizardController extends HttpServlet {
 			MySql.getInstance().getUserQueries().createUser(firstName, lastName, login, password);
 			forwordPath = CONTROLLER_MAPPING;
 		} else {
-			forwordPath = helloWorldService.errorUserLogin(request, false);
+			forwordPath = ThorbenDierkesService.errorUserLogin(request, false);
 		} 
 		
 		try {
