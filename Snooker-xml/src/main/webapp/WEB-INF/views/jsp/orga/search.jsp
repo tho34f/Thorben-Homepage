@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -17,7 +18,7 @@
 
 <div id="content" class="jumbotron">
 	<div class="container">
-		<h1>Ergebniss der Suche</h1>
+		<h1><tho:out value="global.search.result"/></h1>
 		<p> ${searchresult} </p>
 	</div>
 </div>

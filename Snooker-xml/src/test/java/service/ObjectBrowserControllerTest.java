@@ -1,14 +1,15 @@
 package service;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import com.thorben.objectbrowser.ObjectBrowser;
+import com.thorben.objectbrowser.ObjectBrowserService;
+import com.thorben.objectbrowser.ObjectBrowserTitle;
+
 import static org.mockito.Mockito.*;
 
-import org.junit.Test;
-import com.thorben.helloworld.service.ObjectBrowser;
-import com.thorben.helloworld.service.ObjectBrowserController;
-import com.thorben.helloworld.service.ObjectBrowserTitle;
-
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 public class ObjectBrowserControllerTest {
 	
@@ -19,7 +20,7 @@ public class ObjectBrowserControllerTest {
 		when(request.getSession()).thenReturn(session);
 		
 		ObjectBrowser ob = null;
-		ob = ObjectBrowserController.setHeaderInformation(request, 38);
+		ob = ObjectBrowserService.setHeaderInformation(request, 38);
 		assertEquals("Benutzer", ob.getObjectTitle());
 		
 		ObjectBrowserTitle[] allTitle = ob.getTableTitle();
@@ -27,16 +28,16 @@ public class ObjectBrowserControllerTest {
 		assertEquals("userLogin", title.getName());
 		assertEquals("User-Login", title.getDescription());
 		
-		ob = ObjectBrowserController.setHeaderInformation(request, 39);
+		ob = ObjectBrowserService.setHeaderInformation(request, 39);
 		assertEquals("Neue Nachricht", ob.getButtonTitle());
 		
-		ob = ObjectBrowserController.setHeaderInformation(request, 40);
+		ob = ObjectBrowserService.setHeaderInformation(request, 40);
 		assertEquals("far fa-calendar-alt", ob.getObjectIcon());
 		
-		ob = ObjectBrowserController.setHeaderInformation(request, 41);
+		ob = ObjectBrowserService.setHeaderInformation(request, 41);
 		assertEquals(41, ob.getObjectType());
 		
-		boolean isOk = ObjectBrowserController.clearInformationAndSetError(request);
+		boolean isOk = ObjectBrowserService.clearInformationAndSetError(request);
 		assertEquals(true,isOk);
 	}
 }

@@ -1,6 +1,7 @@
 package service;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -10,14 +11,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
-import org.junit.Test;
-
-import com.thorben.helloworld.service.ThorbenDierkesService;
-import com.thorben.helloworld.snooker.News;
-import com.thorben.helloworld.snooker.Termin;
+import com.thorben.objects.News;
+import com.thorben.objects.Termin;
+import com.thorben.service.ThorbenDierkesService;
 
 public class ThorbenDierkesServiceTest {
 

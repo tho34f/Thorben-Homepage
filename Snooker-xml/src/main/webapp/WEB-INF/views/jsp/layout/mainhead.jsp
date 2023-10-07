@@ -18,7 +18,6 @@
       				<div class="dropdown-menu">
       					<a class="dropdown-item" href="/thorben-dierkes/snookernews"><tho:out value="global.snooker.news"/></a>
       					<a class="dropdown-item" href="/thorben-dierkes/overview"><tho:out value="global.snooker.history"/></a>
-      					<a class="dropdown-item" href="/thorben-dierkes/saisonOverwiev"><tho:out value="global.snooker.generated.seasons"/></a>
 						<a class="dropdown-item" href="/thorben-dierkes/saison"><tho:out value="global.snooker.seasons"/></a>
 					</div>
 				</li>
@@ -38,12 +37,16 @@
 			</ul>
 			<div>
 				<form class="example" id="search" method="post" action="search">
+					<input type="hidden" name="csrfToken" value="${CSRF_SESSION_TOKEN}">
 					<input type="text" id="suche" placeholder="Suche..." name="suchen">
 					<button type="submit">Los!</button>
+					<span>
+						<i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+					</span>
 				</form>
 			</div>
 			<div style="margin-left: auto;">
-				<h2 class="headerHashTag" id="headerHashTag">#POLITICALMATHE</h2>
+				<h2 class="headerHashTag" id="headerHashTag">#WIRWARBURGER</h2>
 			</div>
 		</nav>
 

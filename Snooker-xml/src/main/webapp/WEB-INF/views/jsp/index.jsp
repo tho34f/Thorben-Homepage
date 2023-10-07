@@ -5,17 +5,16 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="author" content="Thorben Dierkes" />
-<title>Thorben Dierkes</title>
+	<meta charset="UTF-8" />
+	<meta name="author" content="Thorben Dierkes" />
+	<title>Thorben Dierkes</title>
 
-<header:defaultHaeder costumerCSS="thorben.css" favicon="thorben.ico"/>
+	<header:defaultHaeder costumerCSS="thorben.css" favicon="thorben.ico"/>
 
 </head>
 <body>
 
 <jsp:include page="./layout/mainhead.jsp" flush="true"/>
-
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">

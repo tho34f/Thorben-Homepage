@@ -1,13 +1,15 @@
 package service;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 import java.util.Date;
 import java.util.Locale;
-import org.junit.Test;
-import com.thorben.helloworld.service.DateConverter;
-import javax.servlet.http.*;
+import org.junit.jupiter.api.Test;
+
+import com.thorben.service.DateConverter;
+
+import jakarta.servlet.http.*;
 
 public class DataConverterTest {
 	
@@ -31,7 +33,7 @@ public class DataConverterTest {
 	public void long2DateLocalTest() {
 		//Datum: Sun Oct 31 2021 07:13:00
 		long date = 1635664380878L;
-		Locale local = new Locale("de");
+		Locale local = Locale.of("de");
 		
 		String mediumDateOne = DateConverter.long2DateLocal(date, 1, local);
 		String mediumDateTwo = DateConverter.long2DateLocal(date, 2, local);

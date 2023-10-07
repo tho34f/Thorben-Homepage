@@ -1,7 +1,9 @@
-<web-app xmlns="http://JAVA.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+    version="6.0">
 
 	<display-name>Gradle + Spring MVC Hello World + XML</display-name>
 	<description>Spring MVC web application</description>
@@ -18,17 +20,17 @@
 	</servlet>
 		<servlet>
 		<servlet-name>newsController</servlet-name>
-		<servlet-class>com.thorben.helloworld.web.NewsWizardController</servlet-class>
+		<servlet-class>com.thorben.web.NewsWizardController</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<servlet>
 		<servlet-name>terminController</servlet-name>
-		<servlet-class>com.thorben.helloworld.web.TerminWizardController</servlet-class>
+		<servlet-class>com.thorben.web.TerminWizardController</servlet-class>
 		<load-on-startup>3</load-on-startup>
 	</servlet>
 	<servlet>
 		<servlet-name>userController</servlet-name>
-		<servlet-class>com.thorben.helloworld.web.UserWizardController</servlet-class>
+		<servlet-class>com.thorben.web.UserWizardController</servlet-class>
 		<load-on-startup>4</load-on-startup>
 	</servlet>
 
@@ -48,6 +50,23 @@
 		<servlet-name>userController</servlet-name>
 		<url-pattern>/backend/userwizard</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+	    <filter-name>userFilter</filter-name>
+	    <filter-class>com.thorben.filter.UserSessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>userFilter</filter-name>
+		<url-pattern>/backend/*</url-pattern>
+	</filter-mapping>
+	<filter>
+	    <filter-name>csrfFilter</filter-name>
+	    <filter-class>com.thorben.filter.CSRFPostFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>csrfFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!-- For root context -->
 	<listener>
@@ -57,6 +76,19 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring-core-config.xml</param-value>
+	</context-param>
+	
+	<context-param>  
+	    <param-name>spring.profiles.active</param-name>  
+	    <param-value>dev-a</param-value>  
+	</context-param>  
+	<context-param>  
+	    <param-name>spring.profiles.default</param-name>  
+	    <param-value>dev-d</param-value>  
+	</context-param>
+	<context-param>  
+	    <param-name>spring.liveBeansView.mbeanDomain</param-name>  
+	    <param-value>dev-mbeanDomain</param-value>  
 	</context-param>
 	
 	<jsp-config>

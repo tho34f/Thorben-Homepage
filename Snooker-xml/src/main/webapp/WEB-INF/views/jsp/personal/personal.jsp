@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -18,7 +19,7 @@
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1>Über mich</h1>
+		<h1><tho:out value="global.name.owner.about"/></h1>
 		<div id="inhalt" class="row">
 			<div class="col-md-6">
 				<p>Ich bin ein waschechter Warburger mit vielen, aber nicht allen Eigenarten, die man diesem selbstbewussten Völkchen nachsagt. 
@@ -31,7 +32,7 @@
 		</div>
 		<div id="inhalt" class="row">
 			<div class="col-md-6">
-				<h2 class="headingPersonal"><em class="fas fa-briefcase"></em> Beruflicher Werdegang</h2>
+				<h2 class="headingPersonal"><em class="fas fa-briefcase"></em><tho:out value="global.personal.professional.background"/></h2>
 				<ul>
 					<li><p>Seit August 2018: Ausbildung zum Fachinformatiker; Fachrichtung: Softwareentwicklung</p></li>
 					<li><p>Oktober 2017 - August 2019: Wissenschaftliche Hilfskraft an der Universität Paderborn</p></li>

@@ -197,3 +197,7 @@ div .buttonToText{
 	text-align:center; 
 	margin-top:25px;
 }
+
+.table#tour, .table#player{
+	margin-top:15px;
+}

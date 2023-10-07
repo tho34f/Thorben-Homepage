@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -19,11 +20,11 @@
 <div id="content" class="jumbotron">
 	<div class="container">
 		<c:if test= "${not empty seasion}">
-			<h1> Saison ${seasion.year}</h1>
-			<p>Auf dieser Seite werden die Turniere und die aktuellen Spieler der Saison dargestellt.</p>
+			<h1> <tho:out value="global.snooker.seasons"/> ${seasion.year}</h1>
+			<p><tho:out value="global.snooker.generated.overview"/></p>
 		</c:if>
 		<c:if test= "${empty seasion}">
-			<h1>Es ist ein Fehler aufgetreten</h1>
+			<h1><tho:out value="global.error.message"/></h1>
 			<p>${errormassage}</p>
 		</c:if>
 	</div>
@@ -32,19 +33,18 @@
 	<div class="container">
 		<c:if test= "${not empty seasion}">
 		<div>
-			<h2> Turniere in dieser Saison</h2>
+			<h2><tho:out value="global.snooker.generated.tournament"/></h2>
 			<form class="example">
 				<label for="tournamentsearch" >Turnier:</label>
 				<input id="tornamentsearch" name="tornamentsearch" type="text"></input>
-				<button class="btn btn-primary" id="btn-search1" name="btn-search" type="button" onclick=findTournament()>Turnier suchen</button>
+				<button class="btn btn-primary" id="btn-search1" style="position:inherit; width:10%" name="btn-search" type="button" onclick=findTournament()>Turnier suchen</button>
 			</form>
 			<table id="tour"class="table table-striped">
 				<tr> 
 					<th id="tournamentname"> Name </th> 
 					<th id="tournamentweight"> Gewicht </th> 
 					<th id="roundnumber"> Rundenzahl </th> 
-					<th id="playernumber"> Spielerzahl </th> 
-					<th id="simulation"> Simulation </th> 
+					<th id="playernumber"> Spielerzahl </th>  
 				</tr>
 				<c:forEach items="${seasion.tournamentSeason}" var="tournament">
 					<tr id="${tournament.tournamentname}" > 
@@ -52,18 +52,17 @@
 						<th id="${tournament.gewicht}"> ${tournament.gewicht} </th> 
 						<th id="${tournament.roundnumber}"> ${tournament.roundnumber} </th> 
 						<th id="${tournament.playernumber}"> ${tournament.playernumber} </th> 
-						<th id="${tournament.tournamentname}-button"> <a class="btn btn-primary btn-lg" href="simulation?year=${seasion.year}&name=${tournament.tournamentname}&weight=${tournament.gewicht}&number1=${tournament.roundnumber}&number2=${tournament.playernumber}" role="button">Dieses Turnier simulieren</a> </th>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
 		<br> 	<br>
 		<div >
-			<h2> Spieler in dieser Saison</h2>
+			<h2><tho:out value="global.snooker.generated.player"/></h2>
 			<form class="example">
 				<label for="playersearch" >Spieler:</label>
 				<input id="playersearch" name="playersearch" type="text"></input>
-				<button class="btn btn-primary" id="btn-search2" name="btn-search" type="button" onclick=findPlayer()>Spieler suchen</button>
+				<button class="btn btn-primary" id="btn-search2" style="position:inherit; width:10%" name="btn-search" type="button" onclick=findPlayer()>Spieler suchen</button>
 			</form>
 			<table id="player" class="table table-striped">
 				<tr> 
