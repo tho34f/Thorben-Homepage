@@ -21,7 +21,6 @@ import com.dropbox.core.v2.users.FullAccount;
 
 public class DropboxWizard {
 	
-	private static final String ACCESS_TOKEN = "kU34bXLSJfMAAAAAAAAAARLRIV8PFo_6IvKhSysNlTXO9mSDln6fUL-4eseEKmML";
 	private static final String PDF = ".pdf";
 	private static final String BACKSLASH = "/";
 	private DbxClientV2 dbxClient;
