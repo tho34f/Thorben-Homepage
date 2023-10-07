@@ -1,10 +1,11 @@
 package service;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import com.thorben.service.GetHomepageData;
 
 import java.util.List;
-import org.junit.Test;
-import com.thorben.helloworld.service.GetHomepageData;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GetHompageDataTest {
 
