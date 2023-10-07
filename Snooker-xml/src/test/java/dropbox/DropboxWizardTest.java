@@ -1,14 +1,14 @@
 package dropbox;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.dropbox.core.DbxException;
-import com.thorben.helloworld.dropbox.DropboxWizard;
+import com.thorben.dropbox.DropboxWizard;
 
 public class DropboxWizardTest {
 

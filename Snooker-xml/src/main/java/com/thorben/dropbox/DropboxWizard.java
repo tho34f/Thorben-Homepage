@@ -1,4 +1,4 @@
-package com.thorben.helloworld.dropbox;
+package com.thorben.dropbox;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +24,7 @@ public class DropboxWizard {
 	private static final String ACCESS_TOKEN = "kU34bXLSJfMAAAAAAAAAARLRIV8PFo_6IvKhSysNlTXO9mSDln6fUL-4eseEKmML";
 	private static final String PDF = ".pdf";
 	private static final String BACKSLASH = "/";
-	DbxClientV2 dbxClient;
+	private DbxClientV2 dbxClient;
 
 	public DropboxWizard() {
 		// Create Dropbox client

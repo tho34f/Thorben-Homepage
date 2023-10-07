@@ -11,7 +11,7 @@
 
   <tag>
     <name>out</name>
-    <tagclass>com.thorben.helloworld.tags.BundleTag</tagclass>
+    <tagclass>com.thorben.tags.BundleTag</tagclass>
     <bodycontent>jsp</bodycontent>
     <attribute>
       <name>value</name>
