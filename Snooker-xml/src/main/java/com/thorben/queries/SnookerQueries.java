@@ -1,13 +1,13 @@
-package com.thorben.helloworld.queries;
+package com.thorben.queries;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.thorben.helloworld.snooker.Spieler;
-import com.thorben.helloworld.snooker.Tournament;
-import com.thorben.helloworld.snooker.TournamentSeason;
+import com.thorben.objects.snooker.Spieler;
+import com.thorben.objects.snooker.Tournament;
+import com.thorben.objects.snooker.TournamentSeason;
 
 public class SnookerQueries extends AbstractQuerries {
 	
@@ -41,7 +41,7 @@ public class SnookerQueries extends AbstractQuerries {
 	
 		        }
 		        
-	            // Ich schließe die Streams wieder und gebe die Tabelle wieder frei.
+	            // Ich schlieï¿½e die Streams wieder und gebe die Tabelle wieder frei.
 	            rs.close();
 
 	        }
@@ -80,7 +80,7 @@ public class SnookerQueries extends AbstractQuerries {
 	
 	        }
 	        
-	        // Ich schließe die Streams wieder und gebe die Tabelle wieder frei.
+	        // Ich schlieï¿½e die Streams wieder und gebe die Tabelle wieder frei.
 	        rs.close();
 	        }
     	} catch (SQLException e) {

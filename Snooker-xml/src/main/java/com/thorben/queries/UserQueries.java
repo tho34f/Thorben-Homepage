@@ -1,4 +1,4 @@
-package com.thorben.helloworld.queries;
+package com.thorben.queries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.thorben.helloworld.service.DateConverter;
-import com.thorben.helloworld.snooker.User;
+import com.thorben.objects.User;
+import com.thorben.service.DateConverter;
 
 public class UserQueries extends AbstractQuerries {
 	

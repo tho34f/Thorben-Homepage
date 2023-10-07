@@ -1,4 +1,4 @@
-package com.thorben.helloworld.queries;
+package com.thorben.queries;
 
 import java.awt.Image;
 import java.sql.Blob;
@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.thorben.helloworld.service.DateConverter;
-import com.thorben.helloworld.service.ThorbenDierkesService;
-import com.thorben.helloworld.snooker.News;
+import com.thorben.objects.News;
+import com.thorben.service.DateConverter;
+import com.thorben.service.ThorbenDierkesService;
 
 public class NewsQueries extends AbstractQuerries {
 	

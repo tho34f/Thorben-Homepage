@@ -1,4 +1,4 @@
-package com.thorben.helloworld.queries;
+package com.thorben.queries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,10 +10,10 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.thorben.helloworld.service.DateConverter;
-import com.thorben.helloworld.service.ThorbenDierkesService;
-import com.thorben.helloworld.service.ThorbenDierkes;
-import com.thorben.helloworld.snooker.ErrorMassage;
+import com.thorben.objects.ErrorMassage;
+import com.thorben.service.DateConverter;
+import com.thorben.service.ThorbenDierkes;
+import com.thorben.service.ThorbenDierkesService;
 
 public class ErrorLoggQueries extends AbstractQuerries {
 	
