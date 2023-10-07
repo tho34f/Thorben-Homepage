@@ -1,10 +1,12 @@
-package com.thorben.helloworld.service;
+package com.thorben.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
-import com.thorben.helloworld.queries.MySql;
+import com.thorben.queries.MySql;
 
+@Service
 public class ThorbenDierkesLogger {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ThorbenDierkesLogger.class);
@@ -18,6 +20,10 @@ public class ThorbenDierkesLogger {
 		MySql.getInstance().getErrorLoggQueries().newErrorLogEntry(title,massage);
 		logger.info(massage);
 		e.printStackTrace();
+	}
+	
+	public void infoLog(String massage) {
+		logger.info(massage);
 	}
 
 }

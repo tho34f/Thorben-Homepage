@@ -1,12 +1,10 @@
-package com.thorben.helloworld.service;
+package com.thorben.service;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access= AccessLevel.PRIVATE)
 public class ThorbenDierkes {
-	
-	private ThorbenDierkes() {
-	   	
-		throw new IllegalStateException("Utility Class");
-	    	
-    }
 	
 	//Objekttypen
 	public static final int USER = 38;
@@ -25,7 +23,7 @@ public class ThorbenDierkes {
     public static final String ERROR_MESSAGE_OB = "Keine gultige Objekt-Browser Id.";
 	public static final String USER_NOT_LOGIN = "Der User ist nicht eingeloggt.";
     
-    //Länge Datenbanken
+    //Lï¿½nge Datenbanken
     public static final int VARCHAR = 255;
     public static final int TEXT = 65535;
     public static final long MEDIUMTEXT = 16777215;
@@ -49,9 +47,9 @@ public class ThorbenDierkes {
 	public static final String CREATION_DATE = "creationDate";
 	public static final String CREATION_DATE_TITLE = "Erstellungsdatum";
 	public static final String CHANGE_DATE = "changeDate";
-	public static final String CHANGE_DATE_TITLE = "Änderungsdatum";
+	public static final String CHANGE_DATE_TITLE = "ï¿½nderungsdatum";
 	public static final String DESCRIPTION = "changeDate";
-	public static final String DESCRIPTION_TITLE = "Änderungsdatum";
+	public static final String DESCRIPTION_TITLE = "ï¿½nderungsdatum";
 	
 	//Snooker-URL`S
 	public static final String PROVISIONAL_RANKING = "https://wst.tv/rankings/1-year-ranking-list/";

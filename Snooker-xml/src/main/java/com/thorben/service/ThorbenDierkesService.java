@@ -1,4 +1,4 @@
-package com.thorben.helloworld.service;
+package com.thorben.service;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,19 +7,19 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.thorben.helloworld.queries.MySql;
-import com.thorben.helloworld.snooker.Tournament;
-import com.thorben.helloworld.snooker.TournamentSeason;
-import com.thorben.helloworld.snooker.News;
-import com.thorben.helloworld.snooker.Spieler;
-import com.thorben.helloworld.snooker.Termin;
-import com.thorben.helloworld.web.SnookerController;
+import com.thorben.objects.News;
+import com.thorben.objects.Termin;
+import com.thorben.objects.snooker.Spieler;
+import com.thorben.objects.snooker.Tournament;
+import com.thorben.objects.snooker.TournamentSeason;
+import com.thorben.queries.MySql;
+import com.thorben.web.SnookerController;
 
 @Service
 public class ThorbenDierkesService {
