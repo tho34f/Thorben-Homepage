@@ -1,10 +1,9 @@
 package service;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-
-import com.thorben.helloworld.service.BundleTranslator;
+import com.thorben.service.BundleTranslator;
 
 public class BundleTranslatorTest {
 
@@ -17,7 +16,7 @@ public class BundleTranslatorTest {
 		String valueDe = btDe.translatBundle("global.politic.desc");
 		String valueEn = btEn.translatBundle("global.politic.desc");
 		
-		assertEquals("Auf diesen Seiten finden Sie mher über meine politische Agenda.", valueDe);
+		assertEquals("Auf diesen Seiten finden Sie mher ï¿½ber meine politische Agenda.", valueDe);
 		assertEquals("de", btDe.getLanguage());
 		assertEquals("On these pages you will find more about my political agenda.", valueEn);
 		
