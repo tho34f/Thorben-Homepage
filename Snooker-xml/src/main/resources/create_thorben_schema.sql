@@ -84,7 +84,6 @@ Create Table `ob3_title_definition`(
 
 INSERT INTO user SELECT * FROM snooker.user;
 SELECT * FROM user;
-##insert into user values (2, 'Thorben', 'Dierkes', SHA2('MaraTeske30031994!',224), 'tdierkes');
 INSERT IGNORE news SELECT * FROM snooker.news;
 SELECT * FROM news;
 INSERT IGNORE news_text SELECT * FROM snooker.news_text;
