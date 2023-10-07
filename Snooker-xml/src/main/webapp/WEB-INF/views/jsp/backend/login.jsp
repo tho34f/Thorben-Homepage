@@ -18,6 +18,7 @@
 <div id="container-login">
 	<main id="main">
  	<form method="post" id="loginBackend" action="backendindex">
+ 		<input type="hidden" name="csrfToken" value="${CSRF_SESSION_TOKEN}">
  		<div class="formbody-login">
  			<h1><tho:out value="global.login"/></h1>
 	 		<div class="widget">

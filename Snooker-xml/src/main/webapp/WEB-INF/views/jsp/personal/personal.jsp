@@ -19,7 +19,7 @@
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1><tho:out value="global.name.owner.abou"/></h1>
+		<h1><tho:out value="global.name.owner.about"/></h1>
 		<div id="inhalt" class="row">
 			<div class="col-md-6">
 				<p>Ich bin ein waschechter Warburger mit vielen, aber nicht allen Eigenarten, die man diesem selbstbewussten Völkchen nachsagt. 

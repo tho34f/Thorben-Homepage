@@ -44,7 +44,7 @@
 			<div class="wizardRowInner">
 				<div class="span3"><tho:out value="global.firstname.desc"/></div>
 				<div class="span9">
-					<input type="text" id="firstName" name="title" min="1" max="255" maxlength="255" placeholder="Title" value="">
+					<input type="text" id="firstName" name="firstName" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.firstname"/>" value="">
 				</div>
 			</div>
 		</div>
@@ -54,7 +54,7 @@
 			<div class="wizardRowInner">
 				<div class="span3"><tho:out value="global.surname.desc"/></div>
 				<div class="span9">
-					<textarea id="lastName" name="teaser" maxlength="65535" placeholder="Teaser" cols="100" rows="2"></textarea>
+					<input type="text" id="lastName" name="lastName" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.surname"/>" value="">
 				</div>
 			</div>
 		</div>
@@ -64,7 +64,7 @@
 			<div class="wizardRowInner">
 				<div class="span3"><tho:out value="global.username.create"/></div>
 				<div class="span9">
-					<textarea id="login" name="text" maxlength="16777215" placeholder="Text" cols="100" rows="5"></textarea>
+					<input type="text" id="login" name="login" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.username"/>" value="">
 				</div>
 			</div>
 		</div>
@@ -74,7 +74,7 @@
 			<div class="wizardRowInner">
 				<div class="span3"><tho:out value="global.password.create"/></div>
 				<div class="span9">
-					<textarea id="password" name="text" maxlength="16777215" placeholder="Text" cols="100" rows="5"></textarea>
+					<input type="text" id="password" name="password" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.password"/>" value="">
 				</div>
 			</div>
 		</div>

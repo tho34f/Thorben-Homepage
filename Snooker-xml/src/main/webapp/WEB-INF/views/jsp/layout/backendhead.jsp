@@ -42,7 +42,7 @@
 			<div>
 				<form class="example" id="search" method="post" action="search">
 					<input type="text" id="suche" placeholder="Suche..." name="suchen">
-					<button type="submit"><tho:out value="global.go"/></button>
+					<button type="submit"><tho:out value="global.search"/></button>
 				</form>
 			</div>
 		</nav>

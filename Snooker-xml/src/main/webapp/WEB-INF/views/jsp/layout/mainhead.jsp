@@ -37,12 +37,16 @@
 			</ul>
 			<div>
 				<form class="example" id="search" method="post" action="search">
+					<input type="hidden" name="csrfToken" value="${CSRF_SESSION_TOKEN}">
 					<input type="text" id="suche" placeholder="Suche..." name="suchen">
 					<button type="submit">Los!</button>
+					<span>
+						<i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+					</span>
 				</form>
 			</div>
 			<div style="margin-left: auto;">
-				<h2 class="headerHashTag" id="headerHashTag">#POLITICALMATHE</h2>
+				<h2 class="headerHashTag" id="headerHashTag">#WIRWARBURGER</h2>
 			</div>
 		</nav>
 
