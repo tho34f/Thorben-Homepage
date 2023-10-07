@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
 
-<Context>
+<Context reloadable="false">
 <Resource 
 	name="jdbc/thorbenDB" 
 	auth="Container" type="javax.sql.DataSource"
     driverClassName="com.mysql.cj.jdbc.Driver" 
-    url="jdbc:mysql://localhost:3306/snooker?allowPublicKeyRetrieval=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
+    url="jdbc:mysql://localhost:3306/thorben?allowPublicKeyRetrieval=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
     username="root" 
     password="MaraTeske30031994!" 
     maxActive="20" 
