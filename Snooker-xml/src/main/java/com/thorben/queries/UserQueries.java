@@ -60,16 +60,14 @@ public class UserQueries extends AbstractQuerries {
 			String queryUser = "SELECT * FROM user where user_login = '" + loginUser.getUserLogin() + "' and user_password = SHA2('" + loginUser.getPassword() + "',224)";
 		
 			try(Statement stmt = con.createStatement()){
-		        ResultSet rs = stmt.executeQuery(queryUser);
-		        
-		        while(rs.next()) {
-		        	isLoginOk = true;
-		        	loginUser.setId(rs.getInt("user_id"));
-		        	loginUser.setFirstName(rs.getString(FIRST_NAME));
-		        	loginUser.setLastName(rs.getString(LAST_NAME));
-		        } 
-		        
-		        rs.close();
+		        try(ResultSet rs = stmt.executeQuery(queryUser)){
+			        while(rs.next()) {
+			        	isLoginOk = true;
+			        	loginUser.setId(rs.getInt("user_id"));
+			        	loginUser.setFirstName(rs.getString(FIRST_NAME));
+			        	loginUser.setLastName(rs.getString(LAST_NAME));
+			        } 
+		        }
 		        
 			}
 		
@@ -91,18 +89,16 @@ public class UserQueries extends AbstractQuerries {
 
 		
 			try(Statement stmt = con.createStatement()){
-		        ResultSet rs = stmt.executeQuery(queryUser);
-		        
-		        while(rs.next()) {
-		        	user.setId(userId);
-		        	user.setFirstName(rs.getString(FIRST_NAME));
-		        	user.setLastName(rs.getString(LAST_NAME));
-		        	user.setUserLogin(rs.getString("user_login"));
-		        	user.setCreationDate(rs.getLong("creation_date"));
-		        	user.setCreationDateAsString(DateConverter.long2Date(user.getCreationDate(),1));
-		        } 
-		        
-		        rs.close();
+		        try(ResultSet rs = stmt.executeQuery(queryUser)){
+			        while(rs.next()) {
+			        	user.setId(userId);
+			        	user.setFirstName(rs.getString(FIRST_NAME));
+			        	user.setLastName(rs.getString(LAST_NAME));
+			        	user.setUserLogin(rs.getString("user_login"));
+			        	user.setCreationDate(rs.getLong("creation_date"));
+			        	user.setCreationDateAsString(DateConverter.long2Date(user.getCreationDate(),1));
+			        } 
+		        }
 		        
 			}
 		
@@ -124,23 +120,20 @@ public class UserQueries extends AbstractQuerries {
 			String queryNews = "SELECT * FROM USER"; 
 		
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
-		        ResultSet rs = stmt.executeQuery();
-		        
-		        while(rs.next()) {
-					User user = new User();
-					
-					user.setId(rs.getInt("user_id"));
-		        	user.setFirstName(rs.getString(FIRST_NAME));
-		        	user.setLastName(rs.getString(LAST_NAME));
-		        	user.setUserLogin(rs.getString("user_login"));
-		        	user.setCreationDate(rs.getLong("creation_date"));
-		        	user.setCreationDateAsString(DateConverter.long2Date(user.getCreationDate(),1));
-					
-		        	userList.add(user);
-		        	
-		        } 
-		        
-		        rs.close();
+		        try(ResultSet rs = stmt.executeQuery()){
+			        while(rs.next()) {
+						User user = new User();
+						
+						user.setId(rs.getInt("user_id"));
+			        	user.setFirstName(rs.getString(FIRST_NAME));
+			        	user.setLastName(rs.getString(LAST_NAME));
+			        	user.setUserLogin(rs.getString("user_login"));
+			        	user.setCreationDate(rs.getLong("creation_date"));
+			        	user.setCreationDateAsString(DateConverter.long2Date(user.getCreationDate(),1));
+						
+			        	userList.add(user);
+			        } 
+		        }
 		        
 			}
 		

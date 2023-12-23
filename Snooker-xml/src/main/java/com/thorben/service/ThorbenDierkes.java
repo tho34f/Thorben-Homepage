@@ -19,6 +19,7 @@ public class ThorbenDierkes {
 	public static final String ERROR_DATA_SOURCE ="";
     public static final String ERROR_MESSAGE_DB_TREIBER = "Der Datenbank treiber wurde nicht gefunden. -";
     public static final String ERROR_MESSAGE_SQL = "SQL Fehler - ";
+    public static final String ERROR_MESSAGE_SQL_ERROR = "SQL Fehler - ";
     public static final String ERROR_MESSAGE_NO_ELEMENTS = "Es sind keine Elemente vorhanden.";
     public static final String ERROR_MESSAGE_OB = "Keine gultige Objekt-Browser Id.";
 	public static final String USER_NOT_LOGIN = "Der User ist nicht eingeloggt.";
@@ -34,6 +35,7 @@ public class ThorbenDierkes {
     public static final String DATA_SOURCE = "DATA Source";
     public static final String OBJEKT_BROWSER = "Objectbrowser";
 	public static final String ERROR_MASSAGE = "errormasage";
+	public static final String SUCCESS_MASSAGE = "successmasage";
 	public static final String IS_LOGIN_OK = "isLoginOk";
 	public static final String LOGIN = "backend/login";
 	public static final String LOGIN_WIZARD = "/WEB-INF/views/jsp/backend/login.jsp";
@@ -47,9 +49,18 @@ public class ThorbenDierkes {
 	public static final String CREATION_DATE = "creationDate";
 	public static final String CREATION_DATE_TITLE = "Erstellungsdatum";
 	public static final String CHANGE_DATE = "changeDate";
-	public static final String CHANGE_DATE_TITLE = "�nderungsdatum";
-	public static final String DESCRIPTION = "changeDate";
-	public static final String DESCRIPTION_TITLE = "�nderungsdatum";
+	public static final String CHANGE_DATE_TITLE = "Änderungsdatum";
+	public static final String DESCRIPTION = "description";
+	public static final String DESCRIPTION_TITLE = "Beschreibung";
+	public static final String LOGIN_OB3_TITLE = "User-Login";
+	public static final String LOGIN_OB3 = "userLogin";
+	public static final String FIRSTNAME_TITLE = "Vorname";
+	public static final String FIRSTNAME = "firstName";
+	public static final String LASTNAME_TITLE = "Nachname";
+	public static final String LASTNAME = "lastName";
+	
+	//SQL-FUnktions
+	public static final String LIKE = "LIKE";
 	
 	//Snooker-URL`S
 	public static final String PROVISIONAL_RANKING = "https://wst.tv/rankings/1-year-ranking-list/";

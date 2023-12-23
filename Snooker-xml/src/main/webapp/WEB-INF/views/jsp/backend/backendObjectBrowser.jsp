@@ -23,15 +23,15 @@
 				<caption style="display:none">OB3 second table</caption>
 				<tbody>
 					<tr class="obTableHeader">
-						<c:forEach items="${Objectbrowser.tableTitle}" var="title">
+						<c:forEach items="${Objectbrowser.ob3Data.title}" var="title">
 							<th class="redThorben ob_title_datacolumn_on" id="obObject_${title.description}">${title.description}</th>
 						</c:forEach>
 					</tr>
-					<c:if test="${empty informationList}">
+					<c:if test="${empty Objectbrowser.ob3Data.objectList}">
 						<tr><td>${errorMessage}</td></tr>
 					</c:if>
-					<c:if test="${not empty informationList}">
-						<c:forEach items="${informationList}" var="element">
+					<c:if test="${not empty Objectbrowser.ob3Data.objectList}">
+						<c:forEach items="${Objectbrowser.ob3Data.objectList}" var="element">
 							<tr id="object_${element.id}">
 								<td class="ob_row">
 									<c:if test="${Objectbrowser.objectType eq 38}">

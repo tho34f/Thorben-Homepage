@@ -21,7 +21,8 @@
 			<h4 id="objectHeaderWizard"><tho:out value="global.events"/></h4>
 		</div>
 		<div>
-			<form method="POST" action="terminewizard">
+			<form method="POST" action="terminewizard/submit">
+				<input type="hidden" name="csrfToken" value="${CSRF_SESSION_TOKEN}">
 				<input type="hidden" id="titleWizard" name="titleWizard" min="1" max="255" maxlength="255" value="">
 				<input type="hidden" id="teaserWizard" name="teaserWizard" min="1" max="255" maxlength="255" value="">
 				<input type="hidden" id="beschreibungWizard" name="beschreibungWizard" min="1" max="255" maxlength="1000" value="">

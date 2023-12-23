@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.thorben.objects.ErrorMassage;
 import com.thorben.service.DateConverter;
 import com.thorben.service.ThorbenDierkes;
-import com.thorben.service.ThorbenDierkesService;
+import com.thorben.service.BackendService;
 
 public class ErrorLoggQueries extends AbstractQuerries {
 	
@@ -36,21 +36,19 @@ public class ErrorLoggQueries extends AbstractQuerries {
 			String queryErrorLog = "SELECT * FROM error_log";
 		
 			try(PreparedStatement stmt = con.prepareStatement(queryErrorLog)){
-		        ResultSet rs = stmt.executeQuery();
-		        
-		        while(rs.next()) {
-					ErrorMassage massage = new ErrorMassage();
-		        	massage.setId(rs.getInt("error_id"));
-		        	massage.setTitle(rs.getString("error_title"));
-		        	massage.setCreationDate(rs.getLong("creation_date"));
-		        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
-		        	massage.setDescription("error_description");
-		        	
-		        	errorList.add(massage);
-		        	
-		        } 
-		        
-		        rs.close();
+		        try(ResultSet rs = stmt.executeQuery()){
+			        while(rs.next()) {
+						ErrorMassage massage = new ErrorMassage();
+			        	massage.setId(rs.getInt("error_id"));
+			        	massage.setTitle(rs.getString("error_title"));
+			        	massage.setCreationDate(rs.getLong("creation_date"));
+			        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
+			        	massage.setDescription("error_description");
+			        	
+			        	errorList.add(massage);
+			        	
+			        } 
+		        }
 		        
 			}
 		
@@ -77,18 +75,16 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		
 			try(PreparedStatement stmt = con.prepareStatement(queryError)){
 				stmt.setInt(1, newsId);
-		        ResultSet rs = stmt.executeQuery();
-		        
-		        if(rs.next()) {
-		        	massage.setId(rs.getInt("error_id"));
-		        	massage.setTitle(rs.getString("error_title"));
-		        	massage.setCreationDate(rs.getLong("creation_date"));
-		        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
-		        	massage.setDescription(rs.getString("error_description"));
-		        	
-		        } 
-		        
-		        rs.close();
+		        try(ResultSet rs = stmt.executeQuery()){
+			        if(rs.next()) {
+			        	massage.setId(rs.getInt("error_id"));
+			        	massage.setTitle(rs.getString("error_title"));
+			        	massage.setCreationDate(rs.getLong("creation_date"));
+			        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
+			        	massage.setDescription(rs.getString("error_description"));
+			        	
+			        } 
+		        }
 		        
 			}
 		
@@ -110,7 +106,7 @@ public class ErrorLoggQueries extends AbstractQuerries {
 		
 			String queryError = "INSERT INTO error_log VALUES (?, ?, ?, ?)";
 			
-			ThorbenDierkesService tds = new ThorbenDierkesService();
+			BackendService tds = new BackendService();
 			int id = tds.generateId();
 			
 			try(PreparedStatement stmt = con.prepareStatement(queryError)){

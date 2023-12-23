@@ -68,9 +68,17 @@ CREATE TABLE `autoupdate_db` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `ob3_title` (
-	`id` int NOT NULL AUTO_INCREMENT,
+	`id` int NOT NULL,
     `title` varchar(50) NOT NULL,
     `description` varchar(50) NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `ob3_filter` (
+	`id` int NOT NULL,
+    `title` varchar(50) NOT NULL,
+    `description` varchar(50) NOT NULL,
+    `sql_function` varchar(50) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -81,12 +89,13 @@ Create Table `ob3_title_definition`(
     CONSTRAINT `FK_ob3_title_definition` FOREIGN KEY (`title_id`) REFERENCES `ob3_title` (`id`)
 );
 
+Create Table `ob3_filter_definition`(
+	`ob3_number` int NOT NULL,
+    `filter_id` int NOT NULL,
+    PRIMARY KEY (`ob3_number`, `filter_id`),
+    CONSTRAINT `FK_ob3_filter_definition` FOREIGN KEY (`filter_id`) REFERENCES `ob3_filter` (`id`)
+);
 
-INSERT INTO user SELECT * FROM snooker.user;
-SELECT * FROM user;
-INSERT IGNORE news SELECT * FROM snooker.news;
-SELECT * FROM news;
-INSERT IGNORE news_text SELECT * FROM snooker.news_text;
-SELECT * FROM news_text;
-INSERT INTO event SELECT * FROM snooker.termine;
-SELECT * FROM event;
+INSERT INTO ob3_title (`id`, `title`, `description`) VALUES(1, "title", "Title") ON DUPLICATE KEY UPDATE `title` = "title", `description` = "Title";
+SELECT * FROM ob3_title;
+##insert into user values (2, 'Thorben', 'Dierkes', SHA2('MaraTeske30031994!',224), 'tdierkes');

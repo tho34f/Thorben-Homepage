@@ -11,7 +11,7 @@ import java.util.Set;
 
 import com.thorben.objects.Termin;
 import com.thorben.service.DateConverter;
-import com.thorben.service.ThorbenDierkesService;
+import com.thorben.service.BackendService;
 
 public class CalendarQueries extends AbstractQuerries {
 	
@@ -32,31 +32,28 @@ public class CalendarQueries extends AbstractQuerries {
 			String queryNews = "SELECT * FROM event ORDER BY creation_date";
 		
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
-		        ResultSet rs = stmt.executeQuery();
-		        
-		        while(rs.next()) {
-					Termin tm = new Termin();
-		        	tm.setDate(rs.getLong("date"));
-		        	tm.setChangeDate(rs.getLong("change_date"));
-		        	tm.setCreationDate(rs.getLong("creation_date"));
-		        	tm.setCreationDateAsString(DateConverter.long2Date(tm.getCreationDate(),1));
-		        	tm.setCreationDateForSlider(DateConverter.long2Date(tm.getDate(),3));
-		        	if(tm.getChangeDate() != 0) {
-		        		tm.setChangeDateAsString(DateConverter.long2Date(tm.getChangeDate(),1));
-		        	} else {
-		        		tm.setChangeDateAsString("-");
-		        	}
-		        	
-		        	tm.setTitle(rs.getString("title"));
-		        	tm.setDescription(rs.getString("description"));
-		        	tm.setId(rs.getInt("id"));
-		        	tm.setTeaser(rs.getString("teaser"));
-		        	tm.setAuthor(rs.getInt("author_id"));
-		        	calendarList.add(tm);
-		        	
-		        } 
-		        
-		        rs.close();
+		        try(ResultSet rs = stmt.executeQuery()){
+			        while(rs.next()) {
+						Termin tm = new Termin();
+			        	tm.setDate(rs.getLong("date"));
+			        	tm.setChangeDate(rs.getLong("change_date"));
+			        	tm.setCreationDate(rs.getLong("creation_date"));
+			        	tm.setCreationDateAsString(DateConverter.long2Date(tm.getCreationDate(),1));
+			        	tm.setCreationDateForSlider(DateConverter.long2Date(tm.getDate(),3));
+			        	if(tm.getChangeDate() != 0) {
+			        		tm.setChangeDateAsString(DateConverter.long2Date(tm.getChangeDate(),1));
+			        	} else {
+			        		tm.setChangeDateAsString("-");
+			        	}
+			        	
+			        	tm.setTitle(rs.getString("title"));
+			        	tm.setDescription(rs.getString("description"));
+			        	tm.setId(rs.getInt("id"));
+			        	tm.setTeaser(rs.getString("teaser"));
+			        	tm.setAuthor(rs.getInt("author_id"));
+			        	calendarList.add(tm);
+			        } 
+		        }
 		        
 			}
 		
@@ -80,24 +77,22 @@ public class CalendarQueries extends AbstractQuerries {
 		
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				stmt.setInt(1, terminId);
-		        ResultSet rs = stmt.executeQuery();
-		        
-		        if(rs.next()) {
-		        	tm.setDate(rs.getLong("date"));
-		        	tm.setChangeDate(rs.getLong("change_date"));
-		        	tm.setCreationDate(rs.getLong("creation_date"));
-		        	tm.setCreationDateAsString(DateConverter.long2Date(tm.getCreationDate(),1));
-		        	tm.setChangeDateAsString(DateConverter.long2Date(tm.getChangeDate(),1));
-		        	
-		        	tm.setTitle(rs.getString("title"));
-		        	tm.setDescription(rs.getString("description"));
-		        	tm.setId(rs.getInt("id"));
-		        	tm.setTeaser(rs.getString("teaser"));
-		        	tm.setAuthor(rs.getInt("author_id"));
-		        	
-		        } 
-		        
-		        rs.close();
+		        try(ResultSet rs = stmt.executeQuery()){
+			        if(rs.next()) {
+			        	tm.setDate(rs.getLong("date"));
+			        	tm.setChangeDate(rs.getLong("change_date"));
+			        	tm.setCreationDate(rs.getLong("creation_date"));
+			        	tm.setCreationDateAsString(DateConverter.long2Date(tm.getCreationDate(),1));
+			        	tm.setChangeDateAsString(DateConverter.long2Date(tm.getChangeDate(),1));
+			        	
+			        	tm.setTitle(rs.getString("title"));
+			        	tm.setDescription(rs.getString("description"));
+			        	tm.setId(rs.getInt("id"));
+			        	tm.setTeaser(rs.getString("teaser"));
+			        	tm.setAuthor(rs.getInt("author_id"));
+			        	
+			        } 
+		        }
 		        
 			}
 		
@@ -120,7 +115,7 @@ public class CalendarQueries extends AbstractQuerries {
 			String queryNews = "INSERT INTO event (id, title, description, date, creation_date, change_date, teaser,author_login, author_id) " +
 					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
-			ThorbenDierkesService tds = new ThorbenDierkesService();
+			BackendService tds = new BackendService();
 			
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				int counter = 1;

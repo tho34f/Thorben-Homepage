@@ -3,8 +3,6 @@ package com.thorben.web;
 import java.util.Locale;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +12,8 @@ import com.thorben.objectbrowser.ObjectBrowser;
 import com.thorben.objectbrowser.ObjectBrowserService;
 import com.thorben.objects.User;
 import com.thorben.queries.MySql;
-import com.thorben.service.ThorbenDierkesService;
+import com.thorben.service.ThorbenDierkes;
+import com.thorben.service.ThorbenDierkesLogger;
 import com.thorben.service.TypeConverter;
 
 import jakarta.servlet.http.HttpServlet;
@@ -25,10 +24,10 @@ import jakarta.servlet.http.HttpServletResponse;
 public class BackendController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1217699872564172806L;
-	private final Logger logger = LoggerFactory.getLogger(BackendController.class);
-	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	private static final ThorbenDierkesLogger LOOGER = new ThorbenDierkesLogger();
 	
 	private static final String LOGIN = "backend/login";
+	private static final String LOGIN_REDIRECT = "redirect:/backend/login";
 	private static final String ERROR_MASSAGE = "errormasage";
 	private static final String IS_LOGIN_OK = "isLoginOk";
 	
@@ -36,7 +35,7 @@ public class BackendController extends HttpServlet {
   
 	@GetMapping(value = "/backend")
 	public ModelAndView startLoginBackend(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
-		return new ModelAndView("redirect:/backend/login");
+		return new ModelAndView(LOGIN_REDIRECT);
 	}
 	
 	@GetMapping(value = "/backend/login")
@@ -60,16 +59,16 @@ public class BackendController extends HttpServlet {
 			loginUser.setUserLogin(username);
 		} else {
 			request.setAttribute(ERROR_MASSAGE, "Der Username ist nicht gültig.");
-			logger.info("Der Username ist nicht gültig");
-			return new ModelAndView("redirect:/backend/login");
+			LOOGER.infoLog("Der Username ist nicht gültig");
+			return new ModelAndView(LOGIN_REDIRECT);
 		}
 		
 		if(password != null) {
 			loginUser.setPassword(password);
 		} else {
 			request.setAttribute(ERROR_MASSAGE, "Das Password ist nicht gültig.");
-			logger.info("Der Password ist nicht gültig");
-			return new ModelAndView("redirect:/backend/login");
+			LOOGER.infoLog("Der Password ist nicht gültig");
+			return new ModelAndView(LOGIN_REDIRECT);
 		}
 		
 		isLoginOk = MySql.getInstance().getUserQueries().checkLogin(loginUser);
@@ -77,12 +76,12 @@ public class BackendController extends HttpServlet {
 		
 		if(isLoginOk) {
 			request.getSession().setAttribute("user", loginUser);
-			logger.info("Login war erfolgreich.");
+			LOOGER.infoLog("Login war erfolgreich.");
 			return new ModelAndView("backend/backendindex");
 		} else {
 			request.setAttribute(ERROR_MASSAGE, "Der User ist nicht gültig.");
-			logger.info("Der User ist nicht gültig.");
-			return new ModelAndView("redirect:/backend/login");
+			LOOGER.infoLog("Der User ist nicht gültig.");
+			return new ModelAndView(LOGIN_REDIRECT);
 		}
 	}
 	
@@ -108,12 +107,9 @@ public class BackendController extends HttpServlet {
 		
 		ObjectBrowser ob = ObjectBrowserService.setHeaderInformation(request, objectId);
 		ObjectBrowserService.getInformationForOb(ob, request);
+		request.getSession().setAttribute(ThorbenDierkes.OBJEKT_BROWSER, ob);
 
 		return "backend/backendObjectBrowser";
-	}
-
-	public static ThorbenDierkesService getHelloWorldService() {
-		return helloWorldService;
 	}
 
 	public static String getLanguage() {

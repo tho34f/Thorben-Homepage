@@ -1,37 +1,28 @@
 package com.thorben.objectbrowser;
 
-import com.thorben.service.ThorbenDierkes;
+import java.util.List;
+import java.util.Set;
 
+import com.thorben.objectbrowser.title.filter.ObjectBrowserFilter;
+import com.thorben.objectbrowser.title.filter.ObjectBrowserTitle;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class ObjectBrowserData {
-
-	private ObjectBrowserTitle[] newsObjectTitle = {new ObjectBrowserTitle(ThorbenDierkes.TITLE_TITLE, ThorbenDierkes.TITLE), 
-			new ObjectBrowserTitle(ThorbenDierkes.TEASER, ThorbenDierkes.TEASER_TITLE), new ObjectBrowserTitle(ThorbenDierkes.CREATION_DATE,ThorbenDierkes.CREATION_DATE_TITLE), 
-			new ObjectBrowserTitle(ThorbenDierkes.CHANGE_DATE,ThorbenDierkes.CHANGE_DATE_TITLE)};
 	
-	private ObjectBrowserTitle[] terminObjectTitle = {new ObjectBrowserTitle(ThorbenDierkes.TITLE_TITLE, ThorbenDierkes.TITLE), 
-			new ObjectBrowserTitle(ThorbenDierkes.DESCRIPTION, ThorbenDierkes.DESCRIPTION_TITLE), new ObjectBrowserTitle(ThorbenDierkes.TEASER, ThorbenDierkes.TEASER_TITLE), 
-			new ObjectBrowserTitle(ThorbenDierkes.CREATION_DATE,ThorbenDierkes.CREATION_DATE_TITLE), new ObjectBrowserTitle(ThorbenDierkes.CHANGE_DATE,ThorbenDierkes.CHANGE_DATE_TITLE)};
+	private List<ObjectBrowserTitle> title;
+	private List<ObjectBrowserFilter> filter;
+	private Set<?> objectList;
 	
-	private  ObjectBrowserTitle[] userObjectTitle = {new ObjectBrowserTitle("userLogin", "User-Login"), new ObjectBrowserTitle("firstName", "Vorname"), 
-			new ObjectBrowserTitle("lastName", "Nachnahme"), new ObjectBrowserTitle(ThorbenDierkes.CREATION_DATE,ThorbenDierkes.CREATION_DATE_TITLE)};
+	public ObjectBrowserData(List<ObjectBrowserTitle> titleList, List<ObjectBrowserFilter> filterList) {
+		this.title = titleList;
+		this.filter = filterList;
+	}
 	
-	private ObjectBrowserTitle[] errorLogObjectTitle = {new ObjectBrowserTitle(ThorbenDierkes.TITLE_TITLE, ThorbenDierkes.TITLE), 
-			new ObjectBrowserTitle(ThorbenDierkes.DESCRIPTION, ThorbenDierkes.DESCRIPTION_TITLE), new ObjectBrowserTitle(ThorbenDierkes.CREATION_DATE,ThorbenDierkes.CREATION_DATE_TITLE)};
-	
-	public ObjectBrowserTitle[] getNewsObjectTitle() {
-		return newsObjectTitle;
-	}
-
-	public ObjectBrowserTitle[] getTerminObjectTitle() {
-		return terminObjectTitle;
-	}
-
-	public ObjectBrowserTitle[] getUserObjectTitle() {
-		return userObjectTitle;
-	}
-
-	public ObjectBrowserTitle[] getErrorLogObjectTitle() {
-		return errorLogObjectTitle;
-	}
 
 }

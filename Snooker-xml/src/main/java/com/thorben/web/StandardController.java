@@ -17,7 +17,7 @@ import com.thorben.objects.Termin;
 import com.thorben.objects.snooker.TournamentSeason;
 import com.thorben.queries.MySql;
 import com.thorben.service.DateConverter;
-import com.thorben.service.ThorbenDierkesService;
+import com.thorben.service.BackendService;
 import com.thorben.service.TypeConverter;
 
 
@@ -26,7 +26,7 @@ public class StandardController extends HttpServlet {
 
 
 	private static final long serialVersionUID = 6766367415600280400L;
-	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	private static BackendService helloWorldService = new BackendService();
 	private static Date indexDate = new Date();
 	private static Set<TournamentSeason> seasons = new HashSet<>();
 	private static int pageReminderNewsList = 1;
@@ -72,7 +72,7 @@ public class StandardController extends HttpServlet {
 		int pageNumber = TypeConverter.string2int(request.getParameter("page"),0);
 		
 		Set<Termin> terminList = MySql.getInstance().getCalendarQueries().loadCalendarList();
-		Map<String,Set<Termin>> splitedTerminList = ThorbenDierkesService.splitTerminList(terminList);
+		Map<String,Set<Termin>> splitedTerminList = BackendService.splitTerminList(terminList);
 		int slider = splitedTerminList.size();
 		
 		if(action == null) {
@@ -129,7 +129,7 @@ public class StandardController extends HttpServlet {
 		int pageNumber = TypeConverter.string2int(request.getParameter("page"),0);
 		
 		Set<News> newsList = MySql.getInstance().getNewsQueries().loadNewsList();
-		Map<String,Set<News>> splitedNewsList = ThorbenDierkesService.splitNewsList(newsList);
+		Map<String,Set<News>> splitedNewsList = BackendService.splitNewsList(newsList);
 		int slider = splitedNewsList.size();
 		
 		if(action == null) {
@@ -237,7 +237,7 @@ public class StandardController extends HttpServlet {
 		StandardController.seasons = seasons;
 	}
 
-	public static ThorbenDierkesService getHelloWorldService() {
+	public static BackendService getHelloWorldService() {
 		return helloWorldService;
 	}
 

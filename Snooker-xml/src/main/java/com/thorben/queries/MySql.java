@@ -6,6 +6,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.thorben.queries.update.Ob3Updates;
+import com.thorben.queries.update.UpdateDB;
 import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.ThorbenDierkesLogger;
 
@@ -21,7 +22,6 @@ public class MySql {
 	private static ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
 	
 	private DataSource ds;
-	
 	private CalendarQueries calendarQueries;
 	private ErrorLoggQueries errorLoggQueries;
 	private NewsQueries newsQueries;
@@ -29,6 +29,7 @@ public class MySql {
 	private UserQueries userQueries;
 	private UpdateDB updateDB;
 	private Ob3Updates ob3Updates;
+	private OB3Queries ob3Queries;
     
     private MySql(DataSource ds) {
     	
@@ -40,7 +41,7 @@ public class MySql {
     	this.userQueries = new UserQueries(this);
     	this.updateDB = new UpdateDB(this);
     	this.ob3Updates = new Ob3Updates(this);
-    	
+    	this.ob3Queries = new OB3Queries(this);
     }
 
 	public static MySql getInstance() {

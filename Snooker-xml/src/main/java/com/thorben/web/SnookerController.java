@@ -21,7 +21,7 @@ import com.thorben.queries.MySql;
 import com.thorben.service.DateConverter;
 import com.thorben.service.GetHomepageData;
 import com.thorben.service.ThorbenDierkes;
-import com.thorben.service.ThorbenDierkesService;
+import com.thorben.service.BackendService;
 import com.thorben.service.TypeConverter;
 
 @Controller
@@ -29,7 +29,7 @@ public class SnookerController extends HttpServlet {
 	
 	private static final long serialVersionUID = -9071950597448957942L;
 	private final Logger logger = LoggerFactory.getLogger(SnookerController.class);
-	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	private static BackendService helloWorldService = new BackendService();
 	private static final String SEASION = "seasion";
 	private static final String SEASON = "season";
 	private static String language;
@@ -61,7 +61,7 @@ public class SnookerController extends HttpServlet {
 		Tournament tournament = null;
 		
 		if(name == null || request.getSession().getServletContext().getAttribute(SEASION) == null) {
-			ThorbenDierkesService.errorMessage(request);
+			BackendService.errorMessage(request);
 		}else if(request.getSession().getAttribute(SEASION) !=null) {
 			tournament = new Tournament(name, weight, playernumber, roundnumber);
 		
@@ -80,11 +80,11 @@ public class SnookerController extends HttpServlet {
 		String participationPlayer = request.getParameter("participationPlayer");
 		
 		if(participationPlayer == null || request.getSession().getAttribute(SEASION) == null) {
-			ThorbenDierkesService.errorMessage(request);
+			BackendService.errorMessage(request);
 		}else if(request.getSession().getServletContext().getAttribute(SEASION) !=null) {
 			Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
 			
-			Spieler gewinner = ThorbenDierkesService.simulation(tournament, participationPlayer);
+			Spieler gewinner = BackendService.simulation(tournament, participationPlayer);
 			
 			request.getSession().setAttribute("gewinner", gewinner);
 			
@@ -107,7 +107,7 @@ public class SnookerController extends HttpServlet {
 	public String overviewpost(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 			
 		String number = request.getParameter(SEASON);
-		ThorbenDierkesService.setSeason(number, request);
+		BackendService.setSeason(number, request);
 		
 		return "snooker/saisonOverwiev";
 	}
@@ -123,7 +123,7 @@ public class SnookerController extends HttpServlet {
 		TournamentSeason testSaison = (TournamentSeason) request.getAttribute(SEASION);
 		
 		if(yearint == 0 && testSaison == null) {
-			ThorbenDierkesService.errorMessage(request);
+			BackendService.errorMessage(request);
 			
 		} else {
 			
@@ -135,7 +135,7 @@ public class SnookerController extends HttpServlet {
 			}
 			
 			if(!seasons.contains(season)) {
-				ThorbenDierkesService.errorMessage(request);
+				BackendService.errorMessage(request);
 			} else {
 				request.getSession().setAttribute(SEASION, season);
 			}
@@ -153,12 +153,12 @@ public class SnookerController extends HttpServlet {
 		
 		if(number.isEmpty() && testSaison == null) {
 			
-			ThorbenDierkesService.errorMessage(request);
+			BackendService.errorMessage(request);
 			
 		} else {
 		
 			int numberInt = Integer.parseInt(number);
-			season = ThorbenDierkesService.creatSeason(numberInt);
+			season = BackendService.creatSeason(numberInt);
 			getSeasons().add(season);
 			request.getSession().getServletContext().setAttribute(SEASION, season);
 			
@@ -215,7 +215,7 @@ public class SnookerController extends HttpServlet {
 		SnookerController.seasons = seasons;
 	}
 
-	public static ThorbenDierkesService getHelloWorldService() {
+	public static BackendService getHelloWorldService() {
 		return helloWorldService;
 	}
 

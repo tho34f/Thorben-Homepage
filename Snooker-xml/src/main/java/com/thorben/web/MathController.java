@@ -10,14 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.thorben.service.DateConverter;
-import com.thorben.service.ThorbenDierkesService;
+import com.thorben.service.BackendService;
 
 
 @Controller
 public class MathController extends HttpServlet {
 
 	private static final long serialVersionUID = -3295292219817459332L;
-	private static ThorbenDierkesService helloWorldService = new ThorbenDierkesService();
+	private static BackendService helloWorldService = new BackendService();
 	private static Date indexDate = new Date();
 	private static String language;
 
@@ -30,7 +30,7 @@ public class MathController extends HttpServlet {
 	}
 	
 
-	public static ThorbenDierkesService getHelloWorldService() {
+	public static BackendService getHelloWorldService() {
 		return helloWorldService;
 	}
 
