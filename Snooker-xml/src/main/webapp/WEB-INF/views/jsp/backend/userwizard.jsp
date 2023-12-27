@@ -16,9 +16,9 @@
 
 <header>
 	<div class="headerPanel">
-		<div style="margin-top: 0px;height: 75px;border-right: 1px solid #bbb;float: left;width: 270px;">
+		<div class="typeWrapper">
 			<div class="fas fa-newspaper" id="objectIcon"></div>
-			<h4 id="objectHeaderWizard"><tho:out value="global.user"/></h4>
+			<h4 id="objectHeader"><tho:out value="global.user"/></h4>
 		</div>
 		<div>
 			<form method="POST" action="newswizard/submit">
@@ -43,7 +43,7 @@
 		<div class="wizardRow">
 			<div class="wizardRowTitle"><tho:out value="global.firstname"/></div>
 			<div class="wizardRowInner">
-				<div class="span3"><tho:out value="global.firstname.desc"/></div>
+				<div class="span3 description"><tho:out value="global.firstname.desc"/></div>
 				<div class="span9">
 					<input type="text" id="firstName" name="firstName" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.firstname"/>" value="">
 				</div>
@@ -53,7 +53,7 @@
 		<div class="wizardRow">
 			<div class="wizardRowTitle"><tho:out value="global.surname"/></div>
 			<div class="wizardRowInner">
-				<div class="span3"><tho:out value="global.surname.desc"/></div>
+				<div class="span3 description"><tho:out value="global.surname.desc"/></div>
 				<div class="span9">
 					<input type="text" id="lastName" name="lastName" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.surname"/>" value="">
 				</div>
@@ -63,7 +63,7 @@
 		<div class="wizardRow">
 			<div class="wizardRowTitle"><tho:out value="global.username"/></div>
 			<div class="wizardRowInner">
-				<div class="span3"><tho:out value="global.username.create"/></div>
+				<div class="span3 description"><tho:out value="global.username.create"/></div>
 				<div class="span9">
 					<input type="text" id="login" name="login" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.username"/>" value="">
 				</div>
@@ -73,7 +73,7 @@
 		<div class="wizardRow">
 			<div class="wizardRowTitle"><tho:out value="global.password"/></div>
 			<div class="wizardRowInner">
-				<div class="span3"><tho:out value="global.password.create"/></div>
+				<div class="span3 description"><tho:out value="global.password.create"/></div>
 				<div class="span9">
 					<input type="text" id="password" name="password" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.password"/>" value="">
 				</div>

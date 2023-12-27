@@ -19,7 +19,7 @@
 <div id="content" class="jumbotron">
 	<div class="container">
 		<div id="objectBrowserDataTableDiv">
-			<table >
+			<table class="objectBrowserDataTable">
 				<caption style="display:none">OB3 second table</caption>
 				<tbody>
 					<tr class="obTableHeader">

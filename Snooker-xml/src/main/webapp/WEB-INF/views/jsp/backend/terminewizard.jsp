@@ -16,9 +16,9 @@
 
 <header>
 	<div class="headerPanel">
-		<div style="margin-top: 0px;height: 75px;border-right: 1px solid #bbb;float: left;width: 270px;">
+		<div class="typeWrapper">
 			<div class="far fa-calendar-alt" id="objectIcon"></div>
-			<h4 id="objectHeaderWizard"><tho:out value="global.events"/></h4>
+			<h4 id="objectHeader"><tho:out value="global.events"/></h4>
 		</div>
 		<div>
 			<form method="POST" action="terminewizard/submit">

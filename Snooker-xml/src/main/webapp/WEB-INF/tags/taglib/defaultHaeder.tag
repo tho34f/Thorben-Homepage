@@ -4,6 +4,7 @@
 <%@ attribute name="favicon" required="true" rtexprvalue="false"%>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="resources/core/css/general.css" rel="stylesheet" />
 <link href="resources/core/css/${costumerCSS}" rel="stylesheet" />
 <link href="resources/core/css/bootstrap.css" rel="stylesheet" />
 <link href="resources/core/css/bootstrap.min.css" rel="stylesheet" />

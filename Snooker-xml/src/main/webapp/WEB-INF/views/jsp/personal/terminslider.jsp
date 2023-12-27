@@ -23,32 +23,15 @@
 		<div id="inhalt" class="row">
 			<c:if test="${not empty terminList}">
 				<c:forEach items="${terminList}" var="element">
-				<article class="news-image-teaser">
-					<div class="news-image-teaser-meta"><time datetime="${element.creationDateForSlider}">${element.creationDateForSlider}</time></div>
-					<h2><a href="terminreader?id=${element.id}">${element.title}</a></h2>
-					<div>${element.teaser}</div>
-					<p><a href="terminreader?id=${element.id}"><span ><tho:out value="global.continue.reading"/></span></a></p>
-				</article>
+					<article class="news-image-teaser">
+						<div class="news-image-teaser-meta"><time datetime="${element.creationDateForSlider}">${element.creationDateForSlider}</time></div>
+						<h2><a href="terminreader?id=${element.id}">${element.title}</a></h2>
+						<div>${element.teaser}</div>
+						<p><a href="terminreader?id=${element.id}"><span ><tho:out value="global.continue.reading"/></span></a></p>
+					</article>
 				</c:forEach>
 			</c:if>
-				<nav aria-label="...">
-					<ul class="pagination justify-content-center">
-						<li class="page-item">
-					      <a class="page-link" href="terminslider?action=back" tabindex="-1"><tho:out value="global.previous"/></a>
-					    </li>
-					    <li <c:if test="${activePage eq 1}"> class="page-item active" </c:if> <c:if test="${activePage ne 1}"> class="page-item" </c:if>>
-					    	<a class="page-link" href="terminslider?page=1">1 <span class="sr-only">(current)</span></a>
-					    </li>
-						<c:forEach var = "i" begin ="2" end ="${sliderlenght}">
-	         				<li <c:if test="${activePage eq i}"> class="page-item active" </c:if> <c:if test="${activePage ne i}"> class="page-item" </c:if>>
-					    		<a class="page-link" href="terminslider?page=${i}">${i}</a>
-					    	</li>
-	      				</c:forEach>
-					    <li class="page-item">
-					      <a class="page-link" href="terminslider?action=next"><tho:out value="global.next"/></a>
-					    </li>
-				  </ul>
-				</nav>
+			<header:sliderNavigation action="terminslider"/>
 		</div>
 	</div>
 </div>

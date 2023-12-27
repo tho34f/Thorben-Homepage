@@ -119,7 +119,6 @@ input[type="password"]{
     max-width: 500px;
     min-height: 45px;
     cursor: pointer;
-	
 }
 
 .dooBtn {
@@ -127,7 +126,7 @@ input[type="password"]{
     width: 40px;
     border-left:1px solid #0076a3;
     position:relative;
-    border-radius: 15px 15px 15px 15px;
+    border-radius: 15px;
 }
 
 #dooIcon {
@@ -144,22 +143,21 @@ input[type="password"]{
     width: 100%;
     min-width: 980px;
     background: #8dcbbb;
-    float: left;
-    margin-top:-20px;
+    display:flex;
+    flex-direction: row;
+}
+
+.headerPanel .typeWrapper{
+	height: 75px;
+	border-right: 1px solid #bbb;
+	width: 270px;
+	display:flex;
+    flex-direction: row;
 }
 
 #objectHeader{
-	float: left; 
-	width: 61%; 
-	margin-left: 10px; 
-	margin-top: 37px;
-}
-
-#objectHeaderWizard{
-	float: left; 
-	width: 61%; 
-	margin-left: 10px; 
-	margin-top: 35px;
+	width: auto; 
+	margin: auto;
 }
 
 #newObject{
@@ -167,23 +165,29 @@ input[type="password"]{
 	margin-top: 21px;
 	border-left:1px solid #0076a3;
 	width: 130px;
-	border-radius: 15px 15px 15px 15px;
+	border-radius: 15px;
 	font-size:14px;
 }
 
 #saveObject{
-	margin-left: 20px; 
-	margin-top: 30px;
-	border-left:1px solid #0076a3;
+	margin: 25px; 
+	border:1px solid;
+	border-radius: 20px;
+	border-color: #a00403 #870403 #6e0302;
+	background: linear-gradient(rgb(202, 0, 0), #721403);
 	width: 110px;
+	padding: 8px 14px 8px 14px ;
+	color: #ffffff;
+}
+
+#saveObject:hover{
+	background: linear-gradient( #6e0302, #aa0504);
 }
 
 #objectIcon{
 	width: 40px; 
 	height: 40px; 
-	float: left; 
-	margin-left: 40px; 
-	margin-top: 25px;
+	margin: 25px;
 	font-size:40px
 }
 
@@ -202,6 +206,8 @@ input[type="password"]{
 	border: 1px solid #ddd;
     padding: 15px;
     font-size: 14px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
 }
 
 .redThorben{
@@ -216,11 +222,8 @@ input[type="password"]{
     text-align:center;
 }
 
-.obTableHeader th, ob3TableHeader th{
+.obTableHeader th{
 	border-left: transparent;
-}
-
-.obTableHeader th {
     padding: 6px;
     line-height: 12px;
     font-style: normal;
@@ -229,7 +232,14 @@ input[type="password"]{
 
 #objectBrowserDataTableDiv {
     min-width: 500px;
-    padding: 30px 10px 0px 10px !important;
+    margin: 15px;
+}
+
+.objectBrowserDataTable{
+	border: 1px solid black;
+	border-radius: 20px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
+    overflow:hidden;
 }
 
 .ob_row{
@@ -256,43 +266,23 @@ form.example button {
 	border-radius: 0 15px 15px 0;
 }
 
-input[type="text"]#teaser {
-	border-radius:15px 15px 15px 15px;
-}
-input[type="text"]#title {
-	border-radius:15px 15px 15px 15px;
-}
-textarea#text{
-	border-radius: 15px 15px 15px 15px;
+input[type="text"]#teaser, input[type="text"]#title, input[type="text"]#login,
+input[type="text"]#firstName, input[type="text"]#lastName, input[type="text"]#password,
+textarea#text,textarea#teaser,textarea#beschreibung{
+	border-radius: 30px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
 	font-style: italic;
-    border: 1px solid #0076a3;
+    border: 1px solid #a00403;
     padding: 8px;
-}
-textarea#teaser{
-	border-radius: 15px 15px 15px 15px;
-	font-style: italic;
-    border: 1px solid #0076a3;
-    padding: 8px;
-}
-textarea#beschreibung{
-	border-radius: 15px 15px 15px 15px;
-	font-style: italic;
-    border: 1px solid #0076a3;
-    padding: 8px;
+    margin:0px 10px 15px;
+    width:95%
 }
 
-.linkButton {
-    color: #ffffff;
-    border: 1px solid;
-    text-transform: uppercase;
-    border-color: #a00403 #870403 #6e0302;
-    border-radius: 15px;
-    font-size: 18px;
-    padding: 0.64286em 1.42857em;
-    background: linear-gradient(rgb(202, 0, 0), #721403);
+.description{
+	margin:15px 10px;
 }
 
-.linkButton:hover{
-	color:#ffffff; 
-	background: linear-gradient( #6e0302, #aa0504);
+#mainLogo>img{
+	margin-top:4px;
+	width:500px;
 }

@@ -49,9 +49,6 @@ dependencies {
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
 	//mySql
 	implementation 'com.mysql:mysql-connector-j:8.2.0'
-	// This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:31.1-jre'
-    implementation 'com.dropbox.core:dropbox-core-sdk:6.0.0'
     //JWT
     implementation 'com.auth0:java-jwt:4.3.0'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -62,8 +59,12 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.30'
 	testCompileOnly 'org.projectlombok:lombok:1.18.30'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
-    
+    //Nützliches
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
     implementation 'org.hibernate:hibernate-validator:8.0.1.Final'
+    implementation 'com.dropbox.core:dropbox-core-sdk:6.0.0'
+    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
+    implementation 'com.google.guava:guava:31.1-jre'
 	
 }
 

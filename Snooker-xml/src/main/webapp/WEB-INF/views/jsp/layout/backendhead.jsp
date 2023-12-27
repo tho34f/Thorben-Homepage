@@ -1,7 +1,7 @@
 <%@ taglib prefix="tho" uri="/thorben"%>
 <header>
 	<div id="mainLogo">
-		<img src="../resources/core/images/logo_large.png" alt="Bild Thorben" style="width:500px;margin-top:4px;" />
+		<img src="../resources/core/images/logo_large.png" alt="Bild Thorben" />
 	</div>
 	<ul id="serviceBox">
 		<li>
@@ -21,6 +21,7 @@
 			</button>
 		</li>
 	</ul>
+	<div class="headerContent">
 		<nav class="navbar navbar-inverse navbar-expand-sm">
 			<ul class="navbar-nav">
 				<li class="nav-item">
@@ -39,11 +40,6 @@
 					<a class="nav-link" href="/thorben-dierkes/backend/backendObjectBrowser?id=41" id="navbardrop"> <tho:out value="global.error.log"/> </a>
 				</li>
 			</ul>
-			<div>
-				<form class="example" id="search" method="post" action="search">
-					<input type="text" id="suche" placeholder="Suche..." name="suchen">
-					<button type="submit"><tho:out value="global.search"/></button>
-				</form>
-			</div>
 		</nav>
+	</div>
 </header>

@@ -2,15 +2,11 @@
  	border-bottom:1px solid #eee; 
  	background-color: #8dcbbb; 
  	color:#701718;  
- 	height:147px;
+ 	height:130px;
 }
 
-.headerImage{
-	width:500px;
-}
-
-.headerImageSticky{
-	width:400px;
+.pageHeader.sticky{
+	height:130px;
 }
 
 .headerHashTag{
@@ -20,63 +16,9 @@
 	margin-top: auto;
 }
 
-.linkButton{
-	color:#ffffff; 
-	border: 1px solid;
-	text-transform: uppercase;
-	border-color: #a00403 #870403 #6e0302;
-	border-radius: 15px;
-	font-size: 18px;
-	padding: 0.64286em 1.42857em;
-	background: linear-gradient(rgb(202, 0, 0), #721403);
-}
-
-.linkButton:hover{
-	color:#ffffff; 
-	background: linear-gradient( #6e0302, #aa0504);
-}
-
 #inhalt{
 	margin-bottom: 35px;
 	margin-top: 35px;
-}
-
-@media (max-width: 1950px) {
-  #clock {
-     left: 85%;
-  }
-}
-
-@media (max-width: 1775px) {
-  #clock {
-     left: 80%;
-  }
-}
-
-@media (max-width: 1400px) {
-  #clock {
-     left: 75%;
-  }
-}
-
-@media (max-width: 1200px) {
-  #clock {
-     left: 70%;
-  }
-}
-
-@media (max-width: 1050px) {
-  #clock {
-        display:none;
-  }
-}
-
-#clock {
-	position: absolute;
-    top: -10%;
-    font-size: 3em;
-    color: #8dcbbb;
-    letter-spacing: 7px;
 }
 
 .contact {
@@ -96,42 +38,6 @@
 	color: white;
 }
 
-.example{
-	margin-top: -8px; 
-	margin-left: 30px
-}
-
-/* Style the submit button */
-form.example button {
-	position:absolute;
-	width: 8%;
-	padding: 7px;
-	background: linear-gradient(#00adee,#0078a5);
-	color: #fff;
-	font-family:arial;
-	font-size: 14px;
-	border: 1px solid #0076a3;
-	border-left: none; /* Prevent double borders */
-	cursor: pointer;
-	text-align:center;
-	border-radius: 0 15px 15px 0;
-}
-
-form.example button:hover {
-  background: linear-gradient(#0095cc,#00678e);
-}
-
-input[type=text]:focus, form.example button:focus{
-	outline:none;
-}
-
-/* Clear floats */
-form.example::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
 .datenschutz{
 	margin: 0 14px 0 12px;
 }
@@ -146,8 +52,11 @@ form.example::after {
 }
 
 .news-image-teaser {
+	border-radius: 30px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
     margin: 2.25em 0;
-    padding-left: 12.5%;
+    padding: 30px;
+    width:1000px;
 }
 
 .news-image-teaser-meta {
@@ -157,7 +66,6 @@ form.example::after {
     margin-bottom: -6.25em;
     line-height: 1;
     text-align: center;
-    border-right: 2px solid #701718;
     font-size:1.5em;
     white-space: nowrap;
 }
