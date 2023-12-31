@@ -1,7 +1,5 @@
 package com.thorben.backend.wizard;
 
-import java.io.IOException;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +13,6 @@ import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.ThorbenDierkesLogger;
 import com.thorben.service.TypeConverter;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,25 +26,26 @@ public class NewsWizardController extends HttpServlet {
 	
 	private static final String VIEW = "backend/newswizard";
 	private static final String SUBMIT_VIEW = "backend/submitWizard";
-	private static String language;
 	
 	@GetMapping(value = "/backend/newswizard")
-	public ModelAndView createNews(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView createOrEditNews(HttpServletRequest request, HttpServletResponse response) {
 		LOOGER.infoLog("NewsWizardController: start create News");
 		String newsId = request.getParameter("id");
 		
-		if(request.getSession().getAttribute("user") != null && newsId != null) {
-			News message = MySql.getInstance().getNewsQueries().loadNews(TypeConverter.string2int(newsId, 0));
-			request.getSession().setAttribute("message", message);
-		} else {
+		if(request.getSession().getAttribute("user") == null) {
 			return new ModelAndView(BackendService.errorUserLogin(request));
 		} 
+		
+		if(newsId != null) {
+			News message = MySql.getInstance().getNewsQueries().loadNews(TypeConverter.string2int(newsId, 0));
+			request.getSession().setAttribute("message", message);
+		}
 		
 		return new ModelAndView(VIEW);
 	}
 	
 	@PostMapping(value = "/backend/newswizard/submit")
-	public ModelAndView saveNews(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+	public ModelAndView saveNews(final HttpServletRequest request, final HttpServletResponse response) {
 		LOOGER.infoLog("NewsWizardController:start save News");
 		
 		String title = request.getParameter("titleWizard");

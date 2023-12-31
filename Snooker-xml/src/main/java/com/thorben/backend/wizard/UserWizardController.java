@@ -1,7 +1,5 @@
 package com.thorben.backend.wizard;
 
-import java.io.IOException;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +12,6 @@ import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.ThorbenDierkesLogger;
 import com.thorben.service.TypeConverter;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,22 +29,24 @@ public class UserWizardController extends HttpServlet {
 	
 	
 	@GetMapping(value = "/backend/userwizard")
-	public ModelAndView createUser(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+	public ModelAndView createUser(final HttpServletRequest request, final HttpServletResponse response) {
 		LOOGER.infoLog("UserWizardController: start create User");
 		String userId = request.getParameter("id");
 		
-		if(request.getSession().getAttribute("user") != null && userId != null) {
-			User user = MySql.getInstance().getUserQueries().loadUser(TypeConverter.string2int(userId, 0));
-			request.getSession().setAttribute("user", user);
-		} else {
+		if(request.getSession().getAttribute("user") == null) {
 			return new ModelAndView(BackendService.errorUserLogin(request));
 		} 
+		
+		if(userId != null) {
+			User user = MySql.getInstance().getUserQueries().loadUser(TypeConverter.string2int(userId, 0));
+			request.getSession().setAttribute("user", user);
+		}
 		
 		return new ModelAndView(VIEW);
 	}
 	
 	@PostMapping(value = "/backend/userwizard/submit")
-	public ModelAndView saveUser(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+	public ModelAndView saveUser(final HttpServletRequest request, final HttpServletResponse response) {
 		LOOGER.infoLog("UserWizardController: start save User");
 		
 		String firstName = request.getParameter("firstNameWizard");

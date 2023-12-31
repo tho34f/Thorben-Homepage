@@ -20,5 +20,14 @@ public enum Ob3FilterDefinitions {
 	private String title;
 	private String description;
 	private String sqlFunction;
+	
+	public static Ob3FilterDefinitions getById(int id) {
+        for (Ob3FilterDefinitions es : Ob3FilterDefinitions.values()) {
+            if (es.id == id) {
+                return es;
+            }
+        }
+        throw new IllegalArgumentException();
+	}
 
 }

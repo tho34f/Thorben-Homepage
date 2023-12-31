@@ -1,7 +1,5 @@
 package com.thorben.backend.wizard;
 
-import java.io.IOException;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +13,6 @@ import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.ThorbenDierkesLogger;
 import com.thorben.service.TypeConverter;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,28 +22,30 @@ import jakarta.servlet.http.HttpServletResponse;
 public class TerminWizardController extends HttpServlet {
 
 	private static final long serialVersionUID = -3295292219817459332L;
-	private static final ThorbenDierkesLogger LOOGER = new ThorbenDierkesLogger();;
+	private static final ThorbenDierkesLogger LOOGER = new ThorbenDierkesLogger();
 	
 	private static final String VIEW = "backend/terminewizard";
 	private static final String SUBMIT_VIEW = "backend/submitWizard";
 	private static String language;
 	
 	@GetMapping(value = "/backend/terminewizard")
-	public ModelAndView createEvent(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+	public ModelAndView createEvent(final HttpServletRequest request, final HttpServletResponse response) {
 		String terminId = request.getParameter("id");
 		
-		if(request.getSession().getAttribute("user") != null && terminId != null) {
-			Termin tm = MySql.getInstance().getCalendarQueries().loadCalendar(TypeConverter.string2int(terminId, 0));
-			request.getSession().setAttribute("termin", tm);
-		} else {
+		if(request.getSession().getAttribute("user") == null ) {
 			return new ModelAndView(BackendService.errorUserLogin(request));
 		} 
+		
+		if(terminId != null) {
+			Termin tm = MySql.getInstance().getCalendarQueries().loadCalendar(TypeConverter.string2int(terminId, 0));
+			request.getSession().setAttribute("termin", tm);
+		}
 		
 		return new ModelAndView(VIEW);
 	}
 	
 	@PostMapping(value = "/backend/terminewizard/submit")
-	public ModelAndView saveEvent(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+	public ModelAndView saveEvent(final HttpServletRequest request, final HttpServletResponse response) {
 		LOOGER.infoLog("TerminWizardController: start save Event");
 		
 		String title = request.getParameter("titleWizard");

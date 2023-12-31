@@ -19,6 +19,7 @@ public class Startup {
 		MySql.getInstance().getOb3Updates().writeOb3Title();
 		MySql.getInstance().getOb3Updates().writeOb3TitleDefinition();
 		MySql.getInstance().getOb3Updates().writeOb3Filter();
+		MySql.getInstance().getOb3Updates().writeOb3FilterDefinition();
 		logger.infoLog("End Startup after " + (System.currentTimeMillis() - now) + "ms");
 	}
 

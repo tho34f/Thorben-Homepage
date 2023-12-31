@@ -98,4 +98,6 @@ Create Table `ob3_filter_definition`(
 
 INSERT INTO ob3_title (`id`, `title`, `description`) VALUES(1, "title", "Title") ON DUPLICATE KEY UPDATE `title` = "title", `description` = "Title";
 SELECT * FROM ob3_title;
+SELECT * FROM ob3_filter;
+SELECT * FROM ob3_title_definition;
 ##insert into user values (2, 'Thorben', 'Dierkes', SHA2('MaraTeske30031994!',224), 'tdierkes');

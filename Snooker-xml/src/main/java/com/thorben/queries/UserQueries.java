@@ -50,27 +50,21 @@ public class UserQueries extends AbstractQuerries {
 		return isCreate;
 	}
 	
-	public Boolean checkLogin(User loginUser) {
+	public Boolean checkLogin(String username, String password) {
 		
 		Boolean isLoginOk = false;
 		
 		try(Connection con = getSql().getDs().getConnection()){
 			con.setAutoCommit(false);
 		
-			String queryUser = "SELECT * FROM user where user_login = '" + loginUser.getUserLogin() + "' and user_password = SHA2('" + loginUser.getPassword() + "',224)";
-		
+			String queryUser = "SELECT * FROM user where user_login = '" + username + "' and user_password = SHA2('" + password + "',224)";
 			try(Statement stmt = con.createStatement()){
 		        try(ResultSet rs = stmt.executeQuery(queryUser)){
-			        while(rs.next()) {
+			        if(rs.next()) {
 			        	isLoginOk = true;
-			        	loginUser.setId(rs.getInt("user_id"));
-			        	loginUser.setFirstName(rs.getString(FIRST_NAME));
-			        	loginUser.setLastName(rs.getString(LAST_NAME));
 			        } 
 		        }
-		        
 			}
-		
 		} catch (SQLException e) {
 			handleSqlException(e);
 		}  

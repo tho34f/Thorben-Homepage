@@ -54,15 +54,15 @@ public class Ob3Updates extends AbstractQuerries{
 			con.setAutoCommit(false);
 			try(PreparedStatement pstmt = con.prepareStatement(deleteSql)){
 				success = pstmt.execute();
+				con.commit();
 			}
-			con.commit();
 		} catch (SQLException e) {
 			handleSqlException(e);
 		} 
 		
-		String insertSql = "INSERT INTO ob3_title_definition (`ob3_number`, `title_id`) VALUES (?,?), " + 
-						" (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), " + 
-						" (?,?), (?,?), (?,?);";
+		String insertSql = "INSERT INTO ob3_title_definition (`ob3_number`, `title_id`) " +
+						" VALUES (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), " + 
+						" (?,?), (?,?), (?,?), (?,?), (?,?);";
 		try(Connection con = getSql().getDs().getConnection()){
 			con.setAutoCommit(false);
 			try(PreparedStatement pstmt = con.prepareStatement(insertSql)){
@@ -137,6 +137,60 @@ public class Ob3Updates extends AbstractQuerries{
 				con.commit();
 				success = true;
 			}
+		}catch (SQLException e) {
+			handleSqlException(e);
+		} 
+		return success;
+	}
+	
+	public boolean writeOb3FilterDefinition() {
+		logger.infoLog("Ob3Updates: writeOb3FilterDefinition()");
+		boolean success = false;
+		
+		String deleteSql = "DELETE FROM ob3_filter_definition;";
+		try(Connection con = getSql().getDs().getConnection()){
+			con.setAutoCommit(false);
+			try(PreparedStatement pstmt = con.prepareStatement(deleteSql)){
+				success = pstmt.execute();
+				con.commit();
+			}
+		} catch (SQLException e) {
+			handleSqlException(e);
+		} 
+		
+		String insertSql = "INSERT INTO ob3_filter_definition (`ob3_number`, `filter_id`) "
+							+ " VALUES (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?), (?,?);";
+		try(Connection con = getSql().getDs().getConnection()){
+			con.setAutoCommit(false);
+			try(PreparedStatement pstmt = con.prepareStatement(insertSql)){
+				int counter = 1;
+				//User-OB3
+				pstmt.setInt(counter++, ThorbenDierkes.USER);
+				pstmt.setInt(counter++, Ob3FilterDefinitions.LOGIN.getId());
+				pstmt.setInt(counter++, ThorbenDierkes.USER);
+				pstmt.setInt(counter++, Ob3FilterDefinitions.FIRSTNAME.getId());
+				pstmt.setInt(counter++, ThorbenDierkes.USER);
+				pstmt.setInt(counter++, Ob3FilterDefinitions.LASTNAME.getId());
+				//News-Ob3
+				pstmt.setInt(counter++, ThorbenDierkes.NEWS);
+				pstmt.setInt(counter++, Ob3FilterDefinitions.TITLE.getId());
+				pstmt.setInt(counter++, ThorbenDierkes.NEWS);
+				pstmt.setInt(counter++, Ob3FilterDefinitions.TEASER.getId());
+				//Termine-OB3
+				pstmt.setInt(counter++, ThorbenDierkes.CALENDAR);
+				pstmt.setInt(counter++, Ob3FilterDefinitions.TITLE.getId());
+				pstmt.setInt(counter++, ThorbenDierkes.CALENDAR);
+				pstmt.setInt(counter++, Ob3FilterDefinitions.DESCRIPTION.getId());
+				pstmt.setInt(counter++, ThorbenDierkes.CALENDAR);
+				pstmt.setInt(counter++, Ob3FilterDefinitions.TEASER.getId());
+				//ERROR-Log-Ob3
+				pstmt.setInt(counter++, ThorbenDierkes.ERROR_LOG_MASSAGE);
+				pstmt.setInt(counter++, Ob3FilterDefinitions.TITLE.getId());
+				pstmt.setInt(counter++, ThorbenDierkes.ERROR_LOG_MASSAGE);
+				pstmt.setInt(counter++, Ob3FilterDefinitions.DESCRIPTION.getId());
+				success &= pstmt.execute();
+				con.commit();
+			}	
 		}catch (SQLException e) {
 			handleSqlException(e);
 		} 

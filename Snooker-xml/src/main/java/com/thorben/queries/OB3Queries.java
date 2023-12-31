@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.thorben.objectbrowser.title.filter.Ob3ColumDefinitions;
+import com.thorben.objectbrowser.title.filter.Ob3FilterDefinitions;
 import com.thorben.objectbrowser.title.filter.ObjectBrowserFilter;
 import com.thorben.objectbrowser.title.filter.ObjectBrowserTitle;
 
@@ -55,8 +56,14 @@ public class OB3Queries extends AbstractQuerries{
 			try(PreparedStatement stmt = con.prepareStatement(sql)){
 				stmt.setInt(1, ob3Id);
 				try(ResultSet rs = stmt.executeQuery()){
+					int filterId = 0;
+					ObjectBrowserFilter filter = null;
+					Ob3FilterDefinitions filterDefinition = null;
 					while(rs.next()) {
-						
+						filterId = rs.getInt("filter_id");
+						filterDefinition = Ob3FilterDefinitions.getById(filterId);
+						filter = new ObjectBrowserFilter(filterDefinition.getId(), filterDefinition.getTitle(), filterDefinition.getDescription(),"",filterDefinition.getSqlFunction());
+						filterList.add(filter);
 					}
 				}
 			}
