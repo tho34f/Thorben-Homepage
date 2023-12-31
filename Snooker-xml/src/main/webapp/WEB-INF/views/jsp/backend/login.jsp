@@ -30,8 +30,12 @@
 	 			<input class="tl_text" type="password" name="password" id="password" value="" placeholder="Password" required autocomplete="off">
 	 		</div>
 	 		<div class="submit_container">
-	 			<button class="tl_submit" type="submit" name="login" id="login"><tho:out value="global.login"/></button>
-	 			<a class="footer_preview">Zum Frontend</a>
+	 			<div class="tl_submit_div">
+	 				<button class="tl_submit" type="submit" name="login" id="login"><tho:out value="global.login"/></button>
+	 			</div>
+	 			<div class="tl_submit_div">
+	 				<button class="tl_submit" type="submit" name="footer_preview" id="footer_preview"><tho:out value="global.go.to.frontend"/></button>
+	 			</div>
 	 		</div>
 	 		<div class="errormassage"  <c:if test="${isLoginOk eq true}">style="display:none;" </c:if>>
 					<p class="errorlogin"> ${errormasage} </p>

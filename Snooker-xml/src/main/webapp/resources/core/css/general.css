@@ -10,7 +10,6 @@
 }
 
 .linkButton:hover{
-	color:#ffffff; 
 	background: linear-gradient( #6e0302, #aa0504);
 }
 
@@ -39,7 +38,6 @@
 	display: flex;
     margin-right: auto;
     margin-left: auto;
-    position: relative;
 }
 
 .content-widget-wrapper{

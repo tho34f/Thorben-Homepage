@@ -45,7 +45,7 @@
 			<div class="wizardRowInner">
 				<div class="span3"><tho:out value="backend.wizard.title.desc.events"/></div>
 				<div class="span9">
-					<input type="text" id="title" name="title" min="1" max="255" maxlength="255" placeholder="Title" value="">
+					<input class="textInput" type="text" id="title" name="title" min="1" max="255" maxlength="255" placeholder="Title" value="">
 				</div>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 			<div class="wizardRowInner">
 				<div class="span3"><tho:out value="backend.wizard.teaser.desc.events"/></div>
 				<div class="span9">
-					<textarea id="teaser" name="teaser" maxlength="65535" placeholder="Teaser" cols="100" rows="2"></textarea>
+					<textarea class="textInput" id="teaser" name="teaser" maxlength="65535" placeholder="Teaser" cols="100" rows="2"></textarea>
 				</div>
 			</div>
 		</div>
@@ -65,7 +65,7 @@
 			<div class="wizardRowInner">
 				<div class="span3"><tho:out value="backend.wizard.text.desc.events"/></div>
 				<div class="span9">
-					<textarea id="beschreibung" name="beschreibung" maxlength="16777215" placeholder="Text" cols="100" rows="5"></textarea>
+					<textarea class="textInput" id="beschreibung" name="beschreibung" maxlength="16777215" placeholder="Text" cols="100" rows="5"></textarea>
 				</div>
 			</div>
 		</div>

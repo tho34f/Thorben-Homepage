@@ -2,27 +2,29 @@
 <%@ taglib prefix="tho" uri="/thorben"%>
 
 <header>
-	<div id="mainLogo">
-		<img src="../resources/core/images/logo_large.png" alt="Bild Thorben" style="width:500px;margin-top:4px;" />
+	<div class="backendHeader">
+		<div id="mainLogo">
+			<img src="../resources/core/images/logo_large.png" alt="Bild Thorben" style="width:500px;margin-top:4px;" />
+		</div>
+		<ul id="serviceBox">
+			<li>
+				<strong>
+					${user.firstName} ${user.lastName }
+				</strong>
+			</li>
+			<li>
+				<button type="button" title="Informationen" class="dooBtn" id="informationButton">
+					<em class="fa fa-info" style="font-size:24px" id="dooIcon"></em>
+				</button>
+				<button type="button" title="Zum Frontend" class="dooBtn" id="wechselButton">
+					<em class="fa fa-retweet" style="font-size:24px" id="dooIcon"></em>
+				</button>
+				<button type="button" title="Abmelden" class="dooBtn" id="abmeldeButton">
+					<em class="fa fa-sign-out" style="font-size:24px" id="dooIcon"></em>
+				</button>
+			</li>
+		</ul>
 	</div>
-	<ul id="serviceBox">
-		<li>
-			<strong>
-				${user.firstName} ${user.lastName }
-			</strong>
-		</li>
-		<li>
-			<button type="button" title="Informationen" class="dooBtn" id="informationButton">
-				<em class="fa fa-info" style="font-size:24px" id="dooIcon"></em>
-			</button>
-			<button type="button" title="Zum Frontend" class="dooBtn" id="wechselButton">
-				<em class="fa fa-retweet" style="font-size:24px" id="dooIcon"></em>
-			</button>
-			<button type="button" title="Abmelden" class="dooBtn" id="abmeldeButton">
-				<em class="fa fa-sign-out" style="font-size:24px" id="dooIcon"></em>
-			</button>
-		</li>
-	</ul>
 	<div class="headerContent">
 		<nav class="navbar navbar-inverse navbar-expand-sm">
 			<ul class="navbar-nav">

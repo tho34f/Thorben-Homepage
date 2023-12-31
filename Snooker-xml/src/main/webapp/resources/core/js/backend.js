@@ -1,5 +1,5 @@
-$(".footer_preview").click(function(){
-	$(".footer_preview").attr('href', "../");
+$("#footer_preview").click(function(){
+	window.location.href = '/thorben-dierkes/';
 });
 
 $("#abmeldeButton").click(function(){

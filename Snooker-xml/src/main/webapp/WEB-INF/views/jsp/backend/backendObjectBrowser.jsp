@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -17,7 +18,20 @@
 
 
 <div id="content" class="jumbotron">
-	<div class="container">
+	<div class="container containerOB3">
+		<div id="objectBrowserDataFilterDiv">
+			<c:forEach items="${Objectbrowser.ob3Data.filter}" var="filter">
+				<input class="textInput" type="text" id="${Objectbrowser.objectType}_${filter.name}" name="${Objectbrowser.objectType}_${filter.name}" min="1" max="255" maxlength="255" placeholder="${filter.name}" value="">
+			</c:forEach>
+			<div class="submit_container">
+	 			<div class="tl_submit_div">
+	 				<button class="tl_submit" type="submit" name="reset" id="reset"><tho:out value="global.reset"/></button>
+	 			</div>
+	 			<div class="tl_submit_div">
+	 				<button class="tl_submit" type="submit" name="apply" id="apply"><tho:out value="global.apply"/></button>
+	 			</div>
+	 		</div>
+		</div>
 		<div id="objectBrowserDataTableDiv">
 			<table class="objectBrowserDataTable">
 				<caption style="display:none">OB3 second table</caption>
@@ -72,7 +86,6 @@
 				</tbody>
 			</table>
 		</div>
-		
 	</div>
 </div>
 

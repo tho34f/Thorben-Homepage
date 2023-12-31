@@ -9,101 +9,67 @@
 #container-login h1{
 	color: #990100;
 	margin-bottom: 0.5em;
-	font-size: 30px;
-	text-align:left;
 }
 
 .formbody-login{
 	padding: 45px;
+	display:flex;
+    flex-direction: column;
 }
 
 #main {
     max-width: 350px;
     margin: 0 auto;
-    border-radius: 2px;
 }
 
-.widget {
-    margin: 0;
+label[for=password], label[for=confirm], label[for=username]{
+	position: absolute;
+	right: 475px;
+	height: 20px;
+    text-indent: -999em;
 }
 
 label[for=username] {
-    position: absolute;
     top: 400px;
-    right: 475px;
     background-size: 16px;
     width: 16px;
-    height: 20px;
-    text-indent: -999em;
 }
 
 label[for=password], label[for=confirm] {
-    position: absolute;
     top: 10px;
-    right: 475px;
     background-size: 15px;
     width: 14px;
-    height: 20px;
-    text-indent: -999em;
-}
-
-input[type="password"]{
-	border-radius: 15px;
-    font-style: italic;
-    border: 1px solid #0076a3;
-    padding: 8px;
-    font-size: 12px;
 }
 
 #username {
-    border-radius: 15px;
-}
-
-.tl_text{
-	width: 100%;
-	margin: 3px 0;
-	box-sizing: border-box;
-	padding: 5px 6px 6px;
-	border: 1px solid #aaa;
 	border-radius: 15px;
 }
 
-.tl_submit{
-	padding: 7px 12px;
-    border: 1px solid #aaa;
-    border-radius: 15px;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background .2s ease;
-    width: 5%;
+.container {
+	display:flex;
+    flex-direction: column;
 }
 
+.backendHeader, .container.containerOB3, .submit_container, #serviceBox{
+	display:flex;
+    flex-direction: row;
+}
+
+.backendHeader{
+	justify-content: space-between;
+}
+
+.container.containerOB3{
+    margin:30px;
+}
+    
 .submit_container{
 	margin-top: 12px;
 }
 
-.submit_container a{
-	float: right;
-    cursor: pointer;
-    background: linear-gradient(#00adee,#0078a5);
-    padding: 7px 12px;
-    border: 1px solid #aaa;
-    border-radius: 15px;
-    box-sizing: border-box;
-    font-size:12px;
-    color: #fff;
-}
-
-.submit_container a:hover{
-	color: white;
-	background: #0078a5;
-}
-
 #serviceBox{
-	position: absolute;
-    right: 45px;
-    top: 10px;
-    z-index: 1001;
+	margin-top:20px;
+	margin-right:30px;
 }
 
 #serviceBox li {
@@ -119,14 +85,6 @@ input[type="password"]{
     max-width: 500px;
     min-height: 45px;
     cursor: pointer;
-}
-
-.dooBtn {
-    height: 30px;
-    width: 40px;
-    border-left:1px solid #0076a3;
-    position:relative;
-    border-radius: 15px;
 }
 
 #dooIcon {
@@ -163,24 +121,42 @@ input[type="password"]{
 #newObject{
 	margin-left: 20px; 
 	margin-top: 21px;
-	border-left:1px solid #0076a3;
 	width: 130px;
-	border-radius: 15px;
 	font-size:14px;
 }
 
-#saveObject{
-	margin: 25px; 
+.dooBtn {
+    height: 30px;
+    width: 40px;
+    position:relative;
+}
+
+#newObject, #saveObject, .tl_submit, .dooBtn{
 	border:1px solid;
 	border-radius: 20px;
 	border-color: #a00403 #870403 #6e0302;
 	background: linear-gradient(rgb(202, 0, 0), #721403);
-	width: 110px;
-	padding: 8px 14px 8px 14px ;
 	color: #ffffff;
 }
 
-#saveObject:hover{
+.tl_submit_div{
+	margin:auto;
+}
+
+#saveObject{
+	margin: 25px; 
+	width: 110px;
+	padding: 8px 14px 8px 14px ;
+}
+
+.tl_submit{
+	padding: 7px 12px;
+    cursor: pointer;
+    width: 100%;
+    position:relative;
+}
+
+.dooBtn:hover, #newObject:hover, #saveObject:hover, .tl_submit:hover {
 	background: linear-gradient( #6e0302, #aa0504);
 }
 
@@ -230,9 +206,18 @@ input[type="password"]{
     font-weight: normal;
 }
 
-#objectBrowserDataTableDiv {
-    min-width: 500px;
+
+#objectBrowserDataFilterDiv,#objectBrowserDataTableDiv {
+    min-width: fit-content;
     margin: 15px;
+}
+
+#objectBrowserDataFilterDiv{
+	padding:20px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
+    height: max-content
 }
 
 .objectBrowserDataTable{
@@ -266,14 +251,21 @@ form.example button {
 	border-radius: 0 15px 15px 0;
 }
 
-input[type="text"]#teaser, input[type="text"]#title, input[type="text"]#login,
-input[type="text"]#firstName, input[type="text"]#lastName, input[type="text"]#password,
-textarea#text,textarea#teaser,textarea#beschreibung{
+.widget .tl_text, input[type="text"].textInput, textarea.textInput {
 	border-radius: 30px;
     box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
-	font-style: italic;
     border: 1px solid #a00403;
+    font-style: italic;
     padding: 8px;
+}
+
+.widget .tl_text{
+	width: 100%;
+	margin: 5px 0;
+	font-size: 12px;
+}
+
+input[type="text"].textInput, textarea.textInput {
     margin:0px 10px 15px;
     width:95%
 }
