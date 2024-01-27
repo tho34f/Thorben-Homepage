@@ -10,6 +10,7 @@
 <title>Thorben Dierkes</title>
 
 <header:defaultBackendHeader costumerCSS="backend.css" favicon="thorben.ico"/>
+<script src="../resources/core/js/ob3.js"></script>
 
 </head>
 <body>
@@ -90,8 +91,6 @@
 </div>
 
 <jsp:include page="../layout/backendfooter.jsp"/>
-<script src="../resources/core/js/backend.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 </body>
 </html>

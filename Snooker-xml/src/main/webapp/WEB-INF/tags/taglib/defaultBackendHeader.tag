@@ -15,3 +15,4 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/583e5a7bb8.js"></script>
 <script src="../resources/core/js/main.js"></script>
+<script src="../resources/core/js/backend.js"></script>

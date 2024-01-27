@@ -13,8 +13,6 @@
 
 .formbody-login{
 	padding: 45px;
-	display:flex;
-    flex-direction: column;
 }
 
 #main {
@@ -22,32 +20,21 @@
     margin: 0 auto;
 }
 
-label[for=password], label[for=confirm], label[for=username]{
-	position: absolute;
-	right: 475px;
-	height: 20px;
-    text-indent: -999em;
-}
-
-label[for=username] {
-    top: 400px;
-    background-size: 16px;
-    width: 16px;
-}
-
-label[for=password], label[for=confirm] {
-    top: 10px;
-    background-size: 15px;
-    width: 14px;
-}
-
 #username {
 	border-radius: 15px;
 }
 
-.container {
+.container, .widget_login, .widget_login_wrapper, .formbody-login{
 	display:flex;
     flex-direction: column;
+}
+
+.widget_login{
+	margin:10px 5px;
+}
+
+.widget_login_wrapper{
+	padding:10px;
 }
 
 .backendHeader, .container.containerOB3, .submit_container, #serviceBox{
@@ -178,12 +165,24 @@ label[for=password], label[for=confirm] {
     margin-bottom: 5px;
 }
 
-.wizardRowInner {
+.wizardRowInner, #objectBrowserDataFilterDiv, .objectBrowserDataTable, .widget_login_wrapper{
+	box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.16);
+	border-radius: 30px;
 	border: 1px solid #ddd;
+}
+
+#objectBrowserDataFilterDiv{
+	padding:20px;
+    height: max-content
+}
+
+.objectBrowserDataTable{
+    overflow:hidden;
+}
+
+.wizardRowInner {
     padding: 15px;
     font-size: 14px;
-    border-radius: 30px;
-    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
 }
 
 .redThorben{
@@ -212,21 +211,6 @@ label[for=password], label[for=confirm] {
     margin: 15px;
 }
 
-#objectBrowserDataFilterDiv{
-	padding:20px;
-    border: 1px solid #ddd;
-    border-radius: 30px;
-    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
-    height: max-content
-}
-
-.objectBrowserDataTable{
-	border: 1px solid black;
-	border-radius: 20px;
-    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
-    overflow:hidden;
-}
-
 .ob_row{
 	text-align:center;
 	font-size: 16px;
@@ -251,9 +235,9 @@ form.example button {
 	border-radius: 0 15px 15px 0;
 }
 
-.widget .tl_text, input[type="text"].textInput, textarea.textInput {
+.widget_login .tl_text,.widget_login .tl_text:hover, input[type="text"].textInput, textarea.textInput {
 	border-radius: 30px;
-    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.16);
     border: 1px solid #a00403;
     font-style: italic;
     padding: 8px;

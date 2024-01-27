@@ -26,16 +26,16 @@ dependencies {
 	implementation 'ch.qos.logback:logback-classic:1.4.14'
 	implementation 'ch.qos.logback:logback-core:1.4.14'
 	//Spring
-	implementation 'org.springframework:spring-aop:6.1.2'
-	implementation 'org.springframework:spring-beans:6.1.2'
-	implementation 'org.springframework:spring-context:6.1.2'
-	implementation 'org.springframework:spring-core:6.1.2'
-	implementation 'org.springframework:spring-expression:6.1.2'
-	implementation 'org.springframework:spring-webmvc:6.1.2'
-	implementation 'org.springframework:spring-web:6.1.2'
-	implementation 'org.springframework.security:spring-security-core:6.2.1'
-	implementation 'org.springframework.security:spring-security-web:6.2.1'
-	implementation 'org.springframework.security:spring-security-config:6.2.1'
+	implementation 'org.springframework:spring-aop:6.1.+'
+	implementation 'org.springframework:spring-beans:6.1.+'
+	implementation 'org.springframework:spring-context:6.1.+'
+	implementation 'org.springframework:spring-core:6.1.+'
+	implementation 'org.springframework:spring-expression:6.1.+'
+	implementation 'org.springframework:spring-webmvc:6.1.+'
+	implementation 'org.springframework:spring-web:6.1.3'
+	implementation 'org.springframework.security:spring-security-core:6.2.+'
+	implementation 'org.springframework.security:spring-security-web:6.2.+'
+	implementation 'org.springframework.security:spring-security-config:6.2.+'
 	implementation 'org.springframework.data:spring-data-jpa:3.2.1'
 	//Jakarta
 	implementation 'jakarta.el:jakarta.el-api:5.0.1'
@@ -69,25 +69,20 @@ dependencies {
 }
 
 task serverDev(type: JavaExec) {
-	//dependsOn 'frontendBuild'
 
-	def staticFolder = new File('src/main/webapp/resources/core/static')
+	group = "server"
+	description = "Build the frontend"
+
 	def templatesFolder = new File('src/main/webapp/resources/core/individualArea')
 
 	if (!staticFolder.exists()) {
-		println 'Creating static folder...'
-		staticFolder.mkdirs()
+		println 'Creating individualArea...'
+		project.mkdir 'src/main/webapp/resources/core/individualArea'
 	}
+	
+	workingDir 'src\\frontend'
+	commandLine 'npm.cmd', 'run', 'build'
 
-	if (!templatesFolder.exists()) {
-		println 'Creating templates folder...'
-		templatesFolder.mkdirs()
-	}
-
-	group = "server"
-	description = "Run the server with built frontend"
-	classpath = sourceSets.main.runtimeClasspath
-	setMainClass('com.gitlab.croclabs.react_server.ReactServerApplication')
 }
 
 //For Eclipse IDE only
