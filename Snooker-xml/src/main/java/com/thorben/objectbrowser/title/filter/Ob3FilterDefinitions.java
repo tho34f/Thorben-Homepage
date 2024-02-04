@@ -9,12 +9,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Ob3FilterDefinitions {
 	
-	TITLE(1, ThorbenDierkes.TITLE_TITLE, ThorbenDierkes.TITLE, ThorbenDierkes.LIKE),
-	TEASER(2,ThorbenDierkes.TEASER, ThorbenDierkes.TEASER_TITLE, ThorbenDierkes.LIKE),
-	DESCRIPTION(3, ThorbenDierkes.DESCRIPTION, ThorbenDierkes.DESCRIPTION_TITLE, ThorbenDierkes.LIKE),
-	LOGIN(4, ThorbenDierkes.LOGIN_OB3,ThorbenDierkes.LOGIN_OB3_TITLE, ThorbenDierkes.LIKE),
-	FIRSTNAME(5, ThorbenDierkes.FIRSTNAME,ThorbenDierkes.FIRSTNAME_TITLE, ThorbenDierkes.LIKE),
-	LASTNAME(6, ThorbenDierkes.LASTNAME,ThorbenDierkes.LASTNAME_TITLE, ThorbenDierkes.LIKE);
+	TITLE(1, ThorbenDierkes.TITLE_TITLE, "backend.wizard.title", ThorbenDierkes.LIKE),
+	TEASER(2,ThorbenDierkes.TEASER, "backend.wizard.teaser", ThorbenDierkes.LIKE),
+	DESCRIPTION(3, ThorbenDierkes.DESCRIPTION, "backend.wizard.text", ThorbenDierkes.LIKE),
+	LOGIN(4, ThorbenDierkes.LOGIN_OB3,"global.username", ThorbenDierkes.LIKE),
+	FIRSTNAME(5, ThorbenDierkes.FIRSTNAME,"global.firstname", ThorbenDierkes.LIKE),
+	LASTNAME(6, ThorbenDierkes.LASTNAME,"global.surname", ThorbenDierkes.LIKE);
 	
 	private int id;
 	private String title;

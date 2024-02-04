@@ -22,7 +22,7 @@ class ObjectBrowserControllerTest {
 		when(request.getSession()).thenReturn(session);
 		
 		ObjectBrowser ob = null;
-		ob = ObjectBrowserService.setHeaderInformation(request, 38);
+		ob = ObjectBrowserService.setHeaderInformation(38);
 		assertEquals("Benutzer", ob.getObjectTitle());
 		
 		List<ObjectBrowserTitle> allTitle = ob.getOb3Data().getTitle();
@@ -30,13 +30,13 @@ class ObjectBrowserControllerTest {
 		assertEquals("userLogin", title.getName());
 		assertEquals("User-Login", title.getDescription());
 		
-		ob = ObjectBrowserService.setHeaderInformation(request, 39);
+		ob = ObjectBrowserService.setHeaderInformation(39);
 		assertEquals("Neue Nachricht", ob.getButtonTitle());
 		
-		ob = ObjectBrowserService.setHeaderInformation(request, 40);
+		ob = ObjectBrowserService.setHeaderInformation(40);
 		assertEquals("far fa-calendar-alt", ob.getObjectIcon());
 		
-		ob = ObjectBrowserService.setHeaderInformation(request, 41);
+		ob = ObjectBrowserService.setHeaderInformation(41);
 		assertEquals(41, ob.getObjectType());
 		
 		boolean isOk = ObjectBrowserService.clearInformationAndSetError(request);

@@ -71,7 +71,7 @@ public class ObjectBrowserService {
 		
 	}
 	
-	public static ObjectBrowser setHeaderInformation(final HttpServletRequest request, int id) {
+	public static ObjectBrowser setHeaderInformation(int id) {
 		ObjectBrowser ob = null;
 		List<ObjectBrowserTitle> titleList = MySql.getInstance().getOb3Queries().getColumTitleForOb3(id);
 		List<ObjectBrowserFilter> filterList = MySql.getInstance().getOb3Queries().getFilterForOb3(id);
