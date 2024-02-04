@@ -2,7 +2,7 @@ package com.thorben.tags;
 
 import java.util.Locale;
 
-import com.thorben.service.BundleTranslator;
+import com.thorben.tags.service.BundleTranslator;
 
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.JspWriter;

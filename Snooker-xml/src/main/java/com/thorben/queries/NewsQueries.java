@@ -11,7 +11,7 @@ import java.util.Set;
 
 import com.thorben.objects.News;
 import com.thorben.service.DateConverter;
-import com.thorben.service.ThorbenDierkesService;
+import com.thorben.service.BackendService;
 
 public class NewsQueries extends AbstractQuerries {
 	
@@ -34,30 +34,28 @@ public class NewsQueries extends AbstractQuerries {
 					+ " FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id ORDER BY nw.creation_date DESC";
 		
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
-		        ResultSet rs = stmt.executeQuery();
+		        try(ResultSet rs = stmt.executeQuery()){
+			        while(rs.next()) {
+						News massage = new News();
+			        	massage.setId(rs.getInt("nw.news_id"));
+			        	massage.setTeaser(rs.getString("nw.news_teaser"));
+			        	massage.setText(rs.getString("nwt.news_text"));
+			        	massage.setTitle(rs.getString("nw.news_title"));
+			        	massage.setChangeDate(rs.getLong("nw.change_date"));
+			        	massage.setCreationDate(rs.getLong("nw.creation_date"));
+			        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
+			        	massage.setCreationDateForSlider(DateConverter.long2Date(massage.getCreationDate(),3));
+			        	if(massage.getChangeDate() != 0) {
+			        		massage.setChangeDateAsString(DateConverter.long2Date(massage.getChangeDate(),1));
+			        	} else {
+			        		massage.setChangeDateAsString("-");
+			        	}
+			        	massage.setImg(null);
+			        	massage.setAuthor(rs.getInt("nw.author_id"));
+			        	newsList.add(massage);
+			        } 
 		        
-		        while(rs.next()) {
-					News massage = new News();
-		        	massage.setId(rs.getInt("nw.news_id"));
-		        	massage.setTeaser(rs.getString("nw.news_teaser"));
-		        	massage.setText(rs.getString("nwt.news_text"));
-		        	massage.setTitle(rs.getString("nw.news_title"));
-		        	massage.setChangeDate(rs.getLong("nw.change_date"));
-		        	massage.setCreationDate(rs.getLong("nw.creation_date"));
-		        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
-		        	massage.setCreationDateForSlider(DateConverter.long2Date(massage.getCreationDate(),3));
-		        	if(massage.getChangeDate() != 0) {
-		        		massage.setChangeDateAsString(DateConverter.long2Date(massage.getChangeDate(),1));
-		        	} else {
-		        		massage.setChangeDateAsString("-");
-		        	}
-		        	massage.setImg(null);
-		        	massage.setAuthor(rs.getInt("nw.author_id"));
-		        	newsList.add(massage);
-		        	
-		        } 
-		        
-		        rs.close();
+		        }
 		        
 			}
 		
@@ -83,23 +81,20 @@ public class NewsQueries extends AbstractQuerries {
 		
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				stmt.setInt(1, newsId);
-		        ResultSet rs = stmt.executeQuery();
-		        
-		        if(rs.next()) {
-		        	massage.setId(rs.getInt("nw.news_id"));
-		        	massage.setTeaser(rs.getString("nw.news_teaser"));
-		        	massage.setText(rs.getString("nwt.news_text"));
-		        	massage.setTitle(rs.getString("nw.news_title"));
-		        	massage.setChangeDate(rs.getLong("nw.change_date"));
-		        	massage.setCreationDate(rs.getLong("nw.creation_date"));
-		        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
-		        	massage.setChangeDateAsString(DateConverter.long2Date(massage.getChangeDate(),1));
-		        	massage.setImg(null);
-		        	massage.setAuthor(rs.getInt("nw.author_id"));
-		        } 
-		        
-		        rs.close();
-		        
+		        try(ResultSet rs = stmt.executeQuery()){
+			        if(rs.next()) {
+			        	massage.setId(rs.getInt("nw.news_id"));
+			        	massage.setTeaser(rs.getString("nw.news_teaser"));
+			        	massage.setText(rs.getString("nwt.news_text"));
+			        	massage.setTitle(rs.getString("nw.news_title"));
+			        	massage.setChangeDate(rs.getLong("nw.change_date"));
+			        	massage.setCreationDate(rs.getLong("nw.creation_date"));
+			        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
+			        	massage.setChangeDateAsString(DateConverter.long2Date(massage.getChangeDate(),1));
+			        	massage.setImg(null);
+			        	massage.setAuthor(rs.getInt("nw.author_id"));
+			        } 
+		        }
 			}
 		
 		} catch (SQLException e) {
@@ -123,9 +118,8 @@ public class NewsQueries extends AbstractQuerries {
 			
 			String queryNewsText = "INSERT INTO news_text (news_id, news_text) VALUES (?, ?)";
 			
-			ThorbenDierkesService tds = new ThorbenDierkesService();
+			BackendService tds = new BackendService();
 			int id = tds.generateId();
-			
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				int counter = 1;
 				stmt.setInt(counter++, id);
@@ -138,9 +132,7 @@ public class NewsQueries extends AbstractQuerries {
 				stmt.setInt(counter++, authorId);
 				
 		        stmt.execute();
-		        
 			}
-			
 			try(PreparedStatement stmt = con.prepareStatement(queryNewsText)){
 				int counter = 1;
 				stmt.setInt(counter++, id);

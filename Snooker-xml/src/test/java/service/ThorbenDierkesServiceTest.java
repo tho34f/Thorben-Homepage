@@ -16,12 +16,12 @@ import jakarta.servlet.http.HttpSession;
 
 import com.thorben.objects.News;
 import com.thorben.objects.Termin;
-import com.thorben.service.ThorbenDierkesService;
+import com.thorben.service.BackendService;
 
-public class ThorbenDierkesServiceTest {
+class ThorbenDierkesServiceTest {
 
 	@Test
-	public void spliListTest() {
+	void spliListTest() {
 		
 		Set<News> newsList = new HashSet<>();
 		Set<Termin> terminList = new HashSet<>();
@@ -38,8 +38,8 @@ public class ThorbenDierkesServiceTest {
 		createEvents(terminList, 2, null, null, 0 , null, 0,0);
 		createEvents(terminList, 3, null, null, 0 , null, 0,0);
 		
-		splitedTerminList = ThorbenDierkesService.splitTerminList(terminList);
-		splitedNewsList = ThorbenDierkesService.splitNewsList(newsList);
+		splitedTerminList = BackendService.splitTerminList(terminList);
+		splitedNewsList = BackendService.splitNewsList(newsList);
 		
 		sliderNews = splitedNewsList.size();
 		sliderEvents = splitedTerminList.size();
@@ -51,7 +51,7 @@ public class ThorbenDierkesServiceTest {
 		createNews(newsList,5, null, null, null, null, 0, 0);
 		createNews(newsList,6, null, null, null, null, 0, 0);
 		
-		splitedNewsList = ThorbenDierkesService.splitNewsList(newsList);
+		splitedNewsList = BackendService.splitNewsList(newsList);
 		sliderNews = splitedNewsList.size();
 		
 		assertEquals(2,sliderNews);
@@ -60,35 +60,35 @@ public class ThorbenDierkesServiceTest {
 	}
 	
 	@Test
-	public void errorTest() {
+	void errorTest() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		HttpSession session = mock(HttpSession.class);
 		when(request.getSession()).thenReturn(session);
-		String loginTrue = ThorbenDierkesService.errorUserLogin(request,true);
-		String loginFalse = ThorbenDierkesService.errorUserLogin(request,false);
+		String loginTrue = BackendService.errorUserLogin(request);
+		String loginFalse = BackendService.errorUserLogin(request);
 		
 		assertEquals("/WEB-INF/views/jsp/backend/login.jsp",loginTrue);
 		assertEquals("backend/login",loginFalse);
 		
-		boolean isOk = ThorbenDierkesService.errorMessage(request);
+		boolean isOk = BackendService.errorMessage(request);
 		assertEquals(true,isOk);
 	}
 	
 	@Test
-	public void idTest() {
-		ThorbenDierkesService tds = new ThorbenDierkesService();
+	void idTest() {
+		BackendService tds = new BackendService();
 		boolean isIdOk = tds.generateId() > 0;
 		assertEquals(true,isIdOk);
 		
 	}
 	
 	@Test
-	public void snookerTest() {
+	void snookerTest() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		HttpSession session = mock(HttpSession.class);
 		when(request.getSession()).thenReturn(session);
 		
-		boolean isIdOk = ThorbenDierkesService.setSeason("2021", request);
+		boolean isIdOk = BackendService.setSeason("2021", request);
 		assertEquals(true,isIdOk);
 		
 	}

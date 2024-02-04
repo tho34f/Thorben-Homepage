@@ -24,6 +24,7 @@ public class DropboxWizard {
 	private static final String PDF = ".pdf";
 	private static final String BACKSLASH = "/";
 	private DbxClientV2 dbxClient;
+	private static final String ACCESS_TOKEN = "kU34bXLSJfMAAAAAAAAAARLRIV8PFo_6IvKhSysNlTXO9mSDln6fUL-4eseEKmML";
 
 	public DropboxWizard() {
 		// Create Dropbox client

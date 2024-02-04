@@ -5,36 +5,38 @@ import org.junit.jupiter.api.Test;
 
 import com.thorben.objectbrowser.ObjectBrowser;
 import com.thorben.objectbrowser.ObjectBrowserService;
-import com.thorben.objectbrowser.ObjectBrowserTitle;
+import com.thorben.objectbrowser.title.filter.ObjectBrowserTitle;
 
 import static org.mockito.Mockito.*;
 
+import java.util.List;
+
 import jakarta.servlet.http.*;
 
-public class ObjectBrowserControllerTest {
+class ObjectBrowserControllerTest {
 	
 	@Test
-	public void setHeaderInformationTest() {
+	void setHeaderInformationTest() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		HttpSession session = mock(HttpSession.class);
 		when(request.getSession()).thenReturn(session);
 		
 		ObjectBrowser ob = null;
-		ob = ObjectBrowserService.setHeaderInformation(request, 38);
+		ob = ObjectBrowserService.setHeaderInformation(38);
 		assertEquals("Benutzer", ob.getObjectTitle());
 		
-		ObjectBrowserTitle[] allTitle = ob.getTableTitle();
-		ObjectBrowserTitle title = allTitle[0];
+		List<ObjectBrowserTitle> allTitle = ob.getOb3Data().getTitle();
+		ObjectBrowserTitle title = allTitle.get(0);
 		assertEquals("userLogin", title.getName());
 		assertEquals("User-Login", title.getDescription());
 		
-		ob = ObjectBrowserService.setHeaderInformation(request, 39);
+		ob = ObjectBrowserService.setHeaderInformation(39);
 		assertEquals("Neue Nachricht", ob.getButtonTitle());
 		
-		ob = ObjectBrowserService.setHeaderInformation(request, 40);
+		ob = ObjectBrowserService.setHeaderInformation(40);
 		assertEquals("far fa-calendar-alt", ob.getObjectIcon());
 		
-		ob = ObjectBrowserService.setHeaderInformation(request, 41);
+		ob = ObjectBrowserService.setHeaderInformation(41);
 		assertEquals(41, ob.getObjectType());
 		
 		boolean isOk = ObjectBrowserService.clearInformationAndSetError(request);

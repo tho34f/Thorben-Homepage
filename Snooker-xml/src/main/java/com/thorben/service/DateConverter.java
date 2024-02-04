@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access= AccessLevel.PRIVATE)
 public class DateConverter {
 	
-	public static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd MM yyyy");
-	public static final SimpleDateFormat timeDayFormat = new SimpleDateFormat("dd MM yyyy yyyy MM dd HH:mm");
-	public static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+	public static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("dd MM yyyy");
+	public static final SimpleDateFormat TIME_DAY_FORMAT = new SimpleDateFormat("dd MM yyyy yyyy MM dd HH:mm");
+	public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 	
 	public static String long2Date (long longDate, int dateFormat) { 
 		

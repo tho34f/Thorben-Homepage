@@ -31,24 +31,7 @@
 				</article>
 				</c:forEach>
 			</c:if>
-				<nav aria-label="...">
-					<ul class="pagination justify-content-center">
-						<li class="page-item">
-					      <a class="page-link" href="newsslider?action=back" tabindex="-1"><tho:out value="global.previous"/></a>
-					    </li>
-					    <li <c:if test="${activePage eq 1}"> class="page-item active" </c:if> <c:if test="${activePage ne 1}"> class="page-item" </c:if>>
-					    	<a class="page-link" href="newsslider?page=1">1 <span class="sr-only">(current)</span></a>
-					    </li>
-						<c:forEach var = "i" begin ="2" end ="${sliderlenght}">
-	         				<li <c:if test="${activePage eq i}"> class="page-item active" </c:if> <c:if test="${activePage ne i}"> class="page-item" </c:if>>
-					    		<a class="page-link" href="newsslider?page=${i}">${i}</a>
-					    	</li>
-	      				</c:forEach>
-					    <li class="page-item">
-					      <a class="page-link" href="newsslider?action=next"><tho:out value="global.next"/></a>
-					    </li>
-				  </ul>
-				</nav>
+			<header:sliderNavigation action="newsslider"/>
 		</div>
 	</div>
 </div>

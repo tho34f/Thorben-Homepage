@@ -18,9 +18,10 @@ public class AbstractQuerries {
 	
 	private MySql sql;
 	
-	public void handleSqlException(SQLException e) {
+	public String handleSqlException(SQLException e) {
 		String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 		logger.errorLogWithTrace(ThorbenDierkes.SQL_FEHLER, erroeMessage, e);
+		return erroeMessage;
 	}
 
 }

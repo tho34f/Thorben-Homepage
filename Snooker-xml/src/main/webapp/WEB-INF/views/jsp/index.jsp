@@ -33,21 +33,33 @@
 				<img src="resources/core/images/thorben.png" alt="Bild Thorben" style="hight:700px; width:300px;" />
 			</div>
 		</div>
-		<div id="inhalt" class="row" style="text-align:center">
-			<div class="col-md-4">
-				<h3><tho:out value="global.personal"/></h3>
-				<p><tho:out value="global.personal.desc"/></p>
-				<a class="linkButton" href="/thorben-dierkes/personal">#PERSÖNLICHES</a>
+		<div id="inhalt" class="widget-container">
+			<div class="content-widget-wrapper">
+			 	<div class="content-widget-container">
+			 		<div class="content-widget-content">
+						<h3><tho:out value="global.personal"/></h3>
+						<p><tho:out value="global.personal.desc"/></p>
+						<a class="linkButton" href="/thorben-dierkes/personal">#PERSÖNLICHES</a>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-4">
-				<h3><tho:out value="global.politic"/></h3>
-				<p><tho:out value="global.politic.desc"/></p>
-				<a 	class="linkButton" href="/thorben-dierkes/politik">#GEMEINSAMFÜRWARBURG</a>
+			<div class="content-widget-wrapper">
+			 	<div class="content-widget-container">
+			 		<div class="content-widget-content">
+						<h3><tho:out value="global.politic"/></h3>
+						<p><tho:out value="global.politic.desc"/></p>
+						<a 	class="linkButton" href="/thorben-dierkes/politik">#GEMEINSAMFÜRWARBURG</a>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-4">
-				<h3><tho:out value="global.snooker"/></h3>
-				<p><tho:out value="global.snooker.desc"/></p>
-				<a class="linkButton" href="/thorben-dierkes/snooker">#SNOOKER</a>
+			<div class="content-widget-wrapper">
+			 	<div class="content-widget-container">
+			 		<div class="content-widget-content">
+						<h3><tho:out value="global.snooker"/></h3>
+						<p><tho:out value="global.snooker.desc"/></p>
+						<a class="linkButton" href="/thorben-dierkes/snooker">#SNOOKER</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
