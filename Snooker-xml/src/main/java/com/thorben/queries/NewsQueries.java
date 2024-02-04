@@ -120,7 +120,6 @@ public class NewsQueries extends AbstractQuerries {
 			
 			BackendService tds = new BackendService();
 			int id = tds.generateId();
-			
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				int counter = 1;
 				stmt.setInt(counter++, id);
@@ -133,9 +132,7 @@ public class NewsQueries extends AbstractQuerries {
 				stmt.setInt(counter++, authorId);
 				
 		        stmt.execute();
-		        
 			}
-			
 			try(PreparedStatement stmt = con.prepareStatement(queryNewsText)){
 				int counter = 1;
 				stmt.setInt(counter++, id);

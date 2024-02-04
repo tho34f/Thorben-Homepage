@@ -34,7 +34,6 @@ public class ErrorLoggQueries extends AbstractQuerries {
 			con.setAutoCommit(false);
 			
 			String queryErrorLog = "SELECT * FROM error_log";
-		
 			try(PreparedStatement stmt = con.prepareStatement(queryErrorLog)){
 		        try(ResultSet rs = stmt.executeQuery()){
 			        while(rs.next()) {
@@ -46,12 +45,9 @@ public class ErrorLoggQueries extends AbstractQuerries {
 			        	massage.setDescription("error_description");
 			        	
 			        	errorList.add(massage);
-			        	
 			        } 
-		        }
-		        
+		        } 
 			}
-		
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.error(erroeMessage, e);
@@ -82,12 +78,9 @@ public class ErrorLoggQueries extends AbstractQuerries {
 			        	massage.setCreationDate(rs.getLong("creation_date"));
 			        	massage.setCreationDateAsString(DateConverter.long2Date(massage.getCreationDate(),1));
 			        	massage.setDescription(rs.getString("error_description"));
-			        	
 			        } 
 		        }
-		        
 			}
-		
 		} catch (SQLException e) {
 			String erroeMessage = new StringBuilder().append(ThorbenDierkes.ERROR_MESSAGE_SQL).append(e.getLocalizedMessage()).toString();
 			logger.error(erroeMessage, e);
@@ -105,10 +98,8 @@ public class ErrorLoggQueries extends AbstractQuerries {
 			con.setAutoCommit(false);
 		
 			String queryError = "INSERT INTO error_log VALUES (?, ?, ?, ?)";
-			
 			BackendService tds = new BackendService();
 			int id = tds.generateId();
-			
 			try(PreparedStatement stmt = con.prepareStatement(queryError)){
 				int counter = 1;
 				stmt.setInt(counter++, id);

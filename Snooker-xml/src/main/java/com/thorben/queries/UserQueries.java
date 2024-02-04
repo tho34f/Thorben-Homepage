@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +14,7 @@ public class UserQueries extends AbstractQuerries {
 	
 	private static final String FIRST_NAME = "user_firstname";
 	private static final String LAST_NAME = "user_lastname";
+	private static final String LOGIN = "user_login";
 	
     public UserQueries(MySql sql) {
     	
@@ -31,18 +31,18 @@ public class UserQueries extends AbstractQuerries {
 			con.setAutoCommit(false);
 		
 			String queryUser = "INSERT INTO user (user_firstname, user_lastname, user_password, user_login, creation_date) "
-					+ "VALUES (?,?,SHA2(" + password + ",224) ,?,?)";
+					+ "VALUES (?,?,SHA2(?,224),?,?)";
 		
-			try(PreparedStatement stmt = con.prepareStatement(queryUser)){
+			try(PreparedStatement pstmt = con.prepareStatement(queryUser)){
 				int counter = 1;
-				stmt.setString(counter++, firstName);
-				stmt.setString(counter++, lastName);
-				stmt.setString(counter++, loginName);
-				stmt.setLong(counter++, System.currentTimeMillis());
-				isCreate = stmt.execute();
+				pstmt.setString(counter++, firstName);
+				pstmt.setString(counter++, lastName);
+				pstmt.setString(counter++, password);
+				pstmt.setString(counter++, loginName);
+				pstmt.setLong(counter++, System.currentTimeMillis());
+				isCreate = pstmt.execute();
 		        
 			}
-		
 		} catch (SQLException e) {
 			handleSqlException(e);
 		} 
@@ -50,18 +50,20 @@ public class UserQueries extends AbstractQuerries {
 		return isCreate;
 	}
 	
-	public Boolean checkLogin(String username, String password) {
+	public User checkLogin(String username, String password) {
 		
-		Boolean isLoginOk = false;
+		User user = null;
 		
 		try(Connection con = getSql().getDs().getConnection()){
 			con.setAutoCommit(false);
 		
-			String queryUser = "SELECT * FROM user where user_login = '" + username + "' and user_password = SHA2('" + password + "',224)";
-			try(Statement stmt = con.createStatement()){
-		        try(ResultSet rs = stmt.executeQuery(queryUser)){
+			String queryUser = "SELECT * FROM user where user_login = ? and user_password = SHA2(?,224)";
+			try(PreparedStatement pstmt = con.prepareStatement(queryUser)){
+				pstmt.setString(1, username);
+				pstmt.setString(2, password);
+		        try(ResultSet rs = pstmt.executeQuery()){
 			        if(rs.next()) {
-			        	isLoginOk = true;
+			        	user = new User(rs.getString(FIRST_NAME), rs.getString(LAST_NAME), rs.getString(LOGIN), rs.getInt("user_id"));
 			        } 
 		        }
 			}
@@ -69,7 +71,7 @@ public class UserQueries extends AbstractQuerries {
 			handleSqlException(e);
 		}  
 		
-		return isLoginOk;
+		return user;
 	}
 	
 	public User loadUser(int userId) {
@@ -79,23 +81,20 @@ public class UserQueries extends AbstractQuerries {
 		try(Connection con = getSql().getDs().getConnection()){
 			con.setAutoCommit(false);
 		
-			String queryUser = "SELECT * FROM user where user_id = " + userId;
-
-		
-			try(Statement stmt = con.createStatement()){
-		        try(ResultSet rs = stmt.executeQuery(queryUser)){
+			String queryUser = "SELECT * FROM user where user_id = ?";
+			try(PreparedStatement pstmt = con.prepareStatement(queryUser)){
+				pstmt.setInt(1, userId);
+		        try(ResultSet rs = pstmt.executeQuery()){
 			        while(rs.next()) {
 			        	user.setId(userId);
 			        	user.setFirstName(rs.getString(FIRST_NAME));
 			        	user.setLastName(rs.getString(LAST_NAME));
-			        	user.setUserLogin(rs.getString("user_login"));
+			        	user.setUserLogin(rs.getString(LOGIN));
 			        	user.setCreationDate(rs.getLong("creation_date"));
 			        	user.setCreationDateAsString(DateConverter.long2Date(user.getCreationDate(),1));
 			        } 
 		        }
-		        
 			}
-		
 		} catch (SQLException e) {
 			handleSqlException(e);
 		}  
@@ -112,25 +111,20 @@ public class UserQueries extends AbstractQuerries {
 			con.setAutoCommit(false);
 			
 			String queryNews = "SELECT * FROM USER"; 
-		
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 		        try(ResultSet rs = stmt.executeQuery()){
 			        while(rs.next()) {
 						User user = new User();
-						
 						user.setId(rs.getInt("user_id"));
 			        	user.setFirstName(rs.getString(FIRST_NAME));
 			        	user.setLastName(rs.getString(LAST_NAME));
-			        	user.setUserLogin(rs.getString("user_login"));
+			        	user.setUserLogin(rs.getString(LOGIN));
 			        	user.setCreationDate(rs.getLong("creation_date"));
 			        	user.setCreationDateAsString(DateConverter.long2Date(user.getCreationDate(),1));
-						
 			        	userList.add(user);
 			        } 
-		        }
-		        
+		        }  
 			}
-		
 		} catch (SQLException e) {
 			handleSqlException(e);
 		} 

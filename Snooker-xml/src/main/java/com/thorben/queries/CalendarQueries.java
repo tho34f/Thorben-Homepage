@@ -74,7 +74,6 @@ public class CalendarQueries extends AbstractQuerries {
 			con.setAutoCommit(false);
 			
 			String queryNews = "SELECT * FROM event WHERE id = ?";
-		
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				stmt.setInt(1, terminId);
 		        try(ResultSet rs = stmt.executeQuery()){
@@ -92,10 +91,8 @@ public class CalendarQueries extends AbstractQuerries {
 			        	tm.setAuthor(rs.getInt("author_id"));
 			        	
 			        } 
-		        }
-		        
+		        } 
 			}
-		
 		} catch (SQLException e) {
 			handleSqlException(e);
 		} 
@@ -116,7 +113,6 @@ public class CalendarQueries extends AbstractQuerries {
 					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			BackendService tds = new BackendService();
-			
 			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
 				int counter = 1;
 				stmt.setInt(counter++, tds.generateId());
@@ -129,10 +125,8 @@ public class CalendarQueries extends AbstractQuerries {
 				stmt.setString(counter++, authorLogin);
 				stmt.setInt(counter++, authorId);
 				
-		        isCreate = stmt.execute();
-		        
+		        isCreate = stmt.execute();  
 			}
-			
 		} catch (SQLException e) {
 			handleSqlException(e);
 		} 
@@ -171,6 +165,5 @@ public class CalendarQueries extends AbstractQuerries {
 		return isUpdate;
 		
 	}
-
 
 }

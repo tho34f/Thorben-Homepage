@@ -7,10 +7,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import jakarta.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.thorben.objects.News;
@@ -21,10 +17,12 @@ import com.thorben.objects.snooker.TournamentSeason;
 import com.thorben.queries.MySql;
 import com.thorben.web.SnookerController;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Service
 public class BackendService {
 
-	private static final Logger LOOGER = LoggerFactory.getLogger(BackendService.class);
+	private static final ThorbenDierkesLogger LOOGER = new ThorbenDierkesLogger();
 	public static final Random GENERATOR = new Random();
 	
 	public int generateId() {
@@ -66,7 +64,7 @@ public class BackendService {
 			isSeasonOk = true;
 		}
 		
-		LOOGER.info("Saision erfolgreich erzeugt.");
+		LOOGER.infoLog("Saision erfolgreich erzeugt.");
 		request.getSession().setAttribute("seasions", SnookerController.getSeasons());	
 		
 		return isSeasonOk;
