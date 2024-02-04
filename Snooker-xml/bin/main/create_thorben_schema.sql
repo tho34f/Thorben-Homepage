@@ -100,4 +100,5 @@ INSERT INTO ob3_title (`id`, `title`, `description`) VALUES(1, "title", "Title")
 SELECT * FROM ob3_title;
 SELECT * FROM ob3_filter;
 SELECT * FROM ob3_title_definition;
+SELECT * FROM ob3_filter_definition;
 ##insert into user values (2, 'Thorben', 'Dierkes', SHA2('MaraTeske30031994!',224), 'tdierkes');
