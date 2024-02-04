@@ -17,13 +17,20 @@
 
 <jsp:include page="../layout/backendhaederwithbuttons.jsp"/>
 
+<input type="hidden" id="csrfToken" name="csrfToken" value="${CSRF_SESSION_TOKEN}">
+<input type="hidden" id="ob3id" name="ob3id" value="${Objectbrowser.objectType}">
 
 <div id="content" class="jumbotron">
 	<div class="container containerOB3">
 		<div id="objectBrowserDataFilterDiv">
-			<c:forEach items="${Objectbrowser.ob3Data.filter}" var="filter">
-				<input class="textInput" type="text" id="${Objectbrowser.objectType}_${filter.name}" name="${Objectbrowser.objectType}_${filter.name}" min="1" max="255" maxlength="255" placeholder="${filter.name}" value="">
-			</c:forEach>
+			<div id="objectBrowserFilterData">
+				<c:forEach items="${Objectbrowser.ob3Data.filter}" var="filter">
+					<div class="ob3FilterElement">
+						<label for="${Objectbrowser.objectType}_${filter.name}"><tho:out value="${filter.description}"/></label>
+						<input class="textInput" type="text" id="${Objectbrowser.objectType}_${filter.name}" name="${Objectbrowser.objectType}_${filter.name}" min="1" max="255" maxlength="255" placeholder="<tho:out value="${filter.description}"/>" value="">
+					</div>
+				</c:forEach>
+			</div>
 			<div class="submit_container">
 	 			<div class="tl_submit_div">
 	 				<button class="tl_submit" type="submit" name="reset" id="reset"><tho:out value="global.reset"/></button>
@@ -39,7 +46,7 @@
 				<tbody>
 					<tr class="obTableHeader">
 						<c:forEach items="${Objectbrowser.ob3Data.title}" var="title">
-							<th class="redThorben ob_title_datacolumn_on" id="obObject_${title.description}">${title.description}</th>
+							<th class="redThorben ob_title_datacolumn_on" id="obObject_${title.name}"><tho:out value="${title.description}"/></th>
 						</c:forEach>
 					</tr>
 					<c:if test="${empty Objectbrowser.ob3Data.objectList}">

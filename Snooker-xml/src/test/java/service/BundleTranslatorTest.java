@@ -3,7 +3,7 @@ package service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import com.thorben.service.BundleTranslator;
+import com.thorben.tags.service.BundleTranslator;
 
 public class BundleTranslatorTest {
 

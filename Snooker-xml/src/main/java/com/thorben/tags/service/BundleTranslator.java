@@ -1,4 +1,4 @@
-package com.thorben.service;
+package com.thorben.tags.service;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -13,12 +13,9 @@ import lombok.Setter;
 public class BundleTranslator {
 	
 	private static final String LANGV3 = "langv3";
-	private static ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
-	
 	private String language = "de";
 	
 	public String translatBundle(String bundleKey) {
-		logger.infoLog("BundleTranslator: translatBundle " + bundleKey);
 		ResourceBundle resourceBundle = null;
 		if(this.language.equals("de")) {
 			resourceBundle = ResourceBundle.getBundle(LANGV3, Locale.GERMAN);

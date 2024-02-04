@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="wizard" tagdir="/WEB-INF/tags/taglib/wizard"%>
 <%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
@@ -39,36 +40,10 @@
 		<c:if test="${empty termin}"><h1><tho:out value="backend.events.wizard.new"/></h1></c:if>
 		<c:if test="${not empty termin}"><h1><tho:out value="backend.events.wizard.old"/></h1></c:if>
 		
+		<wizard:inputarea titleBundle="backend.wizard.title" descriptionBundle="backend.wizard.title.desc.events" name="title"/>
+		<wizard:textArea titleBundle="backend.wizard.teaser" descriptionBundle="backend.wizard.teaser.desc.events" name="teaser" maxlength="65535" rows="2"/>
+		<wizard:textArea titleBundle="backend.wizard.description" descriptionBundle="backend.wizard.text.desc.events" name="beschreibung" maxlength="16777215" rows="5"/>
 		
-		<div class="wizardRow">
-			<div class="wizardRowTitle"><tho:out value="backend.wizard.title"/></div>
-			<div class="wizardRowInner">
-				<div class="span3"><tho:out value="backend.wizard.title.desc.events"/></div>
-				<div class="span9">
-					<input class="textInput" type="text" id="title" name="title" min="1" max="255" maxlength="255" placeholder="Title" value="">
-				</div>
-			</div>
-		</div>
-		
-		<div class="wizardRow">
-			<div class="wizardRowTitle"><tho:out value="backend.wizard.teaser"/></div>
-			<div class="wizardRowInner">
-				<div class="span3"><tho:out value="backend.wizard.teaser.desc.events"/></div>
-				<div class="span9">
-					<textarea class="textInput" id="teaser" name="teaser" maxlength="65535" placeholder="Teaser" cols="100" rows="2"></textarea>
-				</div>
-			</div>
-		</div>
-		
-		<div class="wizardRow">
-			<div class="wizardRowTitle"><tho:out value="backend.wizard.description"/></div>
-			<div class="wizardRowInner">
-				<div class="span3"><tho:out value="backend.wizard.text.desc.events"/></div>
-				<div class="span9">
-					<textarea class="textInput" id="beschreibung" name="beschreibung" maxlength="16777215" placeholder="Text" cols="100" rows="5"></textarea>
-				</div>
-			</div>
-		</div>
 	</div>
 </div>
 

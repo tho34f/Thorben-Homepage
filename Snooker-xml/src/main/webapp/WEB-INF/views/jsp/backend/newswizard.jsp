@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
+<%@ taglib prefix="wizard" tagdir="/WEB-INF/tags/taglib/wizard"%>
 <%@ taglib prefix="tho" uri="/thorben"%>
 <!DOCTYPE html>
 <html lang="de">
@@ -39,35 +40,9 @@
 		<c:if test="${empty message}"><h1><tho:out value="backend.news.wizard.new"/></h1></c:if>
 		<c:if test="${not empty message}"><h1><tho:out value="backend.news.wizard.old"/></h1></c:if>
 		
-		<div class="wizardRow">
-			<div class="wizardRowTitle"><tho:out value="backend.wizard.title"/></div>
-			<div class="wizardRowInner">
-				<div class="span3 description"><tho:out value="backend.wizard.title.desc.news"/></div>
-				<div class="span9">
-					<input class="textInput" type="text" id="title" name="title" min="1" max="255" maxlength="255" placeholder="Title" value="">
-				</div>
-			</div>
-		</div>
-		
-		<div class="wizardRow">
-			<div class="wizardRowTitle"><tho:out value="backend.wizard.teaser"/></div>
-			<div class="wizardRowInner">
-				<div class="span3 description"><tho:out value="backend.wizard.teaser.desc.news"/></div>
-				<div class="span9">
-					<textarea class="textInput" id="teaser" name="teaser" maxlength="65535" placeholder="Teaser" cols="100" rows="2"></textarea>
-				</div>
-			</div>
-		</div>
-		
-		<div class="wizardRow">
-			<div class="wizardRowTitle"><tho:out value="backend.wizard.text"/></div>
-			<div class="wizardRowInner">
-				<div class="span3 description"><tho:out value="backend.wizard.text.desc.news"/></div>
-				<div class="span9">
-					<textarea class="textInput" id="text" name="text" maxlength="16777215" placeholder="Text" cols="100" rows="5"></textarea>
-				</div>
-			</div>
-		</div>
+		<wizard:inputarea titleBundle="backend.wizard.title" descriptionBundle="backend.wizard.title.desc.news" name="title"/>
+		<wizard:textArea titleBundle="backend.wizard.teaser" descriptionBundle="backend.wizard.teaser.desc.news" name="teaser" maxlength="65535" rows="2"/>
+		<wizard:textArea titleBundle="backend.wizard.text" descriptionBundle="backend.wizard.text.desc.news" name="beschreibung" maxlength="16777215" rows="5"/>
 		
 		<div class="wizardRow">
 			<div class="wizardRowTitle"><tho:out value="backend.wizard.image"/></div>

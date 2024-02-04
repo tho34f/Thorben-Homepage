@@ -25,8 +25,8 @@
 
 <div id="content" class="jumbotron">
 	<div class="container">
-		<c:if test="${empty errormasage}"><h1><tho:out value="${errormasage}"/></h1></c:if>
-		<c:if test="${not empty errormasage}"><h1><tho:out value="${errormasage}"/></h1></c:if>
+		<c:if test="${empty errormasage}"><h1><tho:out value="backend.wizard.save.success"/></h1></c:if>
+		<c:if test="${not empty errormasage}"><h1><tho:out value="backend.wizard.save.error"/></h1></c:if>
 	</div>
 </div>
 

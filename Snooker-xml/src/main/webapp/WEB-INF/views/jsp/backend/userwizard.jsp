@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
 <%@ taglib prefix="tho" uri="/thorben"%>
+<%@ taglib prefix="wizard" tagdir="/WEB-INF/tags/taglib/wizard"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -40,45 +41,11 @@
 		<c:if test="${empty message}"><h1><tho:out value="backend.user.wizard.new"/></h1></c:if>
 		<c:if test="${not empty message}"><h1><tho:out value="backend.user.wizard.old"/></h1></c:if>
 		
-		<div class="wizardRow">
-			<div class="wizardRowTitle"><tho:out value="global.firstname"/></div>
-			<div class="wizardRowInner">
-				<div class="span3 description"><tho:out value="global.firstname.desc"/></div>
-				<div class="span9">
-					<input class="textInput" type="text" id="firstName" name="firstName" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.firstname"/>" value="">
-				</div>
-			</div>
-		</div>
+		<wizard:inputarea titleBundle="global.firstname" descriptionBundle="global.firstname.desc" name="firstName"/>
+		<wizard:inputarea titleBundle="global.surname" descriptionBundle="global.surname.desc" name="lastName"/>
+		<wizard:inputarea titleBundle="global.username" descriptionBundle="global.username.create" name="login"/>
+		<wizard:inputarea titleBundle="global.password" descriptionBundle="global.password.create" name="password"/>
 		
-		<div class="wizardRow">
-			<div class="wizardRowTitle"><tho:out value="global.surname"/></div>
-			<div class="wizardRowInner">
-				<div class="span3 description"><tho:out value="global.surname.desc"/></div>
-				<div class="span9">
-					<input class="textInput" type="text" id="lastName" name="lastName" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.surname"/>" value="">
-				</div>
-			</div>
-		</div>
-		
-		<div class="wizardRow">
-			<div class="wizardRowTitle"><tho:out value="global.username"/></div>
-			<div class="wizardRowInner">
-				<div class="span3 description"><tho:out value="global.username.create"/></div>
-				<div class="span9">
-					<input class="textInput" type="text" id="login" name="login" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.username"/>" value="">
-				</div>
-			</div>
-		</div>
-		
-		<div class="wizardRow">
-			<div class="wizardRowTitle"><tho:out value="global.password"/></div>
-			<div class="wizardRowInner">
-				<div class="span3 description"><tho:out value="global.password.create"/></div>
-				<div class="span9">
-					<input class="textInput" type="text" id="password" name="password" min="1" max="255" maxlength="255" placeholder="<tho:out value="global.password"/>" value="">
-				</div>
-			</div>
-		</div>
 	</div>
 </div>
 
