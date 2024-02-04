@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.thorben.objects.User;
 import com.thorben.queries.MySql;
 import com.thorben.service.BackendService;
+import com.thorben.service.TextService;
 import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.ThorbenDierkesLogger;
 import com.thorben.service.TypeConverter;
@@ -25,7 +26,6 @@ public class UserWizardController extends HttpServlet {
 	
 	private static final String VIEW = "backend/userwizard";
 	private static final String SUBMIT_VIEW = "backend/submitWizard";
-	private static String language;
 	
 	
 	@GetMapping(value = "/backend/userwizard")
@@ -49,10 +49,10 @@ public class UserWizardController extends HttpServlet {
 	public ModelAndView saveUser(final HttpServletRequest request, final HttpServletResponse response) {
 		LOOGER.infoLog("UserWizardController: start save User");
 		
-		String firstName = request.getParameter("firstNameWizard");
-		String lastName = request.getParameter("lastNameWizard");
-		String login = request.getParameter("loginWizard");
-		String password = request.getParameter("passwordWizard");
+		String firstName = TextService.getRequestParameter(request, "firstNameWizard", "");
+		String lastName = TextService.getRequestParameter(request, "lastNameWizard", "");
+		String login = TextService.getRequestParameter(request, "loginWizard", "");
+		String password = TextService.getRequestParameter(request, "passwordWizard", "");
 		
 		boolean success = false;
 		if(request.getSession().getAttribute("user") != null) {

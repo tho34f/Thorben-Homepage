@@ -9,6 +9,7 @@ import com.thorben.objects.News;
 import com.thorben.objects.User;
 import com.thorben.queries.MySql;
 import com.thorben.service.BackendService;
+import com.thorben.service.TextService;
 import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.ThorbenDierkesLogger;
 import com.thorben.service.TypeConverter;
@@ -48,9 +49,9 @@ public class NewsWizardController extends HttpServlet {
 	public ModelAndView saveNews(final HttpServletRequest request, final HttpServletResponse response) {
 		LOOGER.infoLog("NewsWizardController:start save News");
 		
-		String title = request.getParameter("titleWizard");
-		String teaser = request.getParameter("teaserWizard");
-		String text = request.getParameter("textWizard");
+		String title = TextService.getRequestParameter(request, "titleWizard", "");
+		String teaser = TextService.getRequestParameter(request, "teaserWizard", "");
+		String text = TextService.getRequestParameter(request, "textWizard", "");
 		
 		boolean success = false;
 		if(request.getSession().getAttribute("user") != null) {

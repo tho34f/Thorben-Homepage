@@ -1,13 +1,17 @@
 package com.thorben.web;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -18,21 +22,22 @@ import com.thorben.objects.snooker.Spieler;
 import com.thorben.objects.snooker.Tournament;
 import com.thorben.objects.snooker.TournamentSeason;
 import com.thorben.queries.MySql;
-import com.thorben.service.DateConverter;
-import com.thorben.service.GetHomepageData;
-import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.BackendService;
+import com.thorben.service.DateConverter;
+import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.TypeConverter;
+
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class SnookerController extends HttpServlet {
 	
 	private static final long serialVersionUID = -9071950597448957942L;
-	private final Logger logger = LoggerFactory.getLogger(SnookerController.class);
-	private static BackendService helloWorldService = new BackendService();
+	private static final Logger logger = LoggerFactory.getLogger(SnookerController.class);
 	private static final String SEASION = "seasion";
 	private static final String SEASON = "season";
-	private static String language;
 	
 	private static Date indexDate = new Date();
 	private static Set<TournamentSeason> seasons = new HashSet<>();
@@ -43,7 +48,7 @@ public class SnookerController extends HttpServlet {
 		
 		DateConverter.setDateFooter(indexDate, request);
 		
-		List<String> provisionalRanking = GetHomepageData.getData(ThorbenDierkes.PROVISIONAL_RANKING);
+		List<String> provisionalRanking = getData(ThorbenDierkes.PROVISIONAL_RANKING);
 		MySql.getInstance().getUpdateDB().updateDatenbank(provisionalRanking);
 				
 		return "snooker/snooker";
@@ -207,24 +212,37 @@ public class SnookerController extends HttpServlet {
 		return "snooker/snookerhistory";
 	}
 	
+	public static List<String> getData(String url) {
+		List<String> data = new ArrayList<>();
+		try {
+			Document doc = Jsoup.connect(url).get();
+			Elements player = doc.select("tr[class]");
+			for (Element elem : player) {
+				Elements element = elem.children();
+				String textData = element.text();
+				if(!textData.equals("")) {
+					String[] splitTextData = textData.split(" ");
+					data.add(splitTextData[0]);
+					data.add(splitTextData[1]);
+					data.add(splitTextData[2]);
+				}
+			}
+			
+			return data;
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			return data;
+		}
+		
+	}
+	
 	public static Set<TournamentSeason> getSeasons() {
 		return seasons;
 	}
 
 	public static void setSeasons(Set<TournamentSeason> seasons) {
 		SnookerController.seasons = seasons;
-	}
-
-	public static BackendService getHelloWorldService() {
-		return helloWorldService;
-	}
-
-	public static String getLanguage() {
-		return language;
-	}
-
-	public static void setLanguage(String language) {
-		SnookerController.language = language;
 	}
 
 }

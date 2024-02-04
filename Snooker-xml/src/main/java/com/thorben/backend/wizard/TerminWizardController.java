@@ -9,6 +9,7 @@ import com.thorben.objects.Termin;
 import com.thorben.objects.User;
 import com.thorben.queries.MySql;
 import com.thorben.service.BackendService;
+import com.thorben.service.TextService;
 import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.ThorbenDierkesLogger;
 import com.thorben.service.TypeConverter;
@@ -26,7 +27,6 @@ public class TerminWizardController extends HttpServlet {
 	
 	private static final String VIEW = "backend/terminewizard";
 	private static final String SUBMIT_VIEW = "backend/submitWizard";
-	private static String language;
 	
 	@GetMapping(value = "/backend/terminewizard")
 	public ModelAndView createEvent(final HttpServletRequest request, final HttpServletResponse response) {
@@ -48,9 +48,9 @@ public class TerminWizardController extends HttpServlet {
 	public ModelAndView saveEvent(final HttpServletRequest request, final HttpServletResponse response) {
 		LOOGER.infoLog("TerminWizardController: start save Event");
 		
-		String title = request.getParameter("titleWizard");
-		String teaser = request.getParameter("teaserWizard");
-		String description = request.getParameter("beschreibungWizard");
+		String title = TextService.getRequestParameter(request, "titleWizard", "");
+		String teaser = TextService.getRequestParameter(request, "teaserWizard", "");
+		String description = TextService.getRequestParameter(request, "beschreibungWizard", "");
 		
 		boolean success = false;
 		if(request.getSession().getAttribute("user") != null) {

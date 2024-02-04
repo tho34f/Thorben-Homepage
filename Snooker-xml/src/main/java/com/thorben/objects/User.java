@@ -21,6 +21,13 @@ public class User implements Serializable{
 	private long creationDate;
 	private String creationDateAsString;
 	
+	public User(String firstName, String lastName, String userLogin, int userId) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userLogin = userLogin;
+		this.id = userId;
+	}
+	
 	public User(String firstName, String lastName, String password, String userLogin, int userId) {
 		this.firstName = firstName;
 		this.lastName = lastName;
