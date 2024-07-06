@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.thorben.backend.service.BackendService;
 import com.thorben.objects.Termin;
 import com.thorben.objects.User;
 import com.thorben.queries.MySql;
-import com.thorben.service.BackendService;
 import com.thorben.service.TextService;
 import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.ThorbenDierkesLogger;

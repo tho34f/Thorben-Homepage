@@ -1,48 +1,39 @@
 package com.thorben.web;
 
-import java.util.Date;
 import java.util.Map;
 
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.thorben.service.DateConverter;
-import com.thorben.service.BackendService;
+import com.thorben.service.ThorbenDierkesLogger;
+import com.thorben.web.data.ControllerData;
+
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 @Controller
 public class MathController extends HttpServlet {
-
-	private static final long serialVersionUID = -3295292219817459332L;
-	private static BackendService helloWorldService = new BackendService();
-	private static Date indexDate = new Date();
-	private static String language;
+	
+	private static final long serialVersionUID = 4441260446740040597L;
+	private static final ThorbenDierkesLogger LOOGER = new ThorbenDierkesLogger();
+	
+	private final ControllerData controllerData;
+	
+	@Autowired
+    public MathController() {
+        this.controllerData = new ControllerData();
+        this.controllerData.setLanguage("de");
+    }
 
 	@GetMapping(value = "/math")
 	public String start(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
-		
-		DateConverter.setDateFooter(indexDate, request);
-		
+		LOOGER.infoLog("MathController: start()");
+		DateConverter.setDateFooter(this.controllerData.getIndexDate(), request);
 		return "math/math";
 	}
-	
-
-	public static BackendService getHelloWorldService() {
-		return helloWorldService;
-	}
-
-
-	public static String getLanguage() {
-		return language;
-	}
-
-
-	public static void setLanguage(String language) {
-		MathController.language = language;
-	}
-
 
 }

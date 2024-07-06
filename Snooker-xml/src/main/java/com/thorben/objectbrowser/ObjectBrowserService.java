@@ -1,10 +1,13 @@
 package com.thorben.objectbrowser;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.thorben.backend.service.ObjectBrowser3Service;
 import com.thorben.objectbrowser.title.filter.ObjectBrowserFilter;
 import com.thorben.objectbrowser.title.filter.ObjectBrowserTitle;
 import com.thorben.objects.ErrorMassage;
@@ -29,10 +32,11 @@ public class ObjectBrowserService {
 	
 	public static void  getInformationForOb(ObjectBrowser ob, final HttpServletRequest request) {
 		
+		Map<String,String> filterValue = ObjectBrowser3Service.getOb3FilterValue(request);
 		int id = ob.getObjectType();
 		switch(id) {
 			case ThorbenDierkes.USER:
-				Set<User> users = MySql.getInstance().getUserQueries().loadUserList();
+				Set<User> users = MySql.getInstance().getUserQueries().loadUserList(filterValue);
 				if(!users.isEmpty()) {
 					ob.getOb3Data().setObjectList(users);
 				} else {
@@ -40,7 +44,7 @@ public class ObjectBrowserService {
 				}
 				break;
 			case ThorbenDierkes.NEWS:
-				Set<News> newsList = MySql.getInstance().getNewsQueries().loadNewsList();
+				Set<News> newsList = MySql.getInstance().getNewsQueries().loadNewsList(filterValue);
 				if(!newsList.isEmpty()) {
 					ob.getOb3Data().setObjectList(newsList);
 				} else {
@@ -48,7 +52,7 @@ public class ObjectBrowserService {
 				}
 				break;
 			case ThorbenDierkes.CALENDAR: 
-				Set<Termin> calendarList = MySql.getInstance().getCalendarQueries().loadCalendarList();
+				Set<Termin> calendarList = MySql.getInstance().getCalendarQueries().loadCalendarList(filterValue);
 				if(!calendarList.isEmpty()) {
 					ob.getOb3Data().setObjectList(calendarList);
 				} else {
@@ -56,7 +60,7 @@ public class ObjectBrowserService {
 				}
 				break;
 			case ThorbenDierkes.ERROR_LOG_MASSAGE:
-				Set<ErrorMassage> errorList = MySql.getInstance().getErrorLoggQueries().loadErrorLogList();
+				Set<ErrorMassage> errorList = MySql.getInstance().getErrorLoggQueries().loadErrorLogList(filterValue);
 				if(!errorList.isEmpty()) {
 					ob.getOb3Data().setObjectList(errorList);
 				} else {
@@ -72,9 +76,13 @@ public class ObjectBrowserService {
 	}
 	
 	public static ObjectBrowser setHeaderInformation(int id) {
+		return setHeaderInformation(id, new Locale("de"));
+	}
+	
+	public static ObjectBrowser setHeaderInformation(int id, Locale locale) {
 		ObjectBrowser ob = null;
-		List<ObjectBrowserTitle> titleList = MySql.getInstance().getOb3Queries().getColumTitleForOb3(id);
-		List<ObjectBrowserFilter> filterList = MySql.getInstance().getOb3Queries().getFilterForOb3(id);
+		List<ObjectBrowserTitle> titleList = MySql.getInstance().getOb3Queries().getColumTitleForOb3(id, locale);
+		List<ObjectBrowserFilter> filterList = MySql.getInstance().getOb3Queries().getFilterForOb3(id, locale);
 		ObjectBrowserData obd = new ObjectBrowserData(titleList, filterList);
 		switch(id) {
 			case ThorbenDierkes.USER:
