@@ -16,39 +16,15 @@
 	margin-top: auto;
 }
 
-#inhalt{
-	margin-bottom: 35px;
-	margin-top: 35px;
-}
-
-.contact {
-	width:100%;
-	top:0;
-	left:0;
-	background-color:#701718;
-	color: white;
-}
-
-.contact a{
-	color: white;
-	font-size: 18px;
-}
-
-.contact a:hover{
-	color: white;
-}
-
-.datenschutz{
-	margin: 0 14px 0 12px;
-}
-
-.impressum{
-	margin-left: 12px;
-    margin-right: 12px;
-}
-
-.navbar-extra{
+.navbar-extra, #inhalt{
 	display: flex;
+}
+
+#inhalt{
+	margin: 35px 0px;
+	flex-direction: column;
+	align-items: center;
+  	justify-content: center;
 }
 
 .news-image-teaser {
@@ -56,14 +32,26 @@
     box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.16);
     margin: 2.25em 0;
     padding: 30px;
-    width:1000px;
+    width:400px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 720px) {
+	.news-image-teaser {
+		width:500px;
+	}
+}
+
+@media (min-width: 1160px) {
+	.news-image-teaser {
+		width:1000px;
+	}
 }
 
 .news-image-teaser-meta {
     float: left;
-    left: -19.5%;
     width: 17.375%;
-    margin-bottom: -6.25em;
     line-height: 1;
     text-align: center;
     font-size:1.5em;
@@ -99,6 +87,7 @@
 .headingPersonal{
 	border-bottom: 2px solid #701718;
 	text-align:center;
+	min-width:max-content;
 }
 
 div .buttonToText{

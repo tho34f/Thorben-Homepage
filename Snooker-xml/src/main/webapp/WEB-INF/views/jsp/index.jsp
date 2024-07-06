@@ -48,7 +48,7 @@
 			 		<div class="content-widget-content">
 						<h3><tho:out value="global.politic"/></h3>
 						<p><tho:out value="global.politic.desc"/></p>
-						<a 	class="linkButton" href="/thorben-dierkes/politik">#GEMEINSAMFÜRWARBURG</a>
+						<a 	class="linkButton" href="/thorben-dierkes/politik">#WirWarburger</a>
 					</div>
 				</div>
 			</div>
