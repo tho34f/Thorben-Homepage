@@ -5,15 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.thorben.backend.service.BackendService;
 import com.thorben.objects.ErrorMassage;
 import com.thorben.service.DateConverter;
 import com.thorben.service.ThorbenDierkes;
-import com.thorben.service.BackendService;
 
 public class ErrorLoggQueries extends AbstractQuerries {
 	
@@ -25,7 +26,7 @@ public class ErrorLoggQueries extends AbstractQuerries {
 	    	
 	    }
     
-	public Set<ErrorMassage> loadErrorLogList() {
+	public Set<ErrorMassage> loadErrorLogList(Map<String,String> filterValue) {
 		
 		Set<ErrorMassage> errorList = new HashSet<>();
 		
@@ -33,8 +34,12 @@ public class ErrorLoggQueries extends AbstractQuerries {
 
 			con.setAutoCommit(false);
 			
-			String queryErrorLog = "SELECT * FROM error_log";
-			try(PreparedStatement stmt = con.prepareStatement(queryErrorLog)){
+			StringBuilder queryErrorLog = new StringBuilder("SELECT * FROM error_log");
+			if(!filterValue.isEmpty()) {
+				queryErrorLog.append("WHERE true");
+			}
+			
+			try(PreparedStatement stmt = con.prepareStatement(queryErrorLog.toString())){
 		        try(ResultSet rs = stmt.executeQuery()){
 			        while(rs.next()) {
 						ErrorMassage massage = new ErrorMassage();

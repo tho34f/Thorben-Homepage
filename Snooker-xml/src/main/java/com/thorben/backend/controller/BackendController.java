@@ -1,11 +1,13 @@
-package com.thorben.web;
+package com.thorben.backend.controller;
 
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thorben.objectbrowser.ObjectBrowser;
@@ -15,12 +17,14 @@ import com.thorben.queries.MySql;
 import com.thorben.service.ThorbenDierkes;
 import com.thorben.service.ThorbenDierkesLogger;
 import com.thorben.service.TypeConverter;
+import com.thorben.web.data.ControllerData;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
+@RequestMapping("/backend")
 public class BackendController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1217699872564172806L;
@@ -30,20 +34,31 @@ public class BackendController extends HttpServlet {
 	private static final String LOGIN_REDIRECT = "redirect:/backend/login";
 	private static final String ERROR_MASSAGE = "errormasage";
 	private static final String IS_LOGIN_OK = "isLoginOk";
+	
+	private final ControllerData controllerData;
+	
+	@Autowired
+    public BackendController() {
+        this.controllerData = new ControllerData();
+        this.controllerData.setLanguage("de");
+    }
   
-	@GetMapping(value = "/backend")
+	@GetMapping(value = "/")
 	public ModelAndView startLoginBackend(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		LOOGER.infoLog("BackendController: redirect to backend/login");
 		return new ModelAndView(LOGIN_REDIRECT);
 	}
 	
-	@GetMapping(value = "/backend/login")
+	@GetMapping(value = "/login")
 	public ModelAndView startLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		request.getSession().removeAttribute("user");
 		return new ModelAndView(LOGIN);
 	}
 
-	@PostMapping(value = "/backend/backendindex")
+	@PostMapping(value = "backendindex")
 	public ModelAndView checkLogin(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
+		
+		LOOGER.infoLog("BackendController: start Login-Progress");
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -71,24 +86,24 @@ public class BackendController extends HttpServlet {
 		}
 	}
 	
-	@GetMapping(value = "/backend/backendindex")
+	@GetMapping(value = "/backendindex")
 	public String createIndex(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
-		
+		LOOGER.infoLog("BackendController: createIndex");
 		return "backend/backendindex";
 	}
 	
-	@PostMapping(value = "/backend/backendObjectBrowser")
+	@PostMapping(value = "/backendObjectBrowser")
 	public String createObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		return "backend/backendObjectBrowser";
 	}
 	
-	@GetMapping(value = "/backend/backendObjectBrowser")
+	@GetMapping(value = "/backendObjectBrowser")
 	public String getObject(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
 		int objectId = TypeConverter.string2int(request.getParameter("id"), 0);
-		
-		ObjectBrowser ob = ObjectBrowserService.setHeaderInformation(objectId);
+		LOOGER.infoLog("BackendController: getObjec for Ob3 " + objectId);
+		ObjectBrowser ob = ObjectBrowserService.setHeaderInformation(objectId, request.getLocale());
 		ObjectBrowserService.getInformationForOb(ob, request);
 		request.getSession().setAttribute(ThorbenDierkes.OBJEKT_BROWSER, ob);
 
