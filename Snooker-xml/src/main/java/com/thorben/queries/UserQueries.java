@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.thorben.objects.User;
@@ -102,7 +103,7 @@ public class UserQueries extends AbstractQuerries {
 		return user;
 	}
 	
-	public Set<User> loadUserList() {
+	public Set<User> loadUserList(Map<String,String> filterValue) {
 		
 		Set<User> userList = new HashSet<>();
 		
@@ -110,8 +111,12 @@ public class UserQueries extends AbstractQuerries {
 			
 			con.setAutoCommit(false);
 			
-			String queryNews = "SELECT * FROM USER"; 
-			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
+			StringBuilder queryUser = new StringBuilder("SELECT * FROM USER");
+			if(!filterValue.isEmpty()) {
+				queryUser.append("WHERE true");
+			}
+			
+			try(PreparedStatement stmt = con.prepareStatement(queryUser.toString())){
 		        try(ResultSet rs = stmt.executeQuery()){
 			        while(rs.next()) {
 						User user = new User();
