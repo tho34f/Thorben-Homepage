@@ -29,6 +29,10 @@ $(document).ready(function() {
 	});
 });
 
+function fn_resizeHeader() {
+    $(".pageHeader .headerContent").width($(window).width() -30);
+}
+
 function openWizard(id, objectType){
 	console.log($("#footer_preview"));
 	if(objectType == 38){

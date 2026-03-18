@@ -44,6 +44,11 @@
 
 .backendHeader{
 	justify-content: space-between;
+	align-items: center;
+}
+
+#serviceBox li {
+    color: wheat;
 }
 
 .container.containerOB3{
@@ -86,19 +91,18 @@
 
 .headerPanel {
     min-height: 75px;
-    width: 100%;
-    min-width: 980px;
     background: #8dcbbb;
     display:flex;
     flex-direction: row;
+    margin: 15px;
+    align-items: center
 }
 
 .headerPanel .typeWrapper{
 	height: 75px;
-	border-right: 1px solid #bbb;
-	width: 270px;
 	display:flex;
     flex-direction: row;
+    align-items: center
 }
 
 #objectHeader{
@@ -107,8 +111,7 @@
 }
 
 #newObject{
-	margin-left: 20px; 
-	margin-top: 21px;
+	margin-left: 20px;
 	width: 130px;
 	font-size:14px;
 }
