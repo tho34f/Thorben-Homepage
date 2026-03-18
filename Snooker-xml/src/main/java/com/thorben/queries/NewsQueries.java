@@ -6,12 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
+import com.thorben.backend.service.BackendService;
 import com.thorben.objects.News;
 import com.thorben.service.DateConverter;
-import com.thorben.service.BackendService;
 
 public class NewsQueries extends AbstractQuerries {
 	
@@ -21,7 +23,12 @@ public class NewsQueries extends AbstractQuerries {
     	
     }
     
-	public Set<News> loadNewsList() {
+    public Set<News> loadNewsList() {
+    	Map<String,String> filterValue = new HashMap<>();
+    	return loadNewsList(filterValue);
+    }
+    
+	public Set<News> loadNewsList(Map<String,String> filterValue) {
 		
 		Set<News> newsList = new HashSet<>();
 		
@@ -29,11 +36,17 @@ public class NewsQueries extends AbstractQuerries {
 			
 			con.setAutoCommit(false);
 			
-			String queryNews = "SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nw.author_id, " 
-					+ " nwt.news_text, nw.change_date, nw.creation_date" 
-					+ " FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id ORDER BY nw.creation_date DESC";
+			StringBuilder queryNews = new StringBuilder("SELECT nw.news_id, nw.news_title, nw.news_teaser, nw.news_image, nw.author_id, ")
+												.append(" nwt.news_text, nw.change_date, nw.creation_date")
+												.append(" FROM news nw LEFT JOIN news_text nwt ON nw.news_id = nwt.news_id ");
+			
+			if(!filterValue.isEmpty()) {
+				queryNews.append("WHERE true ");
+			}
+			
+			queryNews.append("ORDER BY nw.creation_date DESC");
 		
-			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
+			try(PreparedStatement stmt = con.prepareStatement(queryNews.toString())){
 		        try(ResultSet rs = stmt.executeQuery()){
 			        while(rs.next()) {
 						News massage = new News();

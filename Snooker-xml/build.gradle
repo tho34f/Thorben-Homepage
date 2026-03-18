@@ -79,9 +79,6 @@ task serverDev(type: JavaExec) {
 		println 'Creating individualArea...'
 		project.mkdir 'src/main/webapp/resources/core/individualArea'
 	}
-	
-	//workingDir 'src\\frontend'
-	//commandLine 'npm.cmd', 'run', 'build'
 
 }
 

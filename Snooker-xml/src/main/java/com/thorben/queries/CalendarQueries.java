@@ -6,12 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
+import com.thorben.backend.service.BackendService;
 import com.thorben.objects.Termin;
 import com.thorben.service.DateConverter;
-import com.thorben.service.BackendService;
 
 public class CalendarQueries extends AbstractQuerries {
 	
@@ -21,7 +23,12 @@ public class CalendarQueries extends AbstractQuerries {
     	
     }
     
-	public Set<Termin> loadCalendarList() {
+    public Set<Termin> loadCalendarList(){
+    	Map<String,String> filterValue = new HashMap<>();
+    	return loadCalendarList(filterValue);
+    }
+    
+	public Set<Termin> loadCalendarList(Map<String,String> filterValue) {
 		
 		Set<Termin> calendarList = new HashSet<>();
 		
@@ -29,9 +36,16 @@ public class CalendarQueries extends AbstractQuerries {
 			
 			con.setAutoCommit(false);
 			
-			String queryNews = "SELECT * FROM event ORDER BY creation_date";
+			StringBuilder queryCalendar = new StringBuilder("SELECT * FROM event "); 
+			
+			if(!filterValue.isEmpty()) {
+				queryCalendar.append("WHERE true ");
+			}
+			
+			
+			queryCalendar.append("ORDER BY creation_date");
 		
-			try(PreparedStatement stmt = con.prepareStatement(queryNews)){
+			try(PreparedStatement stmt = con.prepareStatement(queryCalendar.toString())){
 		        try(ResultSet rs = stmt.executeQuery()){
 			        while(rs.next()) {
 						Termin tm = new Termin();

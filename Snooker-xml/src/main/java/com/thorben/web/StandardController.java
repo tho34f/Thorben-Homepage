@@ -1,9 +1,9 @@
 package com.thorben.web;
 
-import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,9 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.thorben.objects.News;
 import com.thorben.objects.Termin;
 import com.thorben.queries.MySql;
-import com.thorben.service.BackendService;
 import com.thorben.service.DateConverter;
+import com.thorben.service.ThorbenDierkesLogger;
 import com.thorben.service.TypeConverter;
+import com.thorben.web.data.StandardControllerData;
+import com.thorben.web.service.FrontendService;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,23 +28,31 @@ public class StandardController extends HttpServlet {
 
 
 	private static final long serialVersionUID = 6766367415600280400L;
-	private static Date indexDate = new Date();
-	private static int pageReminderNewsList = 1;
-	private static int pageReminderTerminList = 1;
+	private static final ThorbenDierkesLogger LOOGER = new ThorbenDierkesLogger();
+	
+	private final StandardControllerData controllerData;
+	
+	@Autowired
+    public StandardController() {
+        this.controllerData = new StandardControllerData();
+        this.controllerData.setLanguage("de");
+    }
 	
 	@GetMapping(value = "/")
 	public ModelAndView start(final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		LOOGER.infoLog("StandardCintroller: getIndex()");
+		
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 		return new ModelAndView("index");
 	}
 	
 	@PostMapping(value = "/search")
 	public ModelAndView searchfunction(final HttpServletRequest request, final HttpServletResponse response) {
 		
+		LOOGER.infoLog("StandardCintroller: searchfunction()");
 		
-		DateConverter.setDateFooter(indexDate, request);
-			
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 		String searchParameter = request.getParameter("suchen");
 		request.setAttribute("searchresult", searchParameter);
 				
@@ -52,27 +62,29 @@ public class StandardController extends HttpServlet {
 	@GetMapping(value = "/terminslider")
 	public ModelAndView createTerminSlider(final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		LOOGER.infoLog("StandardCintroller: createTerminSlider()");
+		
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 		String action = request.getParameter("action");
 		int pageNumber = TypeConverter.string2int(request.getParameter("page"),0);
 		
 		Set<Termin> terminList = MySql.getInstance().getCalendarQueries().loadCalendarList();
-		Map<String,Set<Termin>> splitedTerminList = BackendService.splitTerminList(terminList);
+		Map<String,Set<Termin>> splitedTerminList = FrontendService.splitTerminList(terminList);
 		int slider = splitedTerminList.size();
 		
 		if(action == null) {
-			setPageReminderTerminList(pageNumber);
+			controllerData.setPageReminderTerminList(pageNumber);
 		} else if(action.equals("next")) {
-			pageNumber = getPageReminderNewsList() + 1;
-			setPageReminderTerminList(pageNumber);
+			pageNumber = controllerData.getPageReminderNewsList() + 1;
+			controllerData.setPageReminderTerminList(pageNumber);
 		} else {
-			pageNumber = getPageReminderNewsList() - 1;
-			setPageReminderTerminList(pageNumber);
+			pageNumber = controllerData.getPageReminderNewsList() - 1;
+			controllerData.setPageReminderTerminList(pageNumber);
 		}
 		
 		if(slider < pageNumber) {
 			pageNumber = slider;
-			setPageReminderTerminList(pageNumber);
+			controllerData.setPageReminderTerminList(pageNumber);
 		} else if(pageNumber <= 0) {
 			pageNumber = 1;
 		}
@@ -89,9 +101,10 @@ public class StandardController extends HttpServlet {
 	@GetMapping(value = "/terminreader")
 	public ModelAndView createTerminReader(final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 		
 		String terminId = request.getParameter("id");
+		LOOGER.infoLog("StandardCintroller: read Termin " + terminId);
 		Termin terminToRead = new Termin();
 		if(terminId != null) {
 			terminToRead = MySql.getInstance().getCalendarQueries().loadCalendar(TypeConverter.string2int(terminId, 0));
@@ -104,28 +117,30 @@ public class StandardController extends HttpServlet {
 	
 	@GetMapping(value = "/newsslider")
 	public ModelAndView createNewsSlider(final HttpServletRequest request, final HttpServletResponse response) {
+		
+		LOOGER.infoLog("StandardCintroller: createNewsSlider()");
 
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 		String action = request.getParameter("action");
 		int pageNumber = TypeConverter.string2int(request.getParameter("page"),0);
 		
 		Set<News> newsList = MySql.getInstance().getNewsQueries().loadNewsList();
-		Map<String,Set<News>> splitedNewsList = BackendService.splitNewsList(newsList);
+		Map<String,Set<News>> splitedNewsList = FrontendService.splitNewsList(newsList);
 		int slider = splitedNewsList.size();
 		
 		if(action == null) {
-			setPageReminderNewsList(pageNumber);
+			controllerData.setPageReminderNewsList(pageNumber);
 		} else if(action.equals("next")) {
-			pageNumber = getPageReminderNewsList() + 1;
-			setPageReminderNewsList(pageNumber);
+			pageNumber = controllerData.getPageReminderNewsList() + 1;
+			controllerData.setPageReminderNewsList(pageNumber);
 		} else {
-			pageNumber = getPageReminderNewsList() - 1;
-			setPageReminderNewsList(pageNumber);
+			pageNumber = controllerData.getPageReminderNewsList() - 1;
+			controllerData.setPageReminderNewsList(pageNumber);
 		}
 		
 		if(slider < pageNumber) {
 			pageNumber = slider;
-			setPageReminderNewsList(pageNumber);
+			controllerData.setPageReminderNewsList(pageNumber);
 		} else if(pageNumber <= 0) {
 			pageNumber = 1;
 		}
@@ -142,9 +157,10 @@ public class StandardController extends HttpServlet {
 	@GetMapping(value = "/newsreader")
 	public ModelAndView createNewsReader(final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 		
 		String newsId = request.getParameter("id");
+		LOOGER.infoLog("StandardCintroller: read News " + newsId);
 		News messageToRead = new News();
 		if(newsId != null) {
 			messageToRead = MySql.getInstance().getNewsQueries().loadNews(TypeConverter.string2int(newsId, 0));
@@ -158,59 +174,49 @@ public class StandardController extends HttpServlet {
 	@GetMapping(value = "/politik")
 	public ModelAndView politik(final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);		
+		LOOGER.infoLog("StandardCintroller: politik()");
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);		
 		return  new ModelAndView("political/politik");
 	}
 	
 	@GetMapping(value = "/politik-werdegang")
 	public ModelAndView werdegang(final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);	
+		LOOGER.infoLog("StandardCintroller: werdegang()");
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);	
 		return new ModelAndView("political/politikwerdegang");
 	}
 	
 	@GetMapping(value = "/personal")
 	public ModelAndView personal(final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);		
+		LOOGER.infoLog("StandardCintroller: personal()");
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);		
 		return new ModelAndView("personal/personal");
 	}
 	
 	@GetMapping(value = "/datenschutz")
 	public ModelAndView data(final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);	
+		LOOGER.infoLog("StandardCintroller: datenschutz()");
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);	
 		return new ModelAndView("orga/datenschutz");
 	}
 	
 	@GetMapping(value = "/impressum")
 	public ModelAndView impressum(final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);	
+		LOOGER.infoLog("StandardCintroller: impressum()");
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);	
 		return new ModelAndView("orga/impressum");
 	}
 	
 	@GetMapping(value = "/kontakt")
 	public ModelAndView kontakt(final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);	
+		LOOGER.infoLog("StandardCintroller: kontakt()");
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);	
 		return new ModelAndView("orga/kontaktdaten");
-	}
-
-	public static int getPageReminderNewsList() {
-		return pageReminderNewsList;
-	}
-
-	public static void setPageReminderNewsList(int pageReminder) {
-		StandardController.pageReminderNewsList = pageReminder;
-	}
-
-	public static int getPageReminderTerminList() {
-		return pageReminderTerminList;
-	}
-
-	public static void setPageReminderTerminList(int pageReminderTerminList) {
-		StandardController.pageReminderTerminList = pageReminderTerminList;
 	}
 
 }

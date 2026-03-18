@@ -1,19 +1,10 @@
 package com.thorben.web;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,10 +13,12 @@ import com.thorben.objects.snooker.Spieler;
 import com.thorben.objects.snooker.Tournament;
 import com.thorben.objects.snooker.TournamentSeason;
 import com.thorben.queries.MySql;
-import com.thorben.service.BackendService;
 import com.thorben.service.DateConverter;
 import com.thorben.service.ThorbenDierkes;
+import com.thorben.service.ThorbenDierkesLogger;
 import com.thorben.service.TypeConverter;
+import com.thorben.web.data.SnookerControllerData;
+import com.thorben.web.service.SnookerService;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,20 +28,25 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SnookerController extends HttpServlet {
 	
 	private static final long serialVersionUID = -9071950597448957942L;
-	private static final Logger logger = LoggerFactory.getLogger(SnookerController.class);
+	private static final ThorbenDierkesLogger LOOGER = new ThorbenDierkesLogger();
 	private static final String SEASION = "seasion";
 	private static final String SEASON = "season";
+
+	private final SnookerControllerData controllerData;
 	
-	private static Date indexDate = new Date();
-	private static Set<TournamentSeason> seasons = new HashSet<>();
+	@Autowired
+    public SnookerController() {
+        this.controllerData = new SnookerControllerData();
+        this.controllerData.setLanguage("de");
+    }
 	
 	
 	@GetMapping(value = "/snooker")
 	public String snooker(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 		
-		List<String> provisionalRanking = getData(ThorbenDierkes.PROVISIONAL_RANKING);
+		List<String> provisionalRanking = SnookerService.getData(ThorbenDierkes.PROVISIONAL_RANKING);
 		MySql.getInstance().getUpdateDB().updateDatenbank(provisionalRanking);
 				
 		return "snooker/snooker";
@@ -57,7 +55,7 @@ public class SnookerController extends HttpServlet {
 	@GetMapping(value = "/simulation")
 	public String simulation(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 
 		String name = request.getParameter("name");
 		float weight = TypeConverter.string2float(request.getParameter("weight"), 0);
@@ -66,10 +64,9 @@ public class SnookerController extends HttpServlet {
 		Tournament tournament = null;
 		
 		if(name == null || request.getSession().getServletContext().getAttribute(SEASION) == null) {
-			BackendService.errorMessage(request);
+			SnookerService.errorMessage(request);
 		}else if(request.getSession().getAttribute(SEASION) !=null) {
 			tournament = new Tournament(name, weight, playernumber, roundnumber);
-		
 			request.getSession().setAttribute("tournament", tournament);
 			
 		}
@@ -85,17 +82,15 @@ public class SnookerController extends HttpServlet {
 		String participationPlayer = request.getParameter("participationPlayer");
 		
 		if(participationPlayer == null || request.getSession().getAttribute(SEASION) == null) {
-			BackendService.errorMessage(request);
+			SnookerService.errorMessage(request);
 		}else if(request.getSession().getServletContext().getAttribute(SEASION) !=null) {
 			Tournament tournament = (Tournament) request.getSession().getAttribute("tournament");
-			
-			Spieler gewinner = BackendService.simulation(tournament, participationPlayer);
-			
+			Spieler gewinner = SnookerService.simulation(participationPlayer);
 			request.getSession().setAttribute("gewinner", gewinner);
 			
 		}
 		
-		logger.info("Simulation erfolgrecih durchgef�hrt.");
+		LOOGER.infoLog("Simulation erfolgrecih durchgeführt.");
 		return "snooker/simulation";
 		
 	}
@@ -103,7 +98,7 @@ public class SnookerController extends HttpServlet {
 	@GetMapping(value = "/saisonOverwiev")
 	public String overviewget(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 		
 		return "snooker/saisonOverwiev";
 	}
@@ -112,7 +107,7 @@ public class SnookerController extends HttpServlet {
 	public String overviewpost(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 			
 		String number = request.getParameter(SEASON);
-		BackendService.setSeason(number, request);
+		SnookerService.setSeason(number, controllerData, request);
 		
 		return "snooker/saisonOverwiev";
 	}
@@ -122,25 +117,25 @@ public class SnookerController extends HttpServlet {
 		
 		int yearint = TypeConverter.string2int(request.getParameter("id"), 0);
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 		
 		TournamentSeason season = null;
 		TournamentSeason testSaison = (TournamentSeason) request.getAttribute(SEASION);
 		
 		if(yearint == 0 && testSaison == null) {
-			BackendService.errorMessage(request);
+			SnookerService.errorMessage(request);
 			
 		} else {
 			
-			Set<TournamentSeason> seasionsPage = getSeasons();
+			Set<TournamentSeason> seasionsPage = controllerData.getSeasons();
 			for(TournamentSeason seasion : seasionsPage) {
 				if(yearint == seasion.getYear()) {
 					season = seasion;
 				}
 			}
 			
-			if(!seasons.contains(season)) {
-				BackendService.errorMessage(request);
+			if(!controllerData.getSeasons().contains(season)) {
+				SnookerService.errorMessage(request);
 			} else {
 				request.getSession().setAttribute(SEASION, season);
 			}
@@ -158,13 +153,13 @@ public class SnookerController extends HttpServlet {
 		
 		if(number.isEmpty() && testSaison == null) {
 			
-			BackendService.errorMessage(request);
+			SnookerService.errorMessage(request);
 			
 		} else {
 		
 			int numberInt = Integer.parseInt(number);
-			season = BackendService.creatSeason(numberInt);
-			getSeasons().add(season);
+			season = SnookerService.creatSeason(numberInt);
+			controllerData.getSeasons().add(season);
 			request.getSession().getServletContext().setAttribute(SEASION, season);
 			
 		}
@@ -175,7 +170,7 @@ public class SnookerController extends HttpServlet {
 	@GetMapping(value = "/snookernews")
 	public String snookerNews(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 				
 		return "snooker/snookernews";
 	}
@@ -183,7 +178,7 @@ public class SnookerController extends HttpServlet {
 	@GetMapping(value = "/snookerrules")
 	public String snookerrules(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 				
 		return "snooker/snookerrules";
 	}
@@ -191,7 +186,7 @@ public class SnookerController extends HttpServlet {
 	@GetMapping(value = "/snookermaterials")
 	public String snookermaterials(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 				
 		return "snooker/snookermaterials";
 	}
@@ -199,7 +194,7 @@ public class SnookerController extends HttpServlet {
 	@GetMapping(value = "/overview")
 	public String snookeroverview(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 				
 		return "snooker/overview";
 	}
@@ -207,42 +202,9 @@ public class SnookerController extends HttpServlet {
 	@GetMapping(value = "/snookerhistory")
 	public String snookerhistory(Map<String, Object> model, final HttpServletRequest request, final HttpServletResponse response) {
 		
-		DateConverter.setDateFooter(indexDate, request);
+		DateConverter.setDateFooter(controllerData.getIndexDate(), request);
 				
 		return "snooker/snookerhistory";
-	}
-	
-	public static List<String> getData(String url) {
-		List<String> data = new ArrayList<>();
-		try {
-			Document doc = Jsoup.connect(url).get();
-			Elements player = doc.select("tr[class]");
-			for (Element elem : player) {
-				Elements element = elem.children();
-				String textData = element.text();
-				if(!textData.equals("")) {
-					String[] splitTextData = textData.split(" ");
-					data.add(splitTextData[0]);
-					data.add(splitTextData[1]);
-					data.add(splitTextData[2]);
-				}
-			}
-			
-			return data;
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			return data;
-		}
-		
-	}
-	
-	public static Set<TournamentSeason> getSeasons() {
-		return seasons;
-	}
-
-	public static void setSeasons(Set<TournamentSeason> seasons) {
-		SnookerController.seasons = seasons;
 	}
 
 }

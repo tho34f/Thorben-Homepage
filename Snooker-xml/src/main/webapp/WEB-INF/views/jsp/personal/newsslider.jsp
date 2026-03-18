@@ -1,4 +1,3 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
 <%@ taglib prefix="tho" uri="/thorben"%>
@@ -19,7 +18,7 @@
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1><tho:out value="global.news"/></h1>
+		<h1 class="headingPersonal"><tho:out value="global.news"/></h1>
 		<div id="inhalt" class="row">
 			<c:if test="${not empty newsList}">
 				<c:forEach items="${newsList}" var="element">

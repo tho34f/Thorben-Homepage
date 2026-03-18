@@ -14,9 +14,12 @@ import java.util.Set;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import com.thorben.backend.service.BackendService;
 import com.thorben.objects.News;
 import com.thorben.objects.Termin;
-import com.thorben.service.BackendService;
+import com.thorben.web.data.SnookerControllerData;
+import com.thorben.web.service.FrontendService;
+import com.thorben.web.service.SnookerService;
 
 class ThorbenDierkesServiceTest {
 
@@ -38,8 +41,8 @@ class ThorbenDierkesServiceTest {
 		createEvents(terminList, 2, null, null, 0 , null, 0,0);
 		createEvents(terminList, 3, null, null, 0 , null, 0,0);
 		
-		splitedTerminList = BackendService.splitTerminList(terminList);
-		splitedNewsList = BackendService.splitNewsList(newsList);
+		splitedTerminList = FrontendService.splitTerminList(terminList);
+		splitedNewsList = FrontendService.splitNewsList(newsList);
 		
 		sliderNews = splitedNewsList.size();
 		sliderEvents = splitedTerminList.size();
@@ -51,7 +54,7 @@ class ThorbenDierkesServiceTest {
 		createNews(newsList,5, null, null, null, null, 0, 0);
 		createNews(newsList,6, null, null, null, null, 0, 0);
 		
-		splitedNewsList = BackendService.splitNewsList(newsList);
+		splitedNewsList = FrontendService.splitNewsList(newsList);
 		sliderNews = splitedNewsList.size();
 		
 		assertEquals(2,sliderNews);
@@ -70,7 +73,7 @@ class ThorbenDierkesServiceTest {
 		assertEquals("/WEB-INF/views/jsp/backend/login.jsp",loginTrue);
 		assertEquals("backend/login",loginFalse);
 		
-		boolean isOk = BackendService.errorMessage(request);
+		boolean isOk = SnookerService.errorMessage(request);
 		assertEquals(true,isOk);
 	}
 	
@@ -88,7 +91,8 @@ class ThorbenDierkesServiceTest {
 		HttpSession session = mock(HttpSession.class);
 		when(request.getSession()).thenReturn(session);
 		
-		boolean isIdOk = BackendService.setSeason("2021", request);
+		SnookerControllerData data = new SnookerControllerData();
+		boolean isIdOk = SnookerService.setSeason("2021",data, request);
 		assertEquals(true,isIdOk);
 		
 	}
