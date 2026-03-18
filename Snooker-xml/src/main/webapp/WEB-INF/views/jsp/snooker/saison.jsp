@@ -1,4 +1,3 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
 <%@ taglib prefix="tho" uri="/thorben"%>
@@ -87,6 +86,7 @@
 		<c:if test= "${empty seasion}">
 			<h3>Erzeugen Sie eine Saison</h3>
 			<form method="post">
+				<input type="hidden" name="csrfToken" value="${CSRF_SESSION_TOKEN}">
 				<label for="fname">Jahr der Saison eingeben:</label>
 				<input type="text" id="fname" name="season">
 				<input type="submit" value="Submit">

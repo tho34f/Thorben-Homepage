@@ -1,4 +1,3 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/taglib"%>
 <%@ taglib prefix="tho" uri="/thorben"%>
@@ -19,7 +18,7 @@
 
 <div id="content" class="jumbotron">
 	<div id="contenContainer" class="container">
-		<h1><tho:out value="global.name.owner.about"/></h1>
+		<h1 class="headingPersonal"><tho:out value="global.name.owner.about"/></h1>
 		<div id="inhalt" class="row">
 			<div class="col-md-6">
 				<p>Ich bin ein waschechter Warburger mit vielen, aber nicht allen Eigenarten, die man diesem selbstbewussten Völkchen nachsagt. 
@@ -30,7 +29,7 @@
 				<img src="resources/core/images/thorben.png" alt="Bild Thorben" style="hight:700px; width:300px;" />
 			</div>
 		</div>
-		<div id="inhalt" class="widget-container">
+		<div id="psersonalInformation" class="widget-container">
 			<div class="content-widget-wrapper">
 				<div class="content-widget-container">
 					<div class="content-widget-content">
@@ -59,8 +58,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div id="inhalt" class="widget-container">
 			<div class="content-widget-wrapper">
 				<div class="content-widget-container">
 					<div class="content-widget-content">
