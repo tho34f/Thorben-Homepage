@@ -6,7 +6,7 @@
 
 <div>
 	<ul class="sliderNavigation pagination justify-content-center">
-		<li class="page-item">
+		<li class="page-item" id="prevPage">
 	      <a class="page-link" href="${action}?action=back" tabindex="-1"><tho:out value="global.previous"/></a>
 	    </li>
 	    <li <c:if test="${activePage eq 1}"> class="page-item active" </c:if> <c:if test="${activePage ne 1}"> class="page-item" </c:if>>
@@ -17,7 +17,7 @@
 	    		<a class="page-link" href="${action}?page=${i}">${i}</a>
 	    	</li>
    		</c:forEach>
-	    <li class="page-item">
+	    <li class="page-item" id="nextPage">
 	      <a class="page-link" href="${action}?action=next"><tho:out value="global.next"/></a>
 	    </li>
   </ul>

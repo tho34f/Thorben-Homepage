@@ -1,12 +1,6 @@
- .pageHeader{
- 	border-bottom:1px solid #eee; 
- 	background-color: #8dcbbb; 
- 	color:#701718;  
- 	height:130px;
-}
-
-.pageHeader.sticky{
-	height:130px;
+.pageHeader{
+    background-color: unset;
+    color:#701718;
 }
 
 .headerHashTag{
@@ -16,15 +10,24 @@
 	margin-top: auto;
 }
 
-.navbar-extra, #inhalt{
+#inhalt, #psersonalInformation{
+	margin: 35px 0px;
+	align-items: center;
+  	justify-content: center;
+  	flex-direction: column;
+}
+
+#psersonalInformation .content-widget-wrapper{
+	max-width:unset;
+	width:400px;
+}
+
+.navbar-extra, #inhalt, #psersonalInformation{
 	display: flex;
 }
 
-#inhalt{
-	margin: 35px 0px;
-	flex-direction: column;
-	align-items: center;
-  	justify-content: center;
+#inhalt.row {
+	flex-direction: row;
 }
 
 .news-image-teaser {
@@ -38,13 +41,13 @@
 }
 
 @media (min-width: 720px) {
-	.news-image-teaser {
+	.news-image-teaser, #psersonalInformation .content-widget-wrapper {
 		width:500px;
 	}
 }
 
 @media (min-width: 1160px) {
-	.news-image-teaser {
+	.news-image-teaser, #psersonalInformation .content-widget-wrapper {
 		width:1000px;
 	}
 }
@@ -87,7 +90,6 @@
 .headingPersonal{
 	border-bottom: 2px solid #701718;
 	text-align:center;
-	min-width:max-content;
 }
 
 div .buttonToText{
