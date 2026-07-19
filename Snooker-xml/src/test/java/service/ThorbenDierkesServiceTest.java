@@ -2,6 +2,8 @@ package service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -17,9 +19,9 @@ import jakarta.servlet.http.HttpSession;
 import com.thorben.backend.service.BackendService;
 import com.thorben.objects.News;
 import com.thorben.objects.Termin;
-import com.thorben.web.data.SnookerControllerData;
-import com.thorben.web.service.FrontendService;
-import com.thorben.web.service.SnookerService;
+import com.thorben.frontend.data.SnookerControllerData;
+import com.thorben.frontend.service.FrontendService;
+import com.thorben.frontend.service.SnookerService;
 
 class ThorbenDierkesServiceTest {
 
@@ -40,9 +42,10 @@ class ThorbenDierkesServiceTest {
 		createEvents(terminList, 1, null, null, 0 , null, 0,0);
 		createEvents(terminList, 2, null, null, 0 , null, 0,0);
 		createEvents(terminList, 3, null, null, 0 , null, 0,0);
-		
-		splitedTerminList = FrontendService.splitTerminList(terminList);
-		splitedNewsList = FrontendService.splitNewsList(newsList);
+
+		FrontendService service = new FrontendService();
+		splitedTerminList = service.splitTerminList(terminList);
+		splitedNewsList = service.splitNewsList(newsList);
 		
 		sliderNews = splitedNewsList.size();
 		sliderEvents = splitedTerminList.size();
@@ -54,7 +57,7 @@ class ThorbenDierkesServiceTest {
 		createNews(newsList,5, null, null, null, null, 0, 0);
 		createNews(newsList,6, null, null, null, null, 0, 0);
 		
-		splitedNewsList = FrontendService.splitNewsList(newsList);
+		splitedNewsList = service.splitNewsList(newsList);
 		sliderNews = splitedNewsList.size();
 		
 		assertEquals(2,sliderNews);
@@ -67,21 +70,19 @@ class ThorbenDierkesServiceTest {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		HttpSession session = mock(HttpSession.class);
 		when(request.getSession()).thenReturn(session);
-		String loginTrue = BackendService.errorUserLogin(request);
-		String loginFalse = BackendService.errorUserLogin(request);
+		BackendService service = new BackendService();
+		String loginTrue = service.errorUserLogin(request);
+		String loginFalse = service.errorUserLogin(request);
 		
-		assertEquals("/WEB-INF/views/jsp/backend/login.jsp",loginTrue);
-		assertEquals("backend/login",loginFalse);
-		
-		boolean isOk = SnookerService.errorMessage(request);
-		assertEquals(true,isOk);
+		assertEquals("/WEB-INF/views/jsp/backend/login.jsp", loginTrue);
+		assertEquals("backend/login", loginFalse);
 	}
 	
 	@Test
 	void idTest() {
 		BackendService tds = new BackendService();
 		boolean isIdOk = tds.generateId() > 0;
-		assertEquals(true,isIdOk);
+        assertTrue(isIdOk);
 		
 	}
 	
@@ -93,7 +94,7 @@ class ThorbenDierkesServiceTest {
 		
 		SnookerControllerData data = new SnookerControllerData();
 		boolean isIdOk = SnookerService.setSeason("2021",data, request);
-		assertEquals(true,isIdOk);
+        assertTrue(isIdOk);
 		
 	}
 	

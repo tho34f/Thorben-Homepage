@@ -1,4 +1,4 @@
-package com.thorben.web.data;
+package com.thorben.frontend.data;
 
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Component
-public class StandardControllerData extends ControllerData {
+public class StandardControllerData extends FrontendControllerData {
 	
 	private int pageReminderNewsList = 1;
 	private int pageReminderTerminList = 1;

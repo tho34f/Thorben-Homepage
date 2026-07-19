@@ -13,9 +13,9 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd ">
  
-	<context:component-scan base-package="com.thorben.web" />
-	<context:component-scan base-package="com.thorben.web.service" />
- 	<context:component-scan base-package="com.thorben.web.data" />
+	<context:component-scan base-package="com.thorben.frontend" />
+	<context:component-scan base-package="com.thorben.frontend.service" />
+ 	<context:component-scan base-package="com.thorben.frontend.data" />
  	<context:component-scan base-package="com.thorben.backend.controller" />
  	<context:component-scan base-package="com.thorben.backend.service" />
 	<context:component-scan base-package="com.thorben.backend.wizard" />

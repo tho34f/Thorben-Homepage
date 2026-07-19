@@ -1,26 +1,25 @@
 package com.thorben.objects;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.thorben.queries.MySql;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @Getter
 @Setter
-public class Termin implements Serializable{
+public class Termin extends AbstractData implements Serializable{
 	
-	private static final long serialVersionUID = -120027534171248816L;
-	
-	private long id;
+	@Serial
+    private static final long serialVersionUID = -120027534171248816L;
+
 	private long date;
-	private long changeDate;
-	private long creationDate;
-	private String changeDateAsString;
-	private String creationDateAsString;
 	private String creationDateForSlider;
 	private String title;
 	private String description;
@@ -36,56 +35,6 @@ public class Termin implements Serializable{
 		this.changeDate = changeDate;
 		this.creationDate = creationDate;
 		this.author = setAuthor(userId);
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = (int) (prime * result + date);
-		return result;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Termin other = (Termin) obj;
-		if (date != other.date)
-			return false;
-		return true;
-	}
-
-	public String getChangeDateAsString() {
-		return changeDateAsString;
-	}
-
-	public void setChangeDateAsString(String changeDateAsString) {
-		this.changeDateAsString = changeDateAsString;
-	}
-
-	public String getCreationDateAsString() {
-		return creationDateAsString;
-	}
-
-	public void setCreationDateAsString(String creationDateAsString) {
-		this.creationDateAsString = creationDateAsString;
-	}
-
-	public String getCreationDateForSlider() {
-		return creationDateForSlider;
-	}
-
-	public void setCreationDateForSlider(String creationDateForSlider) {
-		this.creationDateForSlider = creationDateForSlider;
-	}
-
-	public User getAuthor() {
-		return author;
 	}
 
 	public User setAuthor(int userId) {

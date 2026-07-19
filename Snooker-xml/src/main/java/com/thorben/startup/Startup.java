@@ -10,17 +10,17 @@ import jakarta.annotation.PostConstruct;
 @Component
 public class Startup {
 	
-	private static ThorbenDierkesLogger logger = new ThorbenDierkesLogger();
+	private static final ThorbenDierkesLogger LOGGER = new ThorbenDierkesLogger();
 
 	@PostConstruct
     public void init(){
 		long now = System.currentTimeMillis();
-		logger.infoLog("Beginn Startup");
+		LOGGER.infoLog("Beginn Startup");
 		MySql.getInstance().getOb3Updates().writeOb3Title();
 		MySql.getInstance().getOb3Updates().writeOb3TitleDefinition();
 		MySql.getInstance().getOb3Updates().writeOb3Filter();
 		MySql.getInstance().getOb3Updates().writeOb3FilterDefinition();
-		logger.infoLog("End Startup after " + (System.currentTimeMillis() - now) + "ms");
+		LOGGER.infoLog("End Startup after " + (System.currentTimeMillis() - now) + "ms");
 	}
 
 }
