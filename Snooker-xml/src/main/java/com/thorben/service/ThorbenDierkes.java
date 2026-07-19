@@ -63,8 +63,10 @@ public class ThorbenDierkes {
 	public static final String LIKE = "LIKE";
 	
 	//Snooker-URL`S
-	public static final String PROVISIONAL_RANKING = "https://wst.tv/rankings/1-year-ranking-list/";
-	public static final String WORLD_RANKING = "https://wst.tv/rankings/world-rankings-2/";
+	public static final String SNOOKER_WORLD_RANKINGS = "https://wst.tv/rankings";
+	public static final String SNOOKER_NEWS = "https://www.wst.tv/news";
+	public static final String SNOOKER_RADAR_API = "https://api.sportradar.com/snooker/trial/v2/de/";
+	public static final String SNOOKER_RADAR_API_KEY = "api_key=oMu3mcOEaqayYkqJYmONU3ooTBsx4zgFacGD6n81";	
 	
 
 }

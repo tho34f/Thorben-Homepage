@@ -24,9 +24,9 @@
 				<c:forEach items="${terminList}" var="element">
 					<article class="news-image-teaser">
 						<div class="news-image-teaser-meta"><time datetime="${element.creationDateForSlider}">${element.creationDateForSlider}</time></div>
-						<h2><a href="terminreader?id=${element.id}">${element.title}</a></h2>
+						<h2><a href="terminreader/${element.id}">${element.title}</a></h2>
 						<div>${element.teaser}</div>
-						<p><a href="terminreader?id=${element.id}"><span ><tho:out value="global.continue.reading"/></span></a></p>
+						<p><a href="terminreader/${element.id}"><span ><tho:out value="global.continue.reading"/></span></a></p>
 					</article>
 				</c:forEach>
 			</c:if>

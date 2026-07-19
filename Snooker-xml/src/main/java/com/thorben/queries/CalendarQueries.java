@@ -115,7 +115,7 @@ public class CalendarQueries extends AbstractQuerries {
 		
 	}
 	
-	public boolean newCalendarEntry(String title, String description, String teaser, String authorLogin, int authorId) {
+	public boolean newCalendarEntry(String title, String description, String teaser, String authorLogin, long authorId) {
 		
 		boolean isCreate = false;
 		
@@ -137,7 +137,7 @@ public class CalendarQueries extends AbstractQuerries {
 				stmt.setLong(counter++, 0);
 				stmt.setString(counter++, teaser);
 				stmt.setString(counter++, authorLogin);
-				stmt.setInt(counter++, authorId);
+				stmt.setLong(counter++, authorId);
 				
 		        isCreate = stmt.execute();  
 			}

@@ -1,6 +1,6 @@
 <%@ taglib prefix="tho" uri="/thorben"%>
 <footer id="page-footer">
-	<div class="scial_media" style="text-align:center">
+	<div class="scial_media">
 		<a target="_blank" href="https://www.xing.com/profile/Thorben_Dierkes/cv" class="fa fa-3x fa-xing"></a>    
 		<a target="_blank" href="https://www.facebook.com/thorben.dierkes" class="fa fa-3x fa-facebook-square"></a>    
 		<a target="_blank" href="https://www.instagram.com/tho34f/?hl=de" class="fa fa-3x fa-instagram"></a>

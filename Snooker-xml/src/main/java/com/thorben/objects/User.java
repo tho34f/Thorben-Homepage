@@ -1,25 +1,27 @@
 package com.thorben.objects;
 
+import java.io.Serial;
 import java.io.Serializable;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @Getter
 @Setter
-public class User implements Serializable{
+public class User extends AbstractData implements Serializable{
 	
-	private static final long serialVersionUID = -8512259499299806566L;
-	private int id;
+	@Serial
+    private static final long serialVersionUID = -8512259499299806566L;
+
 	private String userLogin;
 	private String firstName;
 	private String lastName;
 	private String password;
 	private String language;
-	private long creationDate;
-	private String creationDateAsString;
 	
 	public User(String firstName, String lastName, String userLogin, int userId) {
 		this.firstName = firstName;

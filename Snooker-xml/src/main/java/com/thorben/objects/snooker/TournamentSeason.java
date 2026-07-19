@@ -1,6 +1,7 @@
 package com.thorben.objects.snooker;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +13,17 @@ import lombok.Setter;
 @Setter
 public class TournamentSeason implements Serializable{
 	
-	private static final long serialVersionUID = -770545307407172563L;
+	@Serial
+    private static final long serialVersionUID = -770545307407172563L;
 	private int year;
-	private List<Spieler> player = new ArrayList<>();
+	private List<Player> player = new ArrayList<>();
 	private List<Tournament> tournamentSeasonList = new ArrayList<>();
 	
 	public TournamentSeason (int year){
 		this.setYear(year);
 	}
 	
-	public void registerPlayer(Spieler player2) {
+	public void registerPlayer(Player player2) {
 		getPlayer().add(player2);
 	}
 	

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE xml>
 
 <Context reloadable="false">
 <Resource 
@@ -9,7 +8,7 @@
     url="jdbc:mysql://localhost:3306/thorben?allowPublicKeyRetrieval=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
     username="root" 
     password="MaraTeske30031994!" 
-    maxActive="20" 
+    maxTotal="20" 
     maxIdle="10"
-    maxWait="-1" />
+    maxWaitMillis="-1" />
 </Context>
