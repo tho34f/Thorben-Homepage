@@ -1,0 +1,6 @@
+*.class
+.gradle/
+.smarttomcat/
+build/
+bin/
+.idea/
